@@ -1,0 +1,1719 @@
+
+%% bare_adv.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the advanced use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE Computer
+%% Society journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE!
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+% IEEEtran V1.7 and later provides for these CLASSINPUT macros to allow the
+% user to reprogram some IEEEtran.cls defaults if needed. These settings
+% override the internal defaults of IEEEtran.cls regardless of which class
+% options are used. Do not use these unless you have good reason to do so as
+% they can result in nonIEEE compliant documents. User beware. ;)
+%
+%\newcommand{\CLASSINPUTbaselinestretch}{1.0} % baselinestretch
+%\newcommand{\CLASSINPUTinnersidemargin}{1in} % inner side margin
+%\newcommand{\CLASSINPUToutersidemargin}{1in} % outer side margin
+%\newcommand{\CLASSINPUTtoptextmargin}{1in}   % top text margin
+%\newcommand{\CLASSINPUTbottomtextmargin}{1in}% bottom text margin
+
+
+
+
+%
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[10pt,journal,compsoc]{../sty/IEEEtran}
+
+
+% For Computer Society journals, IEEEtran defaults to the use of
+% Palatino/Palladio as is done in IEEE Computer Society journals.
+% To go back to Times Roman, you can use this code:
+%\renewcommand{\rmdefault}{ptm}\selectfont
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+\ifCLASSOPTIONcompsoc
+  % The IEEE Computer Society needs nocompress option
+  % requires cite.sty v4.0 or later (November 2003)
+  \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{graphicx,float,url,multirow,makecell,booktabs,color,subfigure,caption,setspace}
+\usepackage{amsmath}
+\usepackage{cite}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\newtheorem{theorem}{$\textbf{Theorem}$}
+\newtheorem{lemma}[theorem]{$\textbf{Lemma}$}
+\newtheorem{proposition}[theorem]{$\textbf{Proposition}$}
+
+% Strut macros for skipping spaces above and below text in tables.
+\def\abovestrut#1{\rule[0in]{0in}{#1}\ignorespaces}
+\def\belowstrut#1{\rule[-#1]{0in}{#1}\ignorespaces}
+\def\abovespace{\abovestrut{0.01in}}
+\def\belowspace{\belowstrut{-0.01in}}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+%
+% Note that some packages require special options to format as the Computer
+% Society requires. In particular, Computer Society  papers do not use
+% compressed citation ranges as is done in typical IEEE papers
+% (e.g., [1]-[4]). Instead, they list every citation separately in order
+% (e.g., [1], [2], [3], [4]). To get the latter we need to load the cite
+% package with the nocompress option which is supported by cite.sty v4.0
+% and later.
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at:
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%\usepackage{acronym}
+% acronym.sty was written by Tobias Oetiker. This package provides tools for
+% managing documents with large numbers of acronyms. (You don't *have* to
+% use this package - unless you have a lot of acronyms, you may feel that
+% such package management of them is bit of an overkill.)
+% Do note that the acronym environment (which lists acronyms) will have a
+% problem when used under IEEEtran.cls because acronym.sty relies on the
+% description list environment - which IEEEtran.cls has customized for
+% producing IEEE style lists. A workaround is to declared the longest
+% label width via the IEEEtran.cls \IEEEiedlistdecl global control:
+%
+% \renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{SONET}}
+% \begin{acronym}
+%
+% \end{acronym}
+% \renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
+%
+% instead of using the acronym environment's optional argument.
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/acronym
+
+
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/pkg/mdwtools
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/pkg/eqparbox
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a sans serif font rather
+% than the serif font used in traditional IEEE formatting and thus the need
+% to invoke different subfig.sty package options depending on whether
+% compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and
+% Axel Sommerfeldt. This package may be useful when used in conjunction with
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/pkg/endfloat
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a
+% page by themselves.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+% NOTE: PDF thumbnail features are not required in IEEE papers
+%       and their use requires extra complexity and work.
+%\ifCLASSINFOpdf
+%  \usepackage[pdftex]{thumbpdf}
+%\else
+%  \usepackage[dvips]{thumbpdf}
+%\fi
+% thumbpdf.sty and its companion Perl utility were written by Heiko Oberdiek.
+% It allows the user a way to produce PDF documents that contain fancy
+% thumbnail images of each of the pages (which tools like acrobat reader can
+% utilize). This is possible even when using dvi->ps->pdf workflow if the
+% correct thumbpdf driver options are used. thumbpdf.sty incorporates the
+% file containing the PDF thumbnail information (filename.tpm is used with
+% dvips, filename.tpt is used with pdftex, where filename is the base name of
+% your tex document) into the final ps or pdf output document. An external
+% utility, the thumbpdf *Perl script* is needed to make these .tpm or .tpt
+% thumbnail files from a .ps or .pdf version of the document (which obviously
+% does not yet contain pdf thumbnails). Thus, one does a:
+%
+% thumbpdf filename.pdf
+%
+% to make a filename.tpt, and:
+%
+% thumbpdf --mode dvips filename.ps
+%
+% to make a filename.tpm which will then be loaded into the document by
+% thumbpdf.sty the NEXT time the document is compiled (by pdflatex or
+% latex->dvips->ps2pdf). Users must be careful to regenerate the .tpt and/or
+% .tpm files if the main document changes and then to recompile the
+% document to incorporate the revised thumbnails to ensure that thumbnails
+% match the actual pages. It is easy to forget to do this!
+%
+% Unix systems come with a Perl interpreter. However, MS Windows users
+% will usually have to install a Perl interpreter so that the thumbpdf
+% script can be run. The Ghostscript PS/PDF interpreter is also required.
+% See the thumbpdf docs for details. The latest version and documentation
+% can be obtained at.
+% http://www.ctan.org/pkg/thumbpdf
+
+
+% NOTE: PDF hyperlink and bookmark features are not required in IEEE
+%       papers and their use requires extra complexity and work.
+% *** IF USING HYPERREF BE SURE AND CHANGE THE EXAMPLE PDF ***
+% *** TITLE/SUBJECT/AUTHOR/KEYWORDS INFO BELOW!!           ***
+\newcommand\MYhyperrefoptions{bookmarks=true,bookmarksnumbered=true,
+pdfpagemode={UseOutlines},plainpages=false,pdfpagelabels=true,
+colorlinks=true,linkcolor={black},citecolor={black},urlcolor={black},
+pdftitle={Bare Demo of IEEEtran.cls for Computer Society Journals},%<!CHANGE!
+pdfsubject={Typesetting},%<!CHANGE!
+pdfauthor={Michael D. Shell},%<!CHANGE!
+pdfkeywords={Computer Society, IEEEtran, journal, LaTeX, paper,
+             template}}%<^!CHANGE!
+%\ifCLASSINFOpdf
+%\usepackage[\MYhyperrefoptions,pdftex]{hyperref}
+%\else
+%\usepackage[\MYhyperrefoptions,breaklinks=true,dvips]{hyperref}
+%\usepackage{breakurl}
+%\fi
+% One significant drawback of using hyperref under DVI output is that the
+% LaTeX compiler cannot break URLs across lines or pages as can be done
+% under pdfLaTeX's PDF output via the hyperref pdftex driver. This is
+% probably the single most important capability distinction between the
+% DVI and PDF output. Perhaps surprisingly, all the other PDF features
+% (PDF bookmarks, thumbnails, etc.) can be preserved in
+% .tex->.dvi->.ps->.pdf workflow if the respective packages/scripts are
+% loaded/invoked with the correct driver options (dvips, etc.).
+% As most IEEE papers use URLs sparingly (mainly in the references), this
+% may not be as big an issue as with other publications.
+%
+% That said, Vilar Camara Neto created his breakurl.sty package which
+% permits hyperref to easily break URLs even in dvi mode.
+% Note that breakurl, unlike most other packages, must be loaded
+% AFTER hyperref. The latest version of breakurl and its documentation can
+% be obtained at:
+% http://www.ctan.org/pkg/breakurl
+% breakurl.sty is not for use under pdflatex pdf mode.
+%
+% The advanced features offer by hyperref.sty are not required for IEEE
+% submission, so users should weigh these features against the added
+% complexity of use.
+% The package options above demonstrate how to enable PDF bookmarks
+% (a type of table of contents viewable in Acrobat Reader) as well as
+% PDF document information (title, subject, author and keywords) that is
+% viewable in Acrobat reader's Document_Properties menu. PDF document
+% information is also used extensively to automate the cataloging of PDF
+% documents. The above set of options ensures that hyperlinks will not be
+% colored in the text and thus will not be visible in the printed page,
+% but will be active on "mouse over". USING COLORS OR OTHER HIGHLIGHTING
+% OF HYPERLINKS CAN RESULT IN DOCUMENT REJECTION BY THE IEEE, especially if
+% these appear on the "printed" page. IF IN DOUBT, ASK THE RELEVANT
+% SUBMISSION EDITOR. You may need to add the option hypertexnames=false if
+% you used duplicate equation numbers, etc., but this should not be needed
+% in normal IEEE work.
+% The latest version of hyperref and its documentation can be obtained at:
+% http://www.ctan.org/pkg/hyperref
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Modelling Attention in Panoramic Video: \\A Reinforcement Learning Approach}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+%
+%\IEEEcompsocitemizethanks is a special \thanks that produces the bulleted
+% lists the Computer Society journals use for "first footnote" author
+% affiliations. Use \IEEEcompsocthanksitem which works much like \item
+% for each affiliation group. When not in compsoc mode,
+% \IEEEcompsocitemizethanks becomes like \thanks and
+% \IEEEcompsocthanksitem becomes a line break with idention. This
+% facilitates dual compilation, although admittedly the differences in the
+% desired content of \author between the different types of papers makes a
+% one-size-fits-all approach a daunting prospect. For instance, compsoc
+% journal papers have the author affiliations above the "Manuscript
+% received ..."  text while in non-compsoc journals this is reversed. Sigh.
+
+\author{Michael~Shell,~\IEEEmembership{Member,~IEEE,}
+        John~Doe,~\IEEEmembership{Fellow,~OSA,}
+        and~Jane~Doe,~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
+\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem M. Shell was with the Department
+of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
+GA, 30332.\protect\\
+% note need leading \protect in front of \\ to get a newline within \thanks as
+% \\ is fragile and will error, could use \hfil\break instead.
+E-mail: see http://www.michaelshell.org/contact.html
+\IEEEcompsocthanksitem J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
+\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}}
+
+% note the % following the last \IEEEmembership and also \thanks -
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+%
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Advanced Demo of IEEEtran.cls for IEEE Computer Society Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+%
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+% The publisher's ID mark at the bottom of the page is less important with
+% Computer Society journal papers as those publications place the marks
+% outside of the main text columns and, therefore, unlike regular IEEE
+% journals, the available text space is not reduced by their presence.
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2015 IEEE}
+% or like this to get the Computer Society new two part style.
+%\IEEEpubid{\makebox[\columnwidth]{\hfill 0000--0000/00/\$00.00~\copyright~2015 IEEE}%
+%\hspace{\columnsep}\makebox[\columnwidth]{Published by the IEEE Computer Society\hfill}}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark (Computer Society journal
+% papers don't need this extra clearance.)
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+% for Computer Society papers, we must declare the abstract and index terms
+% PRIOR to the title within the \IEEEtitleabstractindextext IEEEtran
+% command as these need to go into the title area created by \maketitle.
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+Panoramic video provides great immersive and interactive experience, by enabling human to control field of view (FoV) with head movement (HM). Thus, HM plays a key role in modelling human attention on panoramic video. In this paper, we establish a database collecting subjects' HM positions on panoramic video sequences, and from this database we find that the HM data are highly consistent across subjects. We therefore propose an approach to predict HM positions on panoramic video, in the form of HM maps, i.e., pixel-wise heat maps for HM positions. To this end, we consider HM scan-paths as actions of an agent, such that deep reinforcement learning (DRL) can be applied in HM scan-path prediction to yield HM positions. In our approach, the DRL model is trained via optimizing reward in predicting directions and magnitudes of HM scan-paths. Based on the trained DRL model, the HM scan-paths can be generated by running multiple workflows of DRL, which are later integrated to produce HM maps. Finally, experimental results verify the effectiveness of our approach in predicting HM maps of panoramic video.
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+Computer Society, IEEE, IEEEtran, journal, \LaTeX, paper, template.
+\end{IEEEkeywords}}
+
+
+% make the title area
+\maketitle
+
+
+% To allow for easy dual compilation without having to reenter the
+% abstract/keywords data, the \IEEEtitleabstractindextext text will
+% not be used in maketitle, but will appear (i.e., to be "transported")
+% here as \IEEEdisplaynontitleabstractindextext when compsoc mode
+% is not selected <OR> if conference mode is selected - because compsoc
+% conference papers position the abstract like regular (non-compsoc)
+% papers do!
+\IEEEdisplaynontitleabstractindextext
+% \IEEEdisplaynontitleabstractindextext has no effect when using
+% compsoc under a non-conference mode.
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+\ifCLASSOPTIONcompsoc
+\IEEEraisesectionheading{\section{Introduction}\label{Introduction}}
+\else
+\section{Introduction}
+\label{Introduction}
+\fi
+% Computer Society journal (but not conference!) papers do something unusual
+% with the very first section heading (almost always called "Introduction").
+% They place it ABOVE the main text! IEEEtran.cls does not automatically do
+% this for you, but you can achieve this effect with the provided
+% \IEEEraisesectionheading{} command. Note the need to keep any \label that
+% is to refer to the section immediately after \section in the above as
+% \IEEEraisesectionheading puts \section within a raised box.
+
+
+
+
+% The very first letter is a 2 line initial drop letter followed
+% by the rest of the first word in caps (small caps for compsoc).
+%
+% form to use if the first word consists of a single letter:
+% \IEEEPARstart{A}{demo} file is ....
+%
+% form to use if you need the single drop letter followed by
+% normal text (unknown if ever used by the IEEE):
+% \IEEEPARstart{A}{}demo file is ....
+%
+% Some journals put the first two words in caps:
+% \IEEEPARstart{T}{his demo} file is ....
+%
+% Here we have the typical use of a "T" for an initial drop letter
+% and "HIS" in caps to complete the first word.
+\IEEEPARstart{D}{uring} the past years, panoramic video \cite{neumann2000immersive} has been increasingly popular, due to its immersive and interactive experience.
+To achieve the immersive and interactive experience, human can control field of view (FoV) via wearing head mounted displays (HMD), when watching panoramic video in a range of $360^{\circ} \times 180^{\circ}$.
+In other words, humans are able to freely move their heads alongside the directions of longitude and latitude, to make their FoVs focus on the attractive content (see Figure \ref{fig-one} for an example).
+The content outside FoV cannot be seen by humans, i.e., without any attention.
+Consequently, head movement (HM) plays a key role in deploying human attention on panoramic video.
+HM prediction thus emerges as an increasingly important problem in modelling attention in panoramic video.
+Given the predicted HM, visual attention within FoV can be further modelled by the state-of-the-art saliency detection methods \cite{borji2013state}.
+The same as traditional 2D video, attention model can be extensively utilized in many areas of panoramic video, such as region-of-interest (ROI) compression \cite{de2016video}, visual quality assessment \cite{gaddam2016tiling}, rendering \cite{stengel2016gaze}, synopsis \cite{Pritch08}, and automatic cinematography \cite{su2016pano2vid}.
+
+Unfortunately, few work has been proposed to model human attention on panoramic video, especially predicting the positions of HM.
+Benefitting from the most recent success of deep reinforcement learning (DRL) \cite{mnih2016asynchronous}, this paper proposes a DRL based HM prediction (DHP) approach for modelling attention on panoramic video.
+HM prediction can be classified into two categories: offline and online manners.
+The offline HM prediction refers to modelling attention on panoramic video for multiple subjects, while the online prediction means predicting the next HM position of one subject upon the ground-truth of his/her HM positions at the current and previous frames. In this paper, our DHP approach includes both on-line and off-line HM prediction, named as offline-DHP and online-DHP, respectively.
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=1.6\columnwidth]{figures/introduction/fig_one}}
+		\caption{Illustration for FoVs and HM positions across different subjects. The heat map of HM positions from all subjects is also shown, which is defined as the HM map.}
+		\label{fig-one}
+	\end{center}
+\end{figure*}
+
+To our best knowledge, there exists no offline work to predict HM positions of multiple subjects in viewing panoramic video. The closest work is saliency detection on 2D video \cite{borji2013state}. The earliest approach for saliency detection was proposed by \textit{ltti et al.} \cite{itti1998model}, in which the features of color, intensity and orientation are combined to generate the saliency map of an image. Later, \textit{ltti et al.} \cite{itti2004automatic} proposed to add two features in \cite{itti1998model}, motion and flicker contrast, for video saliency detection. Recently, several advanced approaches have been proposed for video saliency prediction. These advanced works include  the earth mover's distance (EMD) approach \cite{lin2013visual} and the boolean map based saliency model (BMS) \cite{zhang2016exploiting}.
+Most recently, deep learning has been successfully applied in video saliency detection,
+such as SALICON \cite{huang2015salicon} and Liu's approach \cite{Liu2017cvpr}.
+Saliency detection in 2D video assumes that humans are able to view all content of each video frame.
+However, this assumption does not hold for panoramic video, as subjects can only see a limited range of FoV at a single sight, rather than the full panoramic range of $360^{\circ} \times 180^{\circ}$.
+In fact, different regions of panoramic video are accessible to subjects via changing the positions of HM \cite{lowe2015visualization}.
+In this paper, we find that different subjects are highly consistent on HM positions, i.e., the longitude and latitude of their viewing directions in a panorama are similar.
+Such finding is based on establishing and analyzing a new database, which consists of 58 subjects' HM data in viewing 76 panoramic video sequences.
+Then, we propose the offline-DHP approach to predict the consistent HM positions on panoramic video via generating the HM map for each single frame.
+Here, the HM maps of panoramic videos are similar to the saliency maps of 2D video.
+Figure \ref{fig-one} demonstrates an example of the ground-truth HM map for a panoramic video frame.
+
+%Then, we  propose a DRL based HM prediction (DHP) approach, which predicts the possible HM positions on panoramic video via generating the HM map for each single frame.
+%Here, the HM maps of panoramic videos are similar to the saliency maps of 2D video.
+%Figure \ref{fig-one} demonstrates an example of the ground-truth HM map for a panoramic video frame.
+%As shown in this figure, HM positions of multiple subjects need to be predicted in an offline manner, such that the HM maps can be obtained.
+%Therefore, our DHP approach is offline for yielding HM maps, namely off-line DHP.
+
+Specifically, our offline-DHP approach yields the HM maps of panoramic video via predicting HM scan-paths of multiple \textit{agents}, since subjects interactively control their HM positions along with some scan-paths according to video content.
+First, we find from our database that the HM scan-paths of different subjects are with high consistency.
+Meanwhile, subjects are normally initialized to view the center of front region in the beginning frames of panoramic video.
+Thereby, HM positions at subsequent frames can be yielded on the basis of the predicted scan-paths.
+Additionally, we find from our database that the magnitudes and directions of HM scan-paths are with similarity across subjects.
+In light of these findings, our offline-DHP approach models both magnitudes and directions of HM scan-paths as \textit{actions} of multiple \textit{agents} and takes viewed panoramic content as the \textit{observation} of \textit{environment}.
+As such, the DRL model of HM prediction  can be learned for HM prediction.
+In training the DRL model, \textit{reward} is designed to measure the difference of \textit{actions} of HM scan-paths between the DRL \textit{agents} and subjects. Then, the \textit{reward} is optimized to learn parameters in the DRL model.
+Given the learned model, HM maps of panoramic video are generated upon HM positions, obtained from scan-paths of several \textit{agents} in multiple DRL workflows.
+
+%we propose a novel offline-DHP approach, as our offline approach for predicating HM positions on panoramic video.
+
+For online HM prediction, the latest work of \cite{hu2017deep} proposed a deep 360 pilot, which automatically shifts viewing direction (equivalent to HM position) in watching panoramic video. Specifically, the salient object is detected and tracked across panoramic video frames, via leveraging region-based convolutional neural network (RCNN) \cite{ren2015faster} and recurrent neural network (RNN). Given the detected salient object and previous viewing directions, the deep 360 pilot predicts to transit HM position by learning a regressor. Since the deep 360 pilot relies heavily on one salient object, it is only suitable for some specific scenes that include one salient object, e.g., the sport scenes in \cite{hu2017deep}. It is still challenging to predict HM positions online for generic panoramic video, which may include more than one salient object (e.g., the panoramic video of Figure \ref{fig-one}). In this paper, we propose an online approach, namely online-DHP, to predict HM positions on generic panoramic video. Different from \cite{hu2017deep}, our online-DHP approach does not need to detect the salient object of RCNN. Instead, it is based on attention-related content by leveraging the learned model of our offline-DHP approach. Then, a DRL algorithm is developed to predict the HM positions in an online manner. Specifically, in the DRL algorithm, the \textit{agent} predicts the \textit{action} of HM scan-path in the next frame, according to ground-truth of the previous HM scan-path and \textit{observation} of video content. Consequently, the HM positions at the incoming frames can be predicted for our online-DHP approach.
+
+
+The main contributions of this paper are three-fold:
+\begin{itemize}
+\item We establish a new panoramic video database comprising HM positions of 58 subjects, with a thorough analysis on their HM data across 76 panoramic video sequences.
+
+\item We propose an offline-DHP approach to detect HM maps of panoramic video, which predicts the consistent HM positions of multiple subjects.
+
+\item We develop an online-DHP approach to predict the HM position of one subject at the next panoramic frame, upon video content and HM positions at the current and previous frames.
+
+\end{itemize}
+
+%based on content of the current frame and knowledge of viewing directions in the previous frames.
+
+%To our best knowledge, our work is a pioneering one in modeling attention on panoramic video using HM maps.
+
+
+
+
+%To the best of our knowledge, there exists few work to model attention of subjects, especially their HMs, on panoramic video.
+%The closest work is saliency detection on 2D video \cite{borji2013state}.
+%Video saliency detection can be traced back to \cite{itti2004automatic}, in which \textit{ltti et al.} proposed to generate saliency maps of video frames, by linearly combining the conspicuity maps of feature channels on color, intensity, orientation, motion and flicker contrast.
+%Later, some advanced approaches on saliency detection were proposed, such as \cite{itti2006bayesian, Hou2008dynamic, guo2010novel, lin2013visual, rudoy2013learning, hossein2015many, zhang2016exploiting, xu2017learning}.
+%For example, Lin \textit{et al.} \cite{lin2013visual} applied earth mover's distance (EMD) to measure the center-surround difference in spatio-temporal receptive field, for yielding the dynamic saliency maps of videos.
+%Hossein \textit{et al.} \cite{hossein2015many} proposed to predict video saliency upon bit allocation of each block in video coding.
+%Most recently, deep learning \cite{bazzani2016recurrent, bak2016two, Liu2017cvpr} has been applied in video saliency detection.
+%For example, Bazzani \textit{et al.} \cite{bazzani2016recurrent} proposed a recurrent mixture density model, which combines 3D convolutional neural network (CNN) and long short-term memory network (LSTM), for predicting video saliency.
+%
+%Saliency detection in 2D video assumes that humans are able to view all content of each video frame.
+%This assumption does not hold for panoramic videos, as subjects can only see a limited range of FoV at a single sight, rather than the full panoramic range of $360^{\circ} \times 180^{\circ}$.
+%In fact, different regions of panoramic video are accessible to subjects via changing the positions of HM \cite{lowe2015visualization}.
+%For panoramic video of sport scenes, the most recent works \cite{lin2017tell, hu2017deep} proposed to predict the current HM position of one subject (called viewing angle in \cite{hu2017deep}) upon observed HM positions of this subject at previous frames.
+%These works belong to online attention modeling of a single subject.
+%Unfortunately, there is no offline approach to model attention of multiple subjects on panoramic video.
+%In this paper, we establish a database consisting of 40 subjects' HM data on viewing 48 panoramic video sequences. Based on the established database, we argue that different subjects are consistent on HM positions, i.e., the longitude and latitude of their viewing directions in a panorama are similar.
+%Hence, we propose an offline approach to predict HM positions of panoramic video via generating the HM map for each single frame, which is similar to saliency maps of 2D video.
+%Figure 1 demonstrates an example of the ground-truth HM map for a panoramic video frame.
+%To our best knowledge, our work is a pioneering one in modeling attention on panoramic video using HM maps.
+
+
+
+
+\section{Related work}
+
+\subsection{Saliency detection}
+The only approach on predicting HM positions of panoramic videos is the most recent work of \cite{su2016pano2vid}, in which Pano2Vid was proposed to yield FoV at each panoramic video frame. However, Pano2Vid mainly focuses on virtually generating a potential HM position at one frame, rather than modelling HM maps of multiple subjects at this frame. The closest work on predicting HM maps is saliency detection for 2D video, which is briefly reviewed in the following.
+
+Saliency detection aims to predict visual attention of humans on 2D videos, by generating saliency maps of video frames. The studies on visual saliency start from images in 1998, when Itti and Koch \cite{itti1998model} found that the features of intensity, color and orientation in an image can be employed to detect its saliency map. Afterwards, they extended their work to video saliency detection \cite{itti2004automatic}, in which two dynamic features of motion and flicker contrast are combined with \cite{itti1998model} for detecting saliency in 2D videos. Both \cite{itti1998model} and \cite{itti2004automatic} can be seen as heuristic approaches for saliency detection, since they make use of the understanding of the HVS to develop the computational models. Recently, some advanced heuristic approaches, e.g.,  \cite{itti2009bayesian, boccignone2008nonparametric, zhang2009sunday, guo2010novel, ren2013regularized, lin2013visual, zhang2016exploiting, hossein2015many, xu2017learning}, have been proposed for saliency detection in 2D videos. Specifically, \cite{itti2009bayesian} proposed a novel feature called \textit{surprise}, which measures how the visual change attracts human observers, based on the Kullback-Leibler (KL) divergence between spatio-temporal posterior and prior beliefs. Given the feature of \textit{surprise}, a Bayesian framework was developed in \cite{itti2009bayesian} for video saliency detection.  Some other Bayesian frameworks \cite{boccignone2008nonparametric, zhang2009sunday}  were also developed for detecting video saliency. Besides, Lin \textit{et al.} \cite{lin2013visual} quantified earth mover's distance (EMD) to measure the center-surround difference in spatio-temporal receptive filed, generating saliency maps for 2D videos. Zhang \textit{et al.} \cite{zhang2016exploiting} explored the surround cue for saliency detection, by characterizing a set of binary images with randomly thresholds on color channels. Recently, \cite{hossein2015many} and \cite{xu2017learning} have investigated that some features (e.g., motion vector) in compressed domain are of high correlation with human attention, thus being explored in video saliency detection.
+
+Benefitting from the most recent success of deep learning, deep neural networks (DNNs) \cite{huang2015salicon, kruthiventi2015deepfix, wang2016RCNN, bazzani2016recurrent, Liu2017cvpr, bak2016two,wang2017deep} have also been  developed to detect 2D video saliency, instead of exploring the HVS related features in heuristic saliency detection approaches. They can be seen as data-driven approaches. For static saliency detection, SALICON [19] fine tuned the existing convolutional neural networks (CNN), with a new saliency related loss function. For dynamic saliency detection, \cite{bazzani2016recurrent} leveraged a deep Convolutional 3D (C3D) network to learn the representations of human attention on 16 consecutive frames, and then a Long Short-Term Memory (LSTM) network connected with a mixture density network was learned to generate saliency maps in Gaussian mixture distribution. Similarly, Liu \textit{et al.} \cite{Liu2017cvpr} combined CNN and multi-stream LSTM for detecting saliency in videos with multiple faces. Besides, other DNN structures have been developed to detect either static saliency \cite{kruthiventi2015deepfix, wang2016RCNN} or dynamic saliency \cite{bak2016two,bazzani2016recurrent,wang2017deep}.
+
+
+Although saliency detection has been thoroughly studied for predicting eye movement on 2D videos, there is no work on the prediction of HM positions on panoramic videos.
+Similar to saliency detection in 2D videos, this paper proposes to generate HM maps, which represent HM positions of multiple subjects, for modelling attention on panoramic videos. Towards the HM maps of panoramic videos, a DRL approach is developed to estimate the \textit{actions} of HM by multiple \textit{agents} upon the \textit{environment} of panoramic video content, the features of which are automatically learned and then extracted by DNN. Thus, our approach takes advantage of both deep learning and reinforcement learning, driven by the HM data of our panoramic video database.
+It is worth mentioning that although few work applies DRL to predict human attention, attention model is widely used in the opposite direction, to improve the performance of reinforcement learning, e.g., \cite{minut2001reinforcement, mnih2014recurrent, jaderberg2016reinforcement, wang2016dueling}.
+
+
+\subsection{Virtual cinematography}
+Virtual cinematography of panoramic videos was proposed in \cite{foote2000flycam, sun2005region, su2016pano2vid, hu2017deep, lin2017tell}, which directs an imaginary camera to virtually capture natural FOV (NFOV). In general, virtual cinematography attempts to agree with HM positions of humans at each panoramic video frame. The early work of \cite{foote2000flycam} proposed cropping object-of-interest in panoramic videos, such that NFOV can be generated for virtual cinematography. Later, in \cite{sun2005region} the cropped object-of-interest is tracked across frames by a Kalman filter, for automatically controlling virtual camera in virtual cinematography of panoramic videos. The approach of \cite{sun2005region} can work on both compressed and uncompressed domains, as two methods were developed for detecting object-of-interest in compressed and uncompressed domains, respectively. Both the works of \cite{foote2000flycam, sun2005region} were designed for the task of online virtual cinematography. They can be seen as heuristic approaches, which are not trained or even evaluated on the ground-truth HM data of humans.
+
+Most recently, data-driven approaches boost the development of virtual cinematography for panoramic videos. Specifically, Pano2Vid \cite{su2016pano2vid} learns to generate NFOV at each panoramic frame. However, the learning mechanism of Pano2Vid is offline. In fact, NFOV can be estimated at each frame in an online manner, which uses observed HM positions of the previous frames to correct the estimation of NFOV at the current frame. To this end, online virtual cinematography has been studied \cite{hu2017deep, lin2017tell} in a data-driven way, in which HM positions are predicted by an online mechanism.
+Specifically, the deep 360 pilot was proposed in \cite{hu2017deep}, which is a deep learning based \textit{agent} smoothly tracking object-of-interest for panoramic video. In other words, the \textit{agent} transits the HM position across video frames to track the key object detected by RCNN, given the observed HM position at previous frames. Consequently, the NFOV can be generated online for automatically displaying object-of-interest in virtual cinematography of panoramic videos. In fact, object-of-interest tracking in panoramic videos refers to continuously focusing and refocusing intended targets, respectively. Both focusing and re-focusing require a subject to catch up the object. Such a task is challenging in extreme-sport videos, as the object-of-interest may be moving fast. Therefore, Lin \textit{et. al} \cite{lin2017tell} investigated two focus assistance techniques to help the subject track the key object in viewing panoramic videos, in which the potential HM position attended to the object-of-interest needs to determined and provided for the subject.
+
+The above approaches of \cite{foote2000flycam, sun2005region, su2016pano2vid, hu2017deep, lin2017tell}  all depend on the detector of object-of-interest. Thus, they can be only applied for some specific panoramic videos with salient objects, such as video conferencing or classroom scenes in \cite{foote2000flycam, sun2005region} and the sports videos in \cite{su2016pano2vid, hu2017deep, lin2017tell}. Different from these conventional approaches, our online HM prediction approach is based on the learned model of our offline approach, which encodes HM related content rather than detecting object-of-interest. Consequently, our approach is object-free, thus more suitable for the generic panoramic videos.
+
+%Both the works of \cite{lin2017tell, hu2017deep} are designed for the task of virtual cinematography, which directs an imaginary camera to virtually capture NFOV from panoramic videos. Also, the work of \cite{su2016pano2vid} also targets at virtual cinematography of panoramic video, but in an offline manner. In fact, most of existing virtual cinematography works \cite{} concentrate on camera manipulation within a simple virtual environment, rather than panoramic scenes.
+
+
+
+
+
+%The initial work of online HM prediction can be traced back to automatic cinematography of panoramic video \cite{}.
+
+
+
+
+\section{Database establishment and analysis}
+\label{Database_establishment_and_analysis}
+
+\subsection{Database establishment}
+\label{Database_establishment}
+
+In this section, we collect a new database including 76 panoramic video sequences with HM data of 58 subjects, called PVS-HM database. Our PVS-HM database allows quantitative analysis of human's HM on panoramic video, and it can be also used for learning to predict where human looks at panoramic video. Our database is available in  (XXX website XXX) for facilitating the future research. In the following, we present how we conducted the experiment to obtain the PVS-HM database.
+
+First, we selected 76 panoramic video sequences from YouTube and VRCun, with resolution ranging from 3K to 8K.
+As seen in Table \ref{tab:CC}, the content of these sequences are diverse, including computer animation (CA), driving, action sports, movie, video game, scenery, etc.
+Then, the duration of each sequence was cut to be 10 to 80 seconds (averagely XXX seconds), such that fatigue can be reduced in viewing panoramic video.
+To ensure video quality, all panoramic video sequences were compressed by H.265 \cite{Sullivan2013Overview} without any change at bit-rates.
+Note that the audio tracks were removed to avoid the impact of acoustic information on visual attention.
+
+In our experiment, 58 subjects (41 males and 17 females, aging from 18 to 36) weared the HMD of HTC Vive to view all 76 panoramic video sequences at random display order.
+When viewing panoramic video, the subjects seated on a swivel chair were allowed to turn around freely, such that all panoramic regions are accessible.
+To avoid eye fatigue and motion sickness, the subjects have a 5 minute rest after viewing each session of 19 sequences.
+With the support of the software development kit (SDK) of HTC Vive, we recorded the posture data of each subject when viewing panoramic video.
+Based on the recorded posture data, HM data of all 58 subjects at each frame of the panoramic video sequences were obtained and stored for our PVS-HM database, in terms of longitude and latitude of viewing directions.
+
+\subsection{Database analysis}
+\label{Database_analysis}
+
+In this section, we mine our PVS-HM database to analyze HM data of different subjects across panoramic video sequences.
+Specifically, we have the following five findings.
+
+\begin{table*}
+\begin{center}
+  \caption{CC between ground-truth HM maps of Groups $A$ and $B$, for each panoramic video sequence} \label{tab:CC}
+  \tiny
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{*{4}{|c|c|c}|}
+  \hline
+  \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC \\
+  \hline
+  \multirow{6}{*}{\rotatebox{90}{CA}} & AcerPredator & 0.839$\pm$0.087
+&
+  \multirow{6}{*}{\rotatebox{90}{Driving}} & AirShow & 0.783$\pm$0.078
+ &
+  \multirow{6}{*}{\rotatebox{90}{Others}} & A380 & 0.839$\pm$0.106
+ &
+  \multirow{6}{*}{\rotatebox{90}{Video Game}} & CS & 0.819$\pm$0.084
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & BFG & 0.644$\pm$0.146
+ & & DrivingInAlps & 0.857$\pm$0.071
+ & & CandyCarnival & 0.723$\pm$0.094
+ & & Dota2 & 0.714$\pm$0.103
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & CMLauncher & 0.828$\pm$0.119
+ & & F5Fighter & 0.592$\pm$0.126
+ & & MercedesBenz & 0.592$\pm$0.133
+ & & GalaxyOnFire & 0.762$\pm$0.084
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & Cryogenian & 0.526$\pm$0.174
+ & & HondaF1 & 0.872$\pm$0.053
+ & & RingMan & 0.897$\pm$0.054
+ & & LOL & 0.724$\pm$0.097
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & LoopUniverse & 0.779$\pm$0.078
+ & & Rally & 0.867$\pm$0.047
+ & & RioOlympics & 0.624$\pm$0.123
+ & & MC & 0.726$\pm$0.115
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & Pokemon & 0.607$\pm$0.182
+ & & Supercar & 0.854$\pm$0.064
+ & & VRBasketball & 0.770$\pm$0.105
+ & & SuperMario64 & 0.860$\pm$0.054
+ \\
+  \hline
+  \multirow{6}{*}{\rotatebox{90}{Movie}} & Help & 0.859$\pm$0.122
+ &
+  \multirow{6}{*}{\rotatebox{90}{Scenery}} & Antarctic & 0.674$\pm$0.135
+ &
+  \multirow{6}{*}{\rotatebox{90}{Show}} & BTSRun & 0.867$\pm$0.061
+ &
+  \multirow{6}{*}{\rotatebox{90}{Action Sports}} & Gliding & 0.528$\pm$0.158
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & IRobot & 0.771$\pm$0.078
+ & & BlueWorld & 0.559$\pm$0.156
+ & & Graffiti & 0.807$\pm$0.100
+ & & Parachuting & 0.628$\pm$0.157
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & Predator & 0.696$\pm$0.124
+ & & Dubai & 0.646$\pm$0.133
+ & & KasabianLive & 0.722$\pm$0.132
+ & & RollerCoaster & 0.834$\pm$0.078
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & ProjectSoul & 0.918$\pm$0.053
+ & & Egypt & 0.665$\pm$0.131
+ & & NotBeAloneTonight & 0.587$\pm$0.131
+ & & Skiing & 0.766$\pm$0.104
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & StarWars & 0.950$\pm$0.016
+ & & StarryPolar & 0.495$\pm$0.152
+ & & Symphony & 0.779$\pm$0.096
+ & & Surfing & 0.830$\pm$0.096
+ \\
+  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+  & Terminator & 0.843$\pm$0.078
+ & & WesternSichuan & 0.667$\pm$0.138
+ & & VRBasketball & 0.770$\pm$0.105
+ & & Waterskiing & 0.781$\pm$0.128
+ \\
+  \hline
+  \multicolumn{2}{|c|}{Overall} & \multicolumn{10}{c|}{0.745$\pm$ 0.114}\\
+  \hline
+  \end{tabular}}
+\end{center}
+\end{table*}
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/database/consistence-magnitude1}}
+	\end{center}
+\end{figure*}
+\vspace{-1.0em}
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/database/consistence-magnitude2}}
+		\caption{\footnotesize{Mean and standard deviation for HM scan-path magnitude across subjects, for each panoramic video sequence.}}
+		\label{consistence-magnitude}
+	\end{center}
+\end{figure*}
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence1}}%of
+	\end{center}
+\end{figure*}
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence2}}%of
+		\caption{\footnotesize{Circular standard deviation for directions of HM scan-paths, over each panoramic video sequence in the HMD-VP database.}}
+		\label{direction-consistence}
+	\end{center}
+\end{figure*}
+
+\emph{\\Finding 1: When watching panoramic video, different subjects are highly consistent in HM positions.}
+\\ \textit{Analysis:} In our PVS-HM database, we randomly divide all 58 subjects into two equal-size groups, $A$ and $B$.
+For each frame of 76 sequences, the ground-truth HM maps of Groups $A$ and $B$ are generated by convolving with a \textcolor{blue}{ 2D Gaussian filter along with longitude and latitude over the collected HM data.
+They are denoted as $H_A$ and $H_B$, respectively.
+Note that the HM maps of $H_A$ and $H_B$ are in geographic coordinates.
+\footnote{The dimension elevation is unnecessary. Here, x stands for longitude and y stands for latitude.}} \cite{Goodchild2007}.
+For a panoramic frame, we quantify the correlation of HM maps between $H_A$ and $H_B$ using linear correlation coefficient (CC) \cite{li2015data}.
+Table~\ref{tab:CC} lists the averaged CC ($\pm$ standard deviations) of HM maps between Groups $A$ and $B$, over all frames for each sequence.
+It can be seen from this table that the CC values are rather high across different sequences.
+It can be also seen from this table that the CC value averaged over all 48 panoramic sequences is $0.745$, with the standard deviation being 0.114.
+Besides, Gaussian and uniform XXX.
+Thus, it is obvious that HM positions of subjects are highly consistent.
+This completes the analysis of \textit{Finding 1}.
+
+\emph{Finding 2: The magnitude of HM scan-paths is similar across subjects for the same panoramic content.}
+\\ \textit{Analysis:} HM scan-paths of human in viewing panoramic video can be decomposed into magnitude and direction.
+ Here, we measure the magnitude of HM scan-paths in our PVS-HM database.
+ For each individual sequence, Figure \ref{consistence-magnitude} shows mean and standard deviation of HM scan-path magnitude over all 58 subjects.
+ From this figure, we can see that the standard deviation of $22.77655172$ degree per second is far less than the mean of $47.71891872$ degree per second, for scan-path magnitudes of HM from different subjects.
+ Thus, there exists similarity for magnitudes of HM scan-paths across subjects, given the same panoramic video.
+ Finally, \emph{Finding 2} can be verified.
+
+
+\emph{Finding 3: The directions of HM scan-paths on panoramic video are with high consistency across subjects.}
+\\ \textit{Analysis:} In each panoramic sequence, we measure the consistency of HM scan-path directions among 58 subjects of our PVS-HM database as follows.
+\textit{Finding 1} has shown that the HM positions of different subjects are highly consistent when viewing panoramic video.
+We thus evaluate the scan-path directions of subjects starting from the consistent HM regions (i.e., regions with similar HM positions).
+In our PVS-HM database, such consistent regions are extracted from 76 panoramic video sequences, which has HM positions of at least 8 subjects in a small \textit{great-circle distance} range of $3^{\circ}$ \cite{matin1974saccadic}.
+For each panoramic video sequence, Figure \ref{direction-consistence} shows the circular standard deviation \cite{frederic2010mean} of HM scan-path directions, starting from consistent HM regions within one-second time slot \footnote{We have conducted our experiment with time slot of $0.1$, $1$ and $2$ seconds, and the results are similar.}.
+We can see from this figure that the circular standard deviation of HM scan-path directions is averagely $38.10^{\circ}$ for all 76 sequences, and it is far less than $103.9^{\circ}$ of randomly generated HM scan-path directions.
+This implies that there exists high consistency on directions of HM scan-paths across subjects, when viewing panoramic video.
+Finally, \textit{Finding 3} can be validated.
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence-distribution1}}%of
+	\end{center}
+\end{figure*}
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence-distribution2}}%of
+		\caption{\footnotesize{Distribution of HM scan-paths over 8 discrete directions. Note that the proportions of subjects, whose HM scan-path directions fall into each discrete direction, are ranked and then shown in this figure.}}
+		\label{direction-consistence-distribution}
+	\end{center}
+\end{figure*}
+
+\emph{Finding 4: Almost $50\%$ subjects are consistent with one HM scan-path direction (among 8 discrete directions), and over $90\%$ subjects are consistent with three directions for HM scan-paths. }
+\\ \textit{Analysis:} We measure distribution of HM scan-path directions as follows. Only HM scan-paths falling into consistent HM regions (as mentioned in \textit{Finding 3}) are used in the following analysis. Specifically, We discretize continuous $0-360^{\circ}$ directions of HM scan-paths by 8-level uniform quantization: $\{0^{\circ}, 45^{\circ}, 90^{\circ} \cdots, 315^{\circ} \}$.
+Then, we count the proportions of subjects, whose HM scan-paths belong to the same discretized direction.
+Next, we rank such proportions by their values in each extracted HM region. For each ranking, the corresponding proportions of subjects are averaged over all HM regions of a panoramic sequence.
+Figure \ref{direction-consistence-distribution} shows the ranked proportions of subjects for each panoramic sequence.
+As seen in this figure, the directions of HM scan-paths from $57.1\%$ subjects belong to the first ranked direction.
+In addition,  the directions of HM scan-paths from $20.6\%$ and $9.6\%$  subjects fall into the second and third ranked directions.
+This completes the verification of \textit{Finding 4}.
+
+\begin{figure}
+	\begin{center}
+		\centerline{\includegraphics[width=.9\columnwidth]{figures/database/consi_on_time}}%of
+		\caption{\footnotesize{Correlation coefficient of HM scan-paths over different time intervals and its variance. }}
+		\label{consi_on_time}
+	\end{center}
+\end{figure}
+
+
+\emph{Finding 5: HM scan-path is predictable.The behavior of the next moment is of great relevance to the state of the last moment.We have proved that correlation between the direction of the next moment and the direction of this moment is more than $87.9\%$ (The longer the time interval, the smaller the correlation will be). }
+\\ \textit{Analysis:} We used the time interval as an independent variable,calculated the correlation between t and t-1,t-2... until t-10.The results are as follows.
+From \ref{consi_on_time} we can see that the first-order correlation of the HM scan-paths direction is $87.9\%$.This indicates that the HM scan-paths direction depends largely on the direction of the last moment.That is , each HM scan-paths direction is based on the HM scan-paths direction of the last moment.And the correlation coefficient decreases with the increase of order, indicating that the correlation will decrease with the time interval increase.
+As seen in this figure, First order correlation coefficient up to $87.9\%$,while the variance is only 0.023.
+This completes the verification of \textit{Finding 5}.
+
+\section{Definition}
+\begin{itemize}
+    \item $(x_t, y_t)$: HM position at frame $t$, which is the geographic coordinate position\cite{Goodchild2007}.
+    \item $p_n(\ast)$: For $n$-th subject, the probability of event $\ast$.
+    \item $\mathbb{E}\{ p_n(x_t, y_t) \}$: HM map at frame $t$.
+    \item $\Psi_{ x_{t}, y_{t} }$: a HM scan-path arriving $(x_{t}, y_{t})$ at frame $t$.
+    
+\end{itemize}
+\section{Offline-DHP approach}
+
+\subsection{Framework of Offline-DHP approach}
+\label{framework}
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/dhp_approach/main_framework}}%of
+		\caption{Framework of our Offline-DHP approach.}
+		\label{main-framework}
+	\end{center}
+\end{figure*}
+
+In the following, we present our Offline-DHP approach, in light of our findings in Section \ref{Database_analysis}. As shown in Figure \ref{main-framework}, the input to our approach is panoramic video frames $..., O_{t-2}, O_{t-1}, O_{t}$.
+Since \textit{Finding 1} points out that $p_n((x_t, y_t))$ are highly consistent for different $n$, we propose to generate HM maps for modeling offline HM attention on panoramic video, which is the expected probability of one position being viewed across all subjects,
+ \begin{equation}\label{define-hm-maps}
+   \mathbb{E}\{ p_n(x_t, y_t) \}
+ \end{equation}
+Above \eqref{define-hm-maps} is seen as the output of our approach.
+
+According to Proposition \ref{lemma1}, $p_n(x_t, y_t)$ in \eqref{define-hm-maps} can be modeled by predicting a series of $\alpha$ and $\nu$. Furthermore, \textit{Findings 2} and \textit{3} point out predicting $\alpha$ and $\nu$ is reasonable since its consistence.
+\begin{proposition}
+    \label{lemma1}
+    $p_n(x_t, y_t)$ can be modeled by predicting a series of $\alpha$ and $\nu$,
+    \begin{eqnarray}
+            \label{proposition_1}
+            && p_n(x_t, y_t) \nonumber\\
+            \nonumber &=& \sum_{ \Psi_{ x_{t-1}, y_{t-1} } } \sum_{ \Psi_{ x_{t-2}, y_{t-2} } } \cdots \sum_{ \Psi_{ x_{1}, y_{1} } } 
+            \\ && p_n( \alpha_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})}, \nu_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})} | \Psi_{ x_{t-1}, y_{t-1} } )
+            \\ && p_n( \alpha_{(x_{t-2},y_{t-2})\rightarrow (x_{t-1},y_{t-1})}, \nu_{(x_{t-2},y_{t-2})\rightarrow (x_{t-1},y_{t-1})} | \Psi_{ x_{t-2}, y_{t-2} } )
+            \\ && p_n( \Psi_{ x_{1}, y_{1} } ),
+        \end{eqnarray}
+    where $\Psi_{ x_{t-1}, y_{t-1} }$ denotes all possible HM scan-paths arriving $(x_{t-1}, y_{t-1})$ at frame $t-1$, $\alpha_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})}$ and $\nu_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})}$ are $\alpha$ and $\nu$ that lead from $(x_{t-1},y_{t-1})$ to $(x_{t},y_{t})$ respectively.
+
+    \textbf{Proof:}
+        For one subject, since $(x_t,y_t)$ equals to experiencing a HM scan-path that leads to $(x_t,y_t)$, we have,
+        \begin{equation}
+            \label{define}
+            p_n(x_t, y_t) = p_n( \Psi_{ x_t, y_t } ).
+        \end{equation}
+        Since $\Psi_{ x_t, y_t }$ is a conditional transition under $\Psi_{ x_{t-1}, y_{t-1} }$, we have
+        \begin{eqnarray}
+            \label{expand-path}
+            \nonumber && \Psi_{ x_t, y_t } = \bigcup_{x_{t-1}, y_{t-1}} \{ (\alpha_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})},\\
+            && \nu_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})}),
+            \Psi_{ x_{t-1}, y_{t-1} } \}.
+        \end{eqnarray}
+        According to law of total probability, the following holds,
+        \begin{eqnarray}
+            \label{expand-define-with-full-prob-formula}
+            && p_n(x_t, y_t) \nonumber\\
+            &=& p_n( \Psi_{ x_t, y_t } ) \nonumber\\
+            \nonumber &=& \sum_{ \Psi_{ x_{t-1}, y_{t-1} } } \!\!\!p_n( \alpha_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})}, \nu_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})} | \\
+            && \Psi_{ x_{t-1}, y_{t-1} } ) p_n( \Psi_{ x_{t-1}, y_{t-1} } ),
+        \end{eqnarray}
+        Above \eqref{expand-define-with-full-prob-formula} can be iterated till $p_n( \Psi_{ x_{1}, y_{1} } )$, which derives \eqref{proposition_1} in Proposition 1.
+
+\end{proposition}
+Then, according to Proposition \ref{lemma2}, $\mathbb{E}$ in \eqref{define-hm-maps} can be modeled by running $N$ DRL workflows, each of which works independently to generate an HM scan-path and a sequence of HM positions.
+These HM positions are integrated across multiple DRL workflows to generate HM maps.
+The generation of HM maps is rather effective due to the following proposition.predicting a series of $\alpha$ and $\nu$. Furthermore, \textit{Findings 2} and \textit{3} point out predicting $\alpha$ and $\nu$ is reasonable since its consistence.
+
+Then, According to \textit{Finding 4}$\mathbb{E}$ in \eqref{define-hm-maps} our Offline-DHP approach models HM positions of multiple subjects via HM maps.
+According to \textit{Finding 4}, HM scan-paths of different subjects are consistent in only a few directions. We thus leverage several \textit{agents} of multiple DRL workflows to work out HM maps.
+To be more specific, our Offline-DHP runs $N$ DRL workflows, each of which works independently to generate an HM scan-path and a sequence of HM positions.
+These HM positions are integrated across multiple DRL workflows to generate HM maps.
+The generation of HM maps is rather effective due to the following proposition.
+
+\begin{proposition}
+    \label{lemma2}
+      can be predicted by running multiple DRL workflows, given a learned HM scan-path predictor.
+
+    \textbf{Proof:}
+        Since \textit{Findings 2-4} have revealed that the direction and magnitude of HM scan-paths are generally consistent across subjects, we assume that $p(\alpha_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})}, \nu_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})} | \Psi_{ x_{t-1}, y_{t-1} } )$ of all subjects is with the same probability distribution, denoted by $\pi(x_{t},y_{t}|\Psi_{x_{t-1}, y_{t-1} } )$. That is,
+        \begin{eqnarray}
+        \label{p-sim-pi}
+        \nonumber && p( \alpha_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})}, \nu_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})} | \Psi_{ x_{t-1}, y_{t-1} } ) \\
+        && \sim \pi(x_{t},y_{t} | \Psi_{ x_{t-1}, y_{t-1} } ).
+        \end{eqnarray}
+        Then, HM maps can be produced as expectation of probability of HM positions on all subjects:
+        \begin{eqnarray}
+        \label{use-define-of-expectation}
+       \mathbb{E}_{n \sim \textrm{subjects} }\{ p_n(x_t, y_t) \},
+        \end{eqnarray}
+        where $p_n(x_t, y_t)$ is probability of HM position $(x_t, y_t)$  for subject $n$. However, the HM positions $(x_{t-1}, y_{t-1})$ of subjects at frame $t-1$ may be different, which lead to HM positions of all subjects being $(x_t, y_t)$ at current frame $t$. Thus, based on \eqref{expand-define-with-full-prob-formula} and \eqref{p-sim-pi}, the expectation of \eqref{use-define-of-expectation} can be rewritten in the following,
+        \begin{eqnarray}
+        \label{use-define-of-expectation1}
+        && \mathbb{E}_{n \sim \textrm{subjects} }\{ p_n(x_t, y_t) \} \nonumber\\
+        \nonumber &=& \mathbb{E}_{\pi(x_{t},y_{t} |\Psi_{ x_{t-1}, y_{t-1} } ) } \{ p_n(\alpha_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})},\\
+         && \nu_{(x_{t-1},y_{t-1})\rightarrow (x_{t},y_{t})})| \Psi_{ x_{t-1}, y_{t-1} } ) \}.
+        \end{eqnarray}
+        Since $(x_{t-1}, y_{t-1})$  of \eqref{use-define-of-expectation1} are different across subjects, multiple DRL workfows need to be conducted for generating expectation of \eqref{use-define-of-expectation} as HM maps. In \eqref{use-define-of-expectation1}, $\pi(x_{t},y_{t} |\Psi_{ x_{t-1}, y_{t-1} } )$ is also seen as policy, which can be learned in the DRL model of the HM scan-path predictor. Finally, Proposition 2 can be proved.
+
+\end{proposition}
+
+As can be seen in Figure \ref{main-framework}, in a single DRL workflow one HM scan-path is generated by interaction between FoV extractor and HM scan-path predictor.
+Note that the extracted FoV is $103^{\circ} \times 60^{\circ}$, the same as the setting of HMD.
+Specifically, we can see from Figure \ref{main-framework} that FoV (red rectangles) is extracted according to the predicted \textit{action} of HM scan-paths (red arrows) at previous video frames.
+Then, the content of extracted FoV works as \textit{observation} of DRL, for predicting the next \textit{action} of HM scan-path.
+The HM scan-path generated by each DRL workflow is forwarded to obtain HM positions at panoramic video frames.
+Afterwards, the HM positions from multiple DRL workflows are integrated, and then smoothed by a 2D Gaussian filter.
+Finally, HM maps of the panoramic video are obtained, which model the heat maps for probability of HM positions.
+
+\subsection{DRL model of the Offline-DHP approach}
+\label{train}
+As described in Sections \ref{framework}, the DRL workflow is a key component in our Offline-DHP framework, which targets at predicting HM scan-paths.
+This section presents how to train the DRL model in our Offline-DHP approach.
+Figure \ref{train-framework} shows the proposed training model of DRL, which can be used to predict HM scan-paths.
+As shown in Figure \ref{train-framework},  FoV of the input panoramic video is extracted upon predicted HM scan-paths.
+In our approach, the predicted HM scan-paths and extracted FoV are seen as \textit{action} and \textit{observation} of DRL, respectively.
+In addition, \textit{reward} is estimated on the basis of the ground-truth HM scan-paths, for generating an \textit{action} at each panoramic video frame.
+Then, both FoV and estimated \textit{reward} compose \textit{environment}.
+In training the DRL model,  \textit{environment} interacts with the HM scan-path predictor.
+The interaction is achieved in our DRL model by the following procedure.
+(1) At frame $t$, the DRL model obtains current $\textit{observation}$ from the FoV extractor, denoted as $o_t$.
+In our work, $\textit{observation}$ $o_{t}$ is the content of FoV ($103^{\circ} \times 60^{\circ}$) projected to 2D region and then down-sampled to $42\times42$.\\
+(2) Current $\textit{observation}$ $o_t$ and the feature of LSTM from the last frame $f_{t-1}$ are delivered to the DRL network in the HM scan-path predictor.\\
+(3) The DRL network produces LSTM feature $f_{t}$ \cite{hausknecht2015deep}, HM scan-path magnitude $\hat{\nu}_{t}$ and policy $\hat{\pi}_{t}$. Here, $\hat{\pi}_{t}$ is the probability distribution over \textit{actions} of HM scan-path directions.
+In our work, the DRL network contains four convolutional layers \cite{simonyan2014very} and one LSTM layer \cite{hochreiter1997long, hausknecht2015deep}, which are used to extract spatial and temporal features, respectively.  The details about the architecture of the DRL network can be found in Figure \ref{train-framework}.\\
+(4) Given $\hat{\pi}_{t}$, the HM scan-path predictor randomly selects an \textit{action}  $\hat{\alpha}_t$, with standard deviation $\varepsilon$ to ensure exploration. Here, \textit{action} $\hat{\alpha}_t$ models directions of the HM scan-path, including 8 discrete directions \textcolor{blue}{based on the ENU coordinate system}\cite{ENU}, i.e., $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$.\\
+(5) \textit{Environment} is updated with $\hat{\nu}_t$ and $\hat{\alpha}_t$. Specifically, the FoV extractor returns a new \textit{observation} $o_{t+1}$ according to the current HM position, and the reward estimator returns the corresponding \textit{reward} $r^{\nu}_t$ and $r^{\alpha}_t$ for estimating $\hat{\nu}_t$ and $\hat{\alpha}_t$, upon ground-truth HM scan-paths.\\
+(6) A set of experiences $\{ o_{t}, \! f_{t-1},\! \hat{\nu}_t,\! \hat{\alpha}_t,\! r^{\nu}_{t},\! r^{\alpha}_{t} \}$ is stored in an experience buffer for frame $t$.\\
+(7) \textcolor{red}{Once $t$ meets the terminal condition $T$, which is the number of frames for the video, all experiences in the buffer are delivered to the optimizer for updating the DRL network}.
+
+
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/dhp_approach/training_framework}}%of
+		\caption{\footnotesize{DRL model for the HM scan-path predictor.}}
+		\label{train-framework}
+	\end{center}
+\end{figure*}
+
+\textbf{Reward Estimation.}
+Next, we focus on modeling the \textit{reward}: $r^{\alpha}_t$ and $r^{\nu}_t$.
+As has been discussed in Proposition \ref{lemma2}, our goal is to make $\hat{\alpha}_{t}$ and $\hat{\nu}_{t}$ approach to ground-truth HM data.
+Thus, the  \textit{reward} $r^{\alpha}_t$ and $r^{\nu}_t$ can be represented by the difference from $\hat{\alpha}_{t}$ and $\hat{\nu}_{t}$ to their corresponding ground-truth.
+Let $\{ \nu^{n}_{t}, \alpha^{n}_{t}\}$ be the ground-truth magnitude and direction of HM scan-path, and $\{x^{n}_{t},y^{n}_{t} \}$ be the ground-truth HM position, at frame $t$ for the $n$-th subject. Note that $\{x^{n}_{t},y^{n}_{t} \}$ is the \textcolor{blue}{geographic coordinate position}. \cite{Goodchild2007}.
+Then, $r^{\alpha}_t$ can be written as
+\begin{equation}
+\label{reward-alpha}
+r^{\alpha}_{t} = \frac{1}{N}\sum_{n=1}^{N} e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2},
+\end{equation}
+where $D_d$ defines \textit{phase difference}, $D_s$ denotes \textit{great-circle distance} \cite{shumaker1984astronomical} and $\rho$, $\varrho$ are hyper-parameters.
+Similarly, we have
+\begin{equation}
+\label{reward-nu}
+r^{\nu}_{t} = \frac{1}{N}\sum_{n=1}^{N}
+e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+\end{equation}
+
+\begin{proposition}
+    \label{lemma3}
+    Assume that the probability of each pixel $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position decays along with the distance to the ground truth HM position, following 2D coordinate Gaussian distribution \textcolor{blue}{along with longitude and latitude}.
+    In addition, assume that the probability for the degree $\alpha^{n}_{t}$ of HM scan path also follows the Gaussian distribution with the mean being $\alpha^{n}_{t}$.
+    Then $r^{\alpha}_t$ can be represented by \eqref{reward-alpha}.
+
+    \textbf{Proof:} At frame $t$, the ground truth HM position is $\{x^{n}_{t},y^{n}_{t} \}$ for  the $n$-th subject.
+    besides, $\alpha^{n}_{t}$ is the direction of HM scan path for the $n$-th subject.
+    Thus, we can acquire:
+    \begin{eqnarray}
+        \label{reward-Pro1}
+        && P(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) = 1.
+        %\label{reward-Pro2}
+%        && P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) = 1
+    \end{eqnarray}
+    Since the probability of $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position follows Gaussian distribution centered at $\{x^{n}_{t},y^{n}_{t} \}$, the equality below can be obtained:
+    \begin{equation}
+        \label{reward-Pro3}
+        P_{n}(\alpha^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+    \end{equation}
+    Similarly, we have:
+    \begin{eqnarray}
+        \label{reward-Pro4}
+        P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+    \end{eqnarray}
+    Based on \eqref{reward-Pro3}, \eqref{reward-Pro4} can be written as:
+    \begin{eqnarray}
+        \label{reward-Pro5}
+        \nonumber && P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) \cdot \\ && e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+    \end{eqnarray}
+    According to \eqref{reward-Pro1}, the following holds:
+    \begin{equation}
+        \label{reward-Pro6}
+        P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+    \end{equation}
+    Reward $r^{\alpha}_t$ can be represented by $P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\})$ averaged overall subjects, i.e., \eqref{reward-alpha},which estimates how likely human agent conducts the action of $\hat{\alpha}_{t}$. Finally, this proposition is proved.
+\end{proposition}
+
+\begin{proposition}
+    \label{lemma4}
+    Assume that the probability of each pixel $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position decays along with the distance to the ground truth HM position, following 2D coordinate Gaussian distribution \textcolor{blue}{along with longitude and latitude}.
+    In addition, assume that the probability for the degree $\alpha^{n}_{t}$ of HM scan path also follows the Gaussian distribution with the mean being $\alpha^{n}_{t}$.
+    Then $r^{\alpha}_t$ can be represented by \eqref{reward-alpha}.
+    Provided that the probability for the magnitude $\hat{\nu}_{t}$ of HM scan path follows the Gaussian distribution with the mean of $\nu^{n}_{t}$.
+    We have \eqref{reward-nu}.
+
+    \textbf{Proof:} At frame $t$, $\nu^{n}_{t}$ is the magnitude of HM scan path at the direction $\alpha^{n}_{t}$ for the $n$-th subject.
+    Then, similar to the proof of \eqref{reward-Pro1}, the following holds:
+    \begin{equation}
+        \label{mu-Pro1}
+        P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) = 1.
+    \end{equation}
+    \begin{eqnarray}
+        \label{mu-Pro2}
+        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\}) = P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) \cdot \\ && e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+    \end{eqnarray}
+    Due to the Gaussian distribution of the probability for magnitude $\hat{\nu}_{t}$, we can obtain:
+    \begin{eqnarray}
+        \label{mu-Pro3}
+        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\})\\
+        \nonumber &=& P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t})
+        e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} \cdot \\ &&
+        e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+    \end{eqnarray}
+    According to \eqref{mu-Pro1} and \eqref{mu-Pro3}, we have:
+    \begin{eqnarray}
+        \label{mu-Pro4}
+        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\}) =
+        e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} \cdot \\ &&
+        e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+    \end{eqnarray}
+    Reward $r^{\nu}_{t}$ can be similarly represented by
+    $P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t})$ averaged overall subjects, i.e., \eqref{reward-nu}.
+    This completes the proof of proposition 4.
+\end{proposition}
+
+\textbf{Optimization.}
+Now, we need to optimize \textit{reward}: $r^{\alpha}_t$ and $r^{\nu}_t$, such that we can learn the network parameters of our DRL model in Figure \ref{train-framework}.
+Our Offline-DHP approach implements the asynchronous DRL method \cite{mnih2016asynchronous}.
+Hence, multiple workflows are run to interact with multiple \textit{environments} with workflow-specific parameter vectors $\{ \theta^{'}_{\hat{\nu}}, \theta^{'}_{\hat{\pi}}, \theta^{'}_{V} \}$, producing $\hat{\nu}_t$, $\hat{\pi}_t$ and $V$.
+Here, $V$ denotes \textit{state value} output by the DRL network.
+Meanwhile, global-shared parameter vectors $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$\footnote{As can be seen in Figure \ref{train-framework}, $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$ share all CNN and LSTM layers in our Offline-DHP approach, but they are separated at the output layer.} are updated via accumulating gradient.
+For more details about workflow-specific and global-shared parameter vectors, refer to \cite{mnih2016asynchronous}.
+In our approach, \textit{reward} $r^{\nu}_t$ is optimized to train $\theta_{\hat{\nu}}$ as follows,
+\begin{equation}
+\label{opt-1}
+d \theta_{\hat{\nu}} \leftarrow d \theta_{\hat{\nu}} + \nabla_{\theta_{\hat{\nu}}^{'}} \sum_{t=1}^{t_{\text{max}}} r^{\nu}_t.
+\end{equation}
+Besides, we can optimize \textit{reward} $r^{\alpha}_t$ by
+\begin{equation}
+\label{opt-2}
+\small d \theta_{V} \leftarrow d \theta_{V} + \nabla_{\theta_{V}^{'}} \sum_{t = 1}^{t_{\text{max}}} (\sum_{i=t}^{t_{\text{max}}} \gamma^{i-t} r^{\alpha}_{i} - V(o_{t}, f_{t-1} ; \theta_{V}^{'}))^2,
+\end{equation}
+\begin{small}
+\begin{eqnarray}
+\label{opt-3}
+\hspace{0.1cm} \nonumber d \theta_{\hat{\pi}} \leftarrow d \theta_{\hat{\pi}} +\nabla_{\theta_{\hat{\pi}}^{'}} \sum_{t = 1}^{t_{\text{max}}} \log \hat{\pi}( \alpha_{t} | o_{t}, f_{t-1} ; \theta_{\hat{\pi}}^{'})\cdot \\
+(\sum_{i = t}^{t_{\text{max}}} \gamma^{i-t} r^{\alpha}_{i} - V(o_{t}, f_{t-1} ; \theta_{V}^{'})),
+\end{eqnarray}
+\end{small}
+where $\gamma$ is the discount factor of \textit{Q-learning} \cite{watkins1992q}.
+In addition, $V(o_{t}, f_{t-1} ; \theta_{V}^{'})$ denotes state value $V$ yielded by $o_{t}, f_{t-1}$ and $\theta_{V}^{'}$; $\hat{\pi}( \alpha_{t} | o_{t}, f_{t-1} ; \theta_{\hat{\pi}}^{'})$ stands for the probability of \textit{action} $\alpha_{t}$ that yields by policy $\hat{\pi}_t$ from $o_{t}, f_{t-1}$ and $\theta_{\hat{\pi}}^{'}$.
+Finally, upon the above equations, RMSProp \cite{tieleman2012lecture} is applied to optimize \textit{reward} in training data. As a result, workflow-specific and global-shared parameter vectors can be learned for predicting HM scan-paths.
+
+\section{Online-DHP approach}
+
+\begin{figure}
+	\begin{center}
+		\centerline{\includegraphics[width=\columnwidth]{figures/dhp_approach_on_line/whole_framework_online_5}}%of
+		\caption{\footnotesize{Framework of our Online-DHP approach.}}
+		\label{online-framework}
+	\end{center}
+\end{figure}
+
+In this section, we present our online-DHP approach.
+Our online-DHP approach refers to predicting a specific subject's HM position at the next frame, given his/her HM scan-path till the current frame.
+Here, we define this subject as a \textit{viewer}. % online viewer
+Figure \ref{online-framework} shows the framework of our online-DHP approach, which predicts the HM position of the viewer at frame $t+1$ upon observation till frame $t$.
+As shown in this framework, the input to our online-DHP approach is the viewer's HM scan-path and frame content till frame $t$, while the output is the predicted HM position at frame $t+1$ for the viewer.
+At the beginning, the HM position of the viewer is initialized to be the center of front region, which is the general setting of  the panoramic video player.
+Then, the trained DRL network of our offline-DHP approach is loaded as the initial DRL network for online prediction, and both networks share the same structure.
+The reason for loading the offline-DHP network is that it contains the knowledge of HM related features.
+Later, this initial DRL network is fine-tuned by the viewer's HM scan-path at incoming frames.
+
+As aforementioned, the offline DRL network is loaded in the initialization of our online-DHP approach. Thus, training the DRL network for online-DHP generally follows that of offline-DHP, both containing the basic reinforcement learning procedure.
+The following shows the procedure of one episode,
+\begin{enumerate}
+  \item Take \textit{action} upon current \textit{observation}. The action selects 1 among 8 discrete HM scan-path directions, i.e., $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$. The action also contains a scalar of HM scan-path magnitude.
+  \item Calculate \textit{reward} from the reward estimator with \eqref{reward-alpha} and \eqref{reward-nu}, which measures how close this action to the ground-truth action of the viewer.
+  \item Generate new \textit{observation} from the FoV extractor with above \textit{action}, and then make the content of extracted FoV as the input of the DRL network
+  \item \textcolor{red}{Iterate from 1) to 4), if the number of iteration does not exceed $t$. Otherwise, update DRL network with \eqref{opt-2} and \eqref{opt-3}. This episode ends and move to the next episode.}
+\end{enumerate}
+The detailed implementation of the above process has been presented in Section \ref{train}.
+Besides, the definition of \textit{action}, \textit{reward} and \textit{observation} is the same as Section \ref{train}.
+However, the main differences between the online- and offline-DHP approach are:
+
+\begin{itemize}
+    \item \textcolor{red}{For online-DHP, the termination condition of iteration is $t$, where $t$ is the frame the viewer is currently seeing, instead of the last frame of the video in offline-DHP.}
+    \item For online-DHP, the ground-truth HM scan-path used in \eqref{reward-alpha} and \eqref{reward-nu} is from the single viewer, rather then from all subjects.
+\end{itemize}
+
+The above training procedure ends for frame $t$, once meeting the termination condition.
+In our approach, the termination condition is based on the mean overlap (MO), which measures how close the predicted HM position to the ground truth HM position.
+The MO ranges from 0 to 1, where larger MO indicates more precise prediction.
+Specifically, MO is defined as,
+\begin{equation}
+\label{mo-defination}
+\textrm{MO} =\frac{A(\textrm{FoV}_{p} \cap \textrm{FoV}_{g})}{A(\textrm{FoV}_{p} \cup \textrm{FoV}_{g})},
+\end{equation}
+where $\textrm{FoV}_{p}$ and $\textrm{FoV}_{g}$ represent the FoVs at predicted and ground-truth HM positions, respectively.
+In \eqref{mo-defination}, $A$ represents the area of a panoramic region, which counts for number of pixels.
+When the average MO is larger than a threshold $0.7$ \footnote{The threshold is set to the average MO achieved in \cite{hu2017deep}}, the switch in Figure \ref{online-framework} is turned to "predict" and the DRL network make a prediction for action at frame $t+1$.
+Note that if the number of training episodes exceeds $E$, the "predict" is also switched on, so that the training episodes end in a limited time.
+The above prediction for action at frame $t+1$ includes the direction and magnitude of HM scan-path.
+As a result, the HM position at frame $t+1$ can be predicted, given the ground-truth HM position at frame $t$.
+Then, similar training procedure is conducted for frame $t+1$, for the HM position at frame $t+2$.
+Finally, online-DHP is achieved by training till current frame, for predicting at the next frame.
+
+\begin{algorithm}
+   \caption{Online-DHP}
+   \label{online-DHP-algorithm}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} Panoramic video and viewer's ground-truth HM position $(x^{g}_{1 \sim T},y^{g}_{1 \sim T})$, where $T$ is the number of frame in the video;
+   \STATE Load offline-DHP model to initialize model with parameter vectors: $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
+   \FOR{$t=1$ {\bfseries to} $T$}
+        \FOR{$e=1$ {\bfseries to} $E$}
+           \STATE Initialize HM position: $x_1=0,y_1=0$;
+           \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
+           \FOR{$i=1$ {\bfseries to} $t-1$}
+               \STATE Extract FoV $o_i$ according to $(x_{i},y_{i})$;
+               \STATE Obtain policy and LSTM feature: $\hat{\pi}_{i}, f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
+               \STATE Select $\hat{\alpha}_{i}$ according to the $\epsilon$-greedy policy based on $\hat{\pi}_{i}$;
+               \STATE Obtain HM magnitude: $\hat{\nu}_{i}=\hat{\nu}(o_{i}, f_{i-1} ; \theta_{\hat{\nu}})$;
+               \STATE According to $\hat{\alpha}_{i},\hat{\nu}_{i}$, update $(x_{i}, y_{i})$ to $(x_{i+1}, y_{i+1})$;
+               \STATE Estimate reward $r^{\nu}_{i},\! r^{\alpha}_{i}$ of $\hat{\alpha}_{i},\hat{\nu}_{i}$ according to \eqref{reward-alpha}, \eqref{reward-nu};
+               \STATE Compute $\text{MO}_i$ of $(x_{i},y_{i})$ and $(x^{g}_{i},y^{g}_{i})$;
+               \STATE Store a set of experience: $\{ o_{i}, \! f_{i-1},\! \hat{\nu}_{i},\! \hat{\alpha}_{i},\! r^{\nu}_{i},\! r^{\alpha}_{i} \}$;
+               \STATE $i \leftarrow i+1$;
+           \ENDFOR
+           \STATE Update $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$ according to \eqref{opt-1}, \eqref{opt-2}, \eqref{opt-3} but replace $\{ \theta^{'}_{\hat{\nu}}, \theta^{'}_{\hat{\pi}}, \theta^{'}_{V} \}$ with $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
+           \STATE $e \leftarrow e+1$;
+           \STATE $\text{MO} =  \frac{\sum_{i} \text{MO}_{i}}{t-1}$;
+           \IF{$\text{MO}> th_{MO}$}
+               \STATE \textbf{break};
+           \ENDIF
+       \ENDFOR
+       \STATE Initialize HM position: $x_1=0,y_1=0$;
+       \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
+       \FOR{$i=1$ {\bfseries to} $t-1$}
+           \STATE Extract FoV $o_i$ according to $(x^{g}_{i},y^{g}_{i})$;
+           \STATE Obtain LSTM feature: $f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
+           \STATE $i \leftarrow i+1$;
+       \ENDFOR
+       \STATE Extract FoV $o_t$ according to $(x^{g}_{t},y^{g}_{t})$;
+       \STATE Obtain policy: $\hat{\pi}_{t}=\hat{\pi}( o_{t}, f_{t-1} ; \theta_{\hat{\pi}})$;
+       \STATE Choose $\hat{\alpha}_{t}$ with the greedy policy based on $\hat{\pi}_{i}$;
+       \STATE Obtain HM magnitude: $\hat{\nu}_{t}=\hat{\nu}(o_{t}, f_{t-1} ; \theta_{\hat{\nu}})$;
+       \STATE According to $\hat{\alpha}_{t},\hat{\nu}_{t}$, update $(x^{g}_{t}, y^{g}_{t})$ to $(x^{p}_{t+1}, y^{p}_{t+1})$, which is the prediction of HM position at frame $t+1$;
+       \STATE Compute $\text{MO}_{t+1}$ of $(x^{p}_{t+1},y^{p}_{t+1})$ and $(x^{g}_{t+1},y^{g}_{t+1})$, which evaluates this prediction;
+       \STATE $t \leftarrow t+1$;
+  \ENDFOR
+  \STATE {\bfseries Return:} The online prediction of the viewer's HM position $(x^{p}_{2 \sim T+1},y^{p}_{2 \sim T+1})$; // Every $(x^{p}_{t+1},y^{p}_{t+1})$ only utilizes $(x^{g}_{1 \sim t},y^{g}_{1 \sim t})$, so it is an online prediction.
+\end{algorithmic}
+\end{algorithm}
+
+\section{Experimental results}
+
+\subsection{Settings}
+In this section, experiments were conducted to evaluate the performance of our DHP approach. In our experiments, we randomly divided the \textcolor{red} {76} panoramic video sequences of our PVS-HM database into a training set \textcolor{red}{(61 sequences) and a test set (15 sequences)}. For training the DRL model, we set $\rho$ and $\varrho$ of \eqref{reward-alpha} and \eqref{reward-nu} to be $42$ and $0.73$ for estimating \textit{reward} of HM scan-path prediction. Note that these two hyperparameters were tuned over the test set. In addition, we empirically choose $\gamma$ of \eqref{opt-2} and \eqref{opt-3} to be $0.99$ for \textit{reward} optimization, which is a widely used setting in other DRL works. Besides, we followed \cite{mnih2016asynchronous} to set other hyperparameters of DRL. In this paper, all 61 training sequences, each of which corresponds to a local DRL network, were used to update the global network as the trained DRL model.   For predicting HM positions, the number of DRL workflows in our approach (see the framework of Figure \ref{main-framework}) was set to be 56, the same as the number of subjects in our PVS-HM database. For producing final HM maps of panoramic video frames, we followed the setting of \cite{matin1974saccadic} to convolute the predicted HM positions with a 2D Gaussian filter. In the following performance evaluation, the HM maps in a panorama were projected to the 2D coordination.
+
+
+
+\subsection{Performance evaluation}
+\label{compare}
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/objective_result_1}}%of
+		\caption{\footnotesize{HM maps of several frames selected from two test sequences in our PVS-HM database. They are all visualized in the 2D coordination.  The second row shows the ground-truth HM maps, which are generated upon HM portions of all 56 subjects. The third to sixth rows show the HM maps of our, BMS \cite{zhang2016exploiting} , OBDL \cite{hossein2015many},and {SALICON} approaches. The last row demonstrates the HM maps by the FCB baseline.}}
+		\label{figure-object}
+	\end{center}
+\end{figure*}
+
+%\begin{table*}
+%    \begin{center}
+%        \caption{CC results of HM map prediction by our and other approaches}
+%        \label{table-result}
+%        \tiny
+%        \resizebox{\textwidth}{!}{
+%            \begin{tabular}{cc*{11}{c}c}
+%
+%                \tabincell{c}{\rotatebox{30}{CC}} & \rotatebox{30}{Method}
+%                    & \rotatebox{30}{Gliding} & \rotatebox{30}{Egypt} & \rotatebox{30}{BlueWorld} & \rotatebox{30}{RollerCoaster} & \rotatebox{30}{Help} & \rotatebox{30}{BTSRun} & \rotatebox{30}{Dubai} & \rotatebox{30}{CandyCarnival} & \rotatebox{30}{StarryPolar} & \rotatebox{30}{Surfing} & \rotatebox{30}{\textbf{Average}}
+%                \\
+%                \toprule
+%
+%                \multirow{3}{*}{\rotatebox{30}{Non-FCB}}
+%                \abovespace
+%                & Our
+%                    & 0.635 & 0.722 & \textbf{0.746} & 0.782 & \textbf{0.751} & 0.650 & \textbf{0.682} & 0.639 & 0.583 & 0.699 & 0.689
+%                \\
+%                & BMS
+%                    & 0.451 & 0.232 & 0.353 & 0.342 & 0.321 & 0.341 & 0.343 & 0.426 & 0.245 & 0.643 & 0.370
+%                \\
+%                \belowspace
+%                & OBDL
+%                    & 0.237 & 0.553 & 0.620 & 0.250 & 0.502 & 0.270 & 0.300 & 0.539 & 0.276 & 0.236 & 0.378
+%                \\
+%                \midrule
+%                \multirow{3}{*}{\rotatebox{30}{FCB}}
+%                \abovespace
+%                & Our
+%                    & \textbf{0.721} & \textbf{0.794} & 0.729 & \textbf{0.800} & 0.488 & \textbf{0.790} & 0.643 & \textbf{0.682} & \textbf{0.620} & 0.746 & \textbf{0.701}
+%                \\
+%                & BMS
+%                    & 0.477 & 0.635 & 0.585 & 0.658 & 0.542 & 0.399 & 0.533 & 0.596 & 0.343 & \textbf{0.753} & 0.552
+%                \\
+%                \belowspace
+%                & OBDL
+%                    & 0.277 & 0.333 & 0.706 & 0.334 & 0.654 & 0.284 & 0.376 & 0.668 & 0.211 & 0.350 & 0.419
+%                \\
+%                \midrule
+%                \multicolumn{2}{c}{FCB Only}
+%                    \abovespace\belowspace
+%                    & 0.505 & 0.672 & 0.596 & 0.692 & 0.243 & 0.455 & 0.536 & 0.207 & 0.481 & 0.593 & 0.498
+%                \\
+%                \bottomrule
+%
+%            \end{tabular}
+%        }
+%    \end{center}
+%\end{table*}
+\begin{table*}
+	\begin{center}
+        \caption{CC results of HM map prediction by our and other approaches}
+        \label{table-result}
+    		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/cc_0731_2}}%of
+	\end{center}
+\end{table*}
+
+\begin{table*}
+	\begin{center}
+    \caption{NSS results of HM map prediction by our and other approaches}
+    \label{NSS}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/nss_0731_1}}%of
+	\end{center}
+\end{table*}
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/scanpath_objective_result}}%of
+		\caption{\footnotesize{Visualization in scan-paths and positions of HM generated by ground-truth and our approach, for sequence \textit{Help}. The first column shows scan-path of one subject and one DRL workflow. The second and third columns show scan-paths of all 40 subjects and 40 DRL workflows, in longitude and latitude directions. The last column visualizes HM positions of ground-truth and our approach.}}
+		\label{scan-path-example}
+	\end{center}
+\end{figure*}
+Since there is no work on predicting HM maps of panoramic video and saliency prediction is the closest field, we compare our DHP approach with three state-of-the-art saliency prediction approaches, i.e., BMS \cite{zhang2016exploiting}, \textcolor{red}{SALICON\cite{xx}} and OBDL  \cite{hossein2015many} .
+In particular, OBDL  \cite{hossein2015many} and BMS \cite{zhang2016exploiting} are the latest saliency prediction approaches for video and image, respectively. We also compare our approach to the front-center-bias (FCB) baseline, since human attention normally biases towards front-center regions of panoramic video. Here, we model FCB by Gaussian distribution\footnote{The standard deviation is 12.77 degree, obtained by mean squared error (MSE) fitting over all HM positions of the training set.}, similar to the center bias of saliency detection. Note that in the field of saliency detection, center bias  \cite{borji2013state} has been already verified to be effective, and it is thus multiplied to saliency maps for improving saliency detection accuracy. Hence, we further report results of HM maps multiplied by FCB, for our and other approaches. In our experiments, we evaluate accuracy of HM map prediction in terms of CC and \textcolor{red}{NSS(The Normanized Scanpath Saliency)\cite{peters2005components}}, which are two common evaluation metrics in saliency prediction \cite{borji2013state}.\textcolor{red}{NSS measures the average salicency map values at human's fixation locations.The saliency map was normalized  to have zero mean and united standard deviation, then the mean of normalized values that corresponding to the human's fixation locations was taken as the NSS score: \begin{eqnarray}
+NSS = \frac{1}{N}*\sum_{p=1}^N\frac{S(p)-\mu_S}{\sigma_S}
+\end{eqnarray}
+Where N is the number of fixations and p is the human eye positions.NSS $\leq 0$ indicates anti-correspondence between predicted saliency points and fixation loacations,while positive NSS suggest greater correspondence than chance.
+}
+
+
+Table \ref{table-result} compares CC results of our and other approaches, in predicting HM maps over all 15 test sequences of panoramic video.
+Here, CC results are averaged over all frames for each test sequence.
+We can see from this table that our approach is far superior to other approaches, when FCB is not integrated (i.e., non-FCB).
+Specifically, our approach has $0.625$ ,$0.577$and $0.480$ CC increment, over OBDL ,SALICON,and BMS, respectively. Once integrated with FCB, \textcolor{blue}{all four approaches have performance improvement, and our approach still performs best among all three approaches. Additionally, our approach significantly outperforms the FCB baseline}. In a word, our DHP approach is effective in predicting HM maps of panoramic video, much better than other approaches and the FCB baseline.
+
+\textcolor{red}{
+Table \ref{NSS} shows NSS results of our and other approaches, in predicting HM maps over all 15 test sequences of panoramic video.
+The NSS results are also averaged over all frames for each test sequence.From this table,
+we can see that our approach has more outstanding performance than other approaches when the FCB is not applied.Specifically, our approach has $1.617$,$1.454$ and $1.754$ NSS increment, over OBDL ,SALICON and BMS, respectively. All four approaches have performance improvement when integrated with FCB, and our approach still scored best among all four approaches. Moreover, our approach significantly outperforms the FCB baseline. In conclusion, the NSS score Demostrate that our DHP approach is effective in predicting HM maps of panoramic video, much better than other approaches and the FCB baseline.
+}
+
+Next, we move to the comparison of subjective results. In Figure \ref{figure-object}, we visualize the HM maps of several frames from 2 selected sequences, which are generated by our, BMS and OBDL approaches as well as ground-truth HM positions and the FCB baseline. Here, the predicted HM maps are produced by three approaches with integrated FCB, as FCB can enhance performance of all three approaches (as shown in Table \ref{table-result}). From this figure, one can observe that HM maps of our approach are more close to ground-truth maps, compared to other approaches and the FCB baseline. This indicates that our DHP approach is capable of better locating HM positions on panoramic video. Moreover, we plot in Figure \ref{scan-path-example} the HM scan-paths by subjects and by our DHP approach, to investigate how well the proposed DRL workflows agree with the ground-truth HM scan-paths. We can see from this figure that our approach is able to yield similar scan-paths as humans. We further show in Figure \ref{scan-path-example} the HM positions obtained from those scan-paths, which are used to produce HM maps. Again, this figure reveals that HM positions can be well predicted by our approach. In a word, our DHP approach is effective in modeling both scan-paths and positions of HM.
+
+%Iceclear online
+
+\subsection{Online-DHP performance evaluation}
+\label{online-compare}
+
+\begin{table*}
+	\begin{center}
+		\caption{MO results of HM position prediction by our and other approaches} \centerline{\includegraphics[width=2\columnwidth]{figures/experiment_on_line/Online_compare}}%of
+		\label{table-MeanMo}
+	\end{center}
+\end{table*}
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment_on_line/Mean_MO}}%of
+		\caption{\footnotesize{MO results between Online-DHP and Online-DHP without offline-DHP.}}
+		\label{Online_compare}
+	\end{center}
+\end{figure*}
+
+\textcolor{blue}{Now, we move to the evaluation of Online-DHP. We compare our Online-DHP approach with Deep 360 Pilot approach\cite{hu2017deep} and two baselines.}
+
+\textcolor{blue}{Table \ref{table-MeanMo} compares mean MO results of our and other approaches, in predicting HM positions over all 15 test sequences of panoramic video.
+Here, MO results are averaged over all frames for each test sequence.
+The Random-baseline means predicting the HM position in a totally random way.
+And the Keep-baseline means pedicting the HM position due to the HM position of the former frame.
+We can see from this table that our approach performs far better than other approaches. Specifically, our approach has ? average increment over Deep 360 Pilot approach\cite{hu2017deep}.
+We think that is mostly because that our approach has priori knowledge from the Offline-DHP.
+For the two baselines, the Keep-baseline is a little better than the Random-baseline mostly because of the guidance of the former frame.
+Compared with the two baselines, our approach is also obviously much more effective.}
+
+\textcolor{blue}{Offline-DHP is an important component of our approach.
+Figure \ref{Online_compare} shows the result of mean MO between Online-DHP and Online-DHP without Offline-DHP.
+We can see that the Offline-DHP enhances the performance of online prediction a lot.
+We think it's mostly because the Offline-DHP provides priori knowledge for the online prediction.
+And this is very effective in predicting.}
+
+\textcolor{blue}{After the comparison, we move to the analysis of an important parameter $th_{MO}$ in algorithm \ref{online-DHP-algorithm}, which affects both the result of MO\eqref{mo-defination} and the time complexity of our approach.
+We call it the threshold of MO.
+According to our approach, we think the threshold $th_{MO}$ is positively correlated with the result of MO, but negatively correlated with the time complexity.}
+
+
+
+\section{Discussion}
+Different from traditional 2D video, panoramic video offers $360^{\circ} \times 180^{\circ}$ scenes for immersive experience. To access preferable FoV, humans need to interact with panoramic video by moving their heads. Therefore, human attention is deployed according to HM.  Interestingly, we found that HM data of viewing panoramic video are similar across humans. This finding was achieved by establishing a new database called PVS-HM, which includes HM data of 40 subjects on viewing 48 panoramic video sequences. In this paper, we proposed a DHP approach to predict maps of HM positions on panoramic video. Specifically, our approach leverages DRL to predict \textit {actions} of HM scan-paths. Afterwards, HM scan-paths of several \textit{agents} from multiple DRL workflows are integrated to yield HM maps, which encode possibility of each pixel being HM position at each panoramic frame. Finally, the experimental results showed that the proposed DHP approach performs well in predicting HM maps of panoramic video. Thus, our work can be used to effectively model visual attention on panoramic video, having potential in practical applications, e.g., ROI-based compression of panoramic video.
+
+Humans always perceive the world around them in a panorama, rather than the 2D plane. Therefore, it is important to model visal attention on panoramic videos for establishing human-like computer vision systems in the future. In addition, attention modelling in panoramic videos can be embedded in robotics, which need to mimic human's way in perceiving the real world. The promising future works XXX.
+
+
+
+
+
+% if have a single appendix:
+%\appendix[Proof of the Zonklar Equations]
+% or
+%\appendix  % for no appendix heading
+% do not use \section anymore after \appendix, only \section*
+% is possibly needed
+
+% use appendices with more than one appendix
+% then use \section to start each appendix
+% you must declare a \section before using any
+% \subsection or using \label (\appendices by itself
+% starts a section numbered zero.)
+%
+
+
+\appendices
+\section{Proof of Proposition 1}
+
+Example.
+
+
+% use section* for acknowledgment
+\ifCLASSOPTIONcompsoc
+  % The Computer Society usually uses the plural form
+  \section*{Acknowledgments}
+\else
+  % regular IEEE prefers the singular form
+  \section*{Acknowledgment}
+\fi
+
+
+The authors would like to thank...
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+\bibliographystyle{IEEEtran}
+\bibliography{pami2017_dhp}
+
+% biography section
+%
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+\begin{IEEEbiography}{Michael Shell}
+Biography text here.
+\end{IEEEbiography}
+
+% if you will not have a photo at all:
+\begin{IEEEbiographynophoto}{John Doe}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+\begin{IEEEbiographynophoto}{Jane Doe}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}

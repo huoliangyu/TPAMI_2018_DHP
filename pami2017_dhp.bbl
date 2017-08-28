@@ -92,6 +92,10 @@ T.~L{\"o}we, M.~Stengel, E.-C. F{\"o}rster, S.~Grogorick, and M.~Magnor,
   ``Visualization and analysis of head movement and gaze data for immersive
   video in head-mounted displays,'' in \emph{ETVIS}, 2015.
 
+\bibitem{Goodchild2007}
+M.~F. Goodchild, ``Citizens as sensors: the world of volunteered geography,''
+  \emph{GeoJournal}, vol.~69, no.~4, pp. 211--221, 2007.
+
 \bibitem{hu2017deep}
 H.-N. Hu, Y.-C. Lin, M.-Y. Liu, H.-T. Cheng, Y.-J. Chang, and M.~Sun, ``Deep
   360 pilot: Learning a deep agent for piloting through 360 sports video,'' in
@@ -195,10 +199,6 @@ G.~J. Sullivan, J.~R. Ohm, W.~J. Han, and T.~Wiegand, ``Overview of the high
   efficiency video coding (hevc) standard,'' \emph{IEEE TCSVT}, vol.~22,
   no.~12, pp. 1649--1668, 2013.
 
-\bibitem{Goodchild2007}
-M.~F. Goodchild, ``Citizens as sensors: the world of volunteered geography,''
-  \emph{GeoJournal}, vol.~69, no.~4, pp. 211--221, 2007.
-
 \bibitem{li2015data}
 J.~Li, C.~Xia, Y.~Song, S.~Fang, and X.~Chen, ``A data-driven metric for
   comprehensive evaluation of saliency models,'' in \emph{ICCV}, 2015.
@@ -241,10 +241,5 @@ C.~J. Watkins and P.~Dayan, ``Q-learning,'' \emph{Machine learning}, vol.~8,
 T.~Tieleman and G.~Hinton, ``Lecture 6.5-rmsprop: Divide the gradient by a
   running average of its recent magnitude,'' \emph{COURSERA: Neural networks
   for machine learning}, vol.~4, no.~2, 2012.
-
-\bibitem{peters2005components}
-R.~J. Peters, A.~Iyer, L.~Itti, and C.~Koch, ``Components of bottom-up gaze
-  allocation in natural images,'' \emph{Vision research}, vol.~45, no.~18, pp.
-  2397--2416, 2005.
 
 \end{thebibliography}

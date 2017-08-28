@@ -1113,18 +1113,8 @@ $\alpha^n_t$ & The ground-truth HM direction of the $n$-th subject at frame $t$ 
 $\nu_t$ & The predicted HM magnitude at frame $t$ from one DRL workflow, as the $action$ of the DRL $agent$ \\
 $\nu^n_t$ & The ground-truth HM magnitude of the $n$-th subject at frame $t$ \\
 $r^{\alpha}_t$ & The estimated reward for deciding $\alpha_t$, as the $reward$ of the DRL $agent$ \\
-$r^{\nu}_t$ & The estimated reward for deciding $\nu_t$, as the $reward$ of the DRL $agent$ \\
-<<<<<<< HEAD
 $\mathbf{f}_{t-1}$ & The extracted LSTM feature \cite{hausknecht2015deep} at frame $t-1$,  as part of \textit{observed state} of the DRL $agent$ \\
-=======
-$\mathbf{f}_{t-1}$ & The extracted LSTM feature at frame $t-1$,  as part of \textit{observed state} of the DRL $agent$ \\ 
-
-
-
-
-%$\mathbf{f}_{t-1}$ & LSTM feature produced by DRL model at frame $t-1$. $\mathbf{F}_t$ and $f_{t-1}$ compose a \textit{full observed state} of DRL $agent$ \\
->>>>>>> 27c1a48ebc3ff9718b5a8f201f37fa19c50a0c67
-
+$\mathbf{f}_{t-1}$ & The extracted LSTM feature at frame $t-1$,  as part of \textit{observed state} of the DRL $agent$ \\
 \end{tabular}
 \end{table*}
 
@@ -1137,9 +1127,9 @@ Since \textit{Finding 1} points out that $(x^n_t, y^n_t)$ are highly consistent 
    p(x_t,y_t) = \mathbb{E}\{ p^n(x_t, y_t) \}
  \end{equation}
 where $p(x_t,y_t)$ XXX
- 
+
  Above \eqref{define-hm-maps} is seen as the output of our approach, and is visualized with heatmap.
- 
+
 XXX $p^n(\ast)$: The probability of event $\ast$ happening for the $n$-th subjects\footnote{In our paper, the event is specified to: being at a HM position $(x_t,y_y)$, or taking a HM direction of $\alpha_t$}.
 
 According to Proposition \ref{lemma1}, $p^n(x_t, y_t)$ in \eqref{define-hm-maps} can be modeled by predicting a series of $\alpha_1,\alpha_2,...,\alpha_t$ and $\nu_1,\nu_2,...,\nu_t$. Furthermore, \textit{Findings 2} and \textit{3} point out predicting them is reasonable since their consistence.

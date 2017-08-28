@@ -1095,21 +1095,20 @@ Figure \ref{main-framework} shows the overall framework of our approach, in whic
 \caption{Notations denoted in Figure \ref{main-framework}} \label{notation_framework}
 \begin{tabular}{ll}
 $\{t\}_{1}^{T}$ & The frames of panoramic video from $1$ to $T$, with $t$ being the currently processed frame \\
-$\{\mathbf{F}_t\}_1^{T}$ & The panoramic frames from $1$ to $T$, as the input to offline-DHP/online-DHP \\
+$\{\mathbf{F}_t\}_1^{T}$ & The panoramic frames from $1$ to $T$, as the input to offline-DHP/online-DHP\\
 $\{\mathbf{o}_t\}_1^{T}$ & The FoV from $1$ to $T$, as the $observation$ of DRL $agent$ \\
 $\{n\}_{1}^{N}$ & The \textit{subjects} from $1$ to $N$, with $n$ being the $n$-th subject\\
-$\{i\}_{1}^{I}$ & The DRL workflow from $1$ to $I$, with $i$ being the $i$-th workflow \\
 $(x_t, y_t)$ & The predicted HM position at frame $t$ \\
-$(x^n_t, y^n_t)$ & The ground-truth HM position of $n$-th subject at frame $t$ \\
-$\mathbf{\pi}_t$ & The predicted probability distribution of HM direction at frame $t$, as the $policy$ of DRL $agent$ \\
-$\alpha_t$ & The predicted HM direction at frame $t$, as the $action$ of DRL $agent$ \\
+$(x^n_t, y^n_t)$ & The ground-truth HM position of the $n$-th subject at frame $t$ \\
+$\{i\}_{1}^{I}$ & The DRL workflow from $1$ to $I$, with $i$ being the $i$-th workflow \\
+$\mathbf{\pi}_t$ & The predicted probability distribution of HM direction at frame $t$, as the $policy$\footnote{All DRL workflows share the same policy.} of the DRL $agent$ \\
+$\alpha_t$ & The predicted HM direction at frame $t$ from one DRL workflow, as the $action$ of the DRL $agent$ \\
 $\alpha^n_t$ & The ground-truth HM direction of the $n$-th subject at frame $t$ \\
-$\nu_t$ & The predicted HM magnitude at frame $t$, as the $action$ of DRL $agent$ \\
-$\nu^n_t$ & The ground-truth HM magnitude of $n$-th subject at frame $t$ \\
-$r^{\alpha}_t$ & Estimated reward regarding to the predicted HM direction $\alpha_t$, as the $reward$ of DRL $agent$ \\
-$r^{\nu}_t$ & Estimated reward regarding to the predicted HM direction $\nu_t$, as the $reward$ of DRL $agent$ \\
-$p^n(\ast)$ & The probability of event $\ast$ happening for the $n$-th subjects\footnote{In our paper, the event is specified to: being at a HM position $(x_t,y_y)$, or taking a HM direction of $\alpha_t$}. \\
-$\mathbf{f}_{t-1}$ & LSTM feature produced by DRL model at frame $t-1$. $\mathbf{F}_t$ and $f_{t-1}$ compose a \textit{full observed state} of DRL $agent$ \\
+$\nu_t$ & The predicted HM magnitude at frame $t$ from one DRL workflow, as the $action$ of the DRL $agent$ \\
+$\nu^n_t$ & The ground-truth HM magnitude of the $n$-th subject at frame $t$ \\
+$r^{\alpha}_t$ & The estimated reward for deciding $\alpha_t$, as the $reward$ of the DRL $agent$ \\
+$r^{\nu}_t$ & The estimated reward for deciding $\nu_t$, as the $reward$ of the DRL $agent$ \\
+$\mathbf{f}_{t-1}$ & The extracted LSTM feature \cite{hausknecht2015deep} at frame $t-1$,  as part of \textit{observed state} of the DRL $agent$ \\
 
 \end{tabular}
 \end{table*}
@@ -1203,16 +1202,16 @@ In our approach, the predicted HM scan-paths and extracted FoV are seen as \text
 In addition, \textit{reward} is estimated on the basis of the ground-truth HM scan-paths, for generating an \textit{action} at each panoramic video frame.
 Then, both FoV and estimated \textit{reward} compose \textit{environment}.
 In training the DRL model,  \textit{environment} interacts with the HM scan-path predictor.
-The interaction is achieved in our DRL model by the following procedure.
-(1) At frame $t$, the DRL model obtains current $\textit{observation}$ from the FoV extractor, denoted as $o_t$.
-In our work, $\textit{observation}$ $o_{t}$ is the content of FoV ($103^{\circ} \times 60^{\circ}$) projected to 2D region and then down-sampled to $42\times42$.\\
-(2) Current $\textit{observation}$ $o_t$ and the feature of LSTM from the last frame $f_{t-1}$ are delivered to the DRL network in the HM scan-path predictor.\\
-(3) The DRL network produces LSTM feature $f_{t}$ \cite{hausknecht2015deep}, HM scan-path magnitude $\hat{\nu}_{t}$ and policy $\hat{\pi}_{t}$. Here, $\hat{\pi}_{t}$ is the probability distribution over \textit{actions} of HM scan-path directions.
-In our work, the DRL network contains four convolutional layers \cite{simonyan2014very} and one LSTM layer \cite{hochreiter1997long, hausknecht2015deep}, which are used to extract spatial and temporal features, respectively.  The details about the architecture of the DRL network can be found in Figure \ref{train-framework}.\\
-(4) Given $\hat{\pi}_{t}$, the HM scan-path predictor randomly selects an \textit{action}  $\hat{\alpha}_t$, with standard deviation $\varepsilon$ to ensure exploration. Here, \textit{action} $\hat{\alpha}_t$ models directions of the HM scan-path, including 8 discrete directions \textcolor{blue}{based on the ENU coordinate system}\cite{ENU}, i.e., $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$.\\
-(5) \textit{Environment} is updated with $\hat{\nu}_t$ and $\hat{\alpha}_t$. Specifically, the FoV extractor returns a new \textit{observation} $o_{t+1}$ according to the current HM position, and the reward estimator returns the corresponding \textit{reward} $r^{\nu}_t$ and $r^{\alpha}_t$ for estimating $\hat{\nu}_t$ and $\hat{\alpha}_t$, upon ground-truth HM scan-paths.\\
-(6) A set of experiences $\{ o_{t}, \! f_{t-1},\! \hat{\nu}_t,\! \hat{\alpha}_t,\! r^{\nu}_{t},\! r^{\alpha}_{t} \}$ is stored in an experience buffer for frame $t$.\\
-(7) \textcolor{red}{Once $t$ meets the terminal condition $T$, which is the number of frames for the video, all experiences in the buffer are delivered to the optimizer for updating the DRL network}.
+The interaction is achieved in our DRL model by the following procedure.\\
+(1) At frame $t$, the FoV extractor extracts $\mathbf{o}_t$ from $\mathbf{F}_t$ according to $(x_t,y_t)$.
+In our work, $\mathbf{o}_{t}$ is the content of FoV ($103^{\circ} \times 60^{\circ}$) projected to 2D region and then down-sampled to $42\times42$.\\
+(2) $\mathbf{o}_t$ and $\mathbf{f}_{t-1}$ are delivered to the DRL network in the HM scan-path predictor.
+In our work, the DRL network contains four convolutional layers \cite{simonyan2014very} and one LSTM layer \cite{hochreiter1997long, hausknecht2015deep}, which are used to extract spatial and temporal features, respectively. The details about the architecture of the DRL network can be found in Figure \ref{train-framework}.\\
+(3) The DRL network produces $\mathbf{f}_{t}$, $\nu_{t}$ and $\pi_{t}$.\\
+(4) Given $\pi_{t}$, the HM scan-path predictor randomly samples an $\alpha_t$, with standard deviation $\varepsilon$ to ensure exploration. Here, $\alpha_t$ includes 8 discrete directions \textcolor{blue}{based on the ENU coordinate system}\cite{ENU}, i.e., $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$.\\
+(5) \textit{Environment} is updated with $\nu_t$ and $\alpha_t$, $(x_t, y_t)\longrightarrow (x_{t+1},y_{t+1})$. Specifically, the FoV extractor returns a new $o_{t+1}$ according to the $(x_{t+1},y_{t+1})$, and the reward estimator returns the corresponding $r^{\nu}_t$ and $r^{\alpha}_t$ for estimating $\nu_t$ and $\alpha_t$, upon $\nu^n_t$ and $\alpha^n_t$.\\
+(6) A set of experiences $\{ o_{t}, \! \mathbf{f}_{t-1},\! \nu_t,\! \alpha_t,\! r^{\nu}_{t},\! r^{\alpha}_{t} \}$ is stored in an experience buffer for frame $t$.\\
+(7) \textcolor{red}{Once $t$ meets the terminal condition $T$, all experiences in the buffer are delivered to the optimizer for updating the DRL network}.
 
 
 

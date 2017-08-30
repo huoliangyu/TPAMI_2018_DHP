@@ -1118,8 +1118,16 @@ $\mathbf{f}_{t-1}$ & The extracted LSTM feature at frame $t-1$,  as part of \tex
 \end{tabular}
 \end{table*}
 
-
-
+% notations in figure
+$\mathbf{F}_{t-2}$
+$\mathbf{F}_{t-1}$
+$\mathbf{F}_{t}$
+$\mathbf{o}_{t-2}$
+$\mathbf{o}_{t-1}$
+$\mathbf{o}_{t}$
+\textcolor{red}{$(x_t, y_t)$}
+\textcolor{red}{$(x_{t-1}, y_{t-1})$}
+\textcolor{red}{$(x_{t-2}, y_{t-2})$}
 
 As shown in Figure \ref{main-framework}, the input to our approach is the panoramic video frames $\{\mathbf{F}_t\}_1^{T}$.
 Since \textit{Finding 1} points out that $(x^n_t, y^n_t)$ are highly consistent for different $n$, it also indicates $p^n(x_t,y_t)$ consistences for different $n$ at a specific $(x_t,y_t)$, where . As a result, we propose to generate HM maps for modeling offline HM attention on panoramic video, which is the expected $p^n(x_t,y_t)$ across different $n$,

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.8.25)  30 AUG 2017 07:55
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.8.25)  31 AUG 2017 12:19
 entering extended mode
 **J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/pami2017_dhp.tex
 (J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/pami2017_dhp.tex
@@ -962,25 +962,18 @@ File: figures/dhp_approach/main_framework.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/dhp_approach/main_framework.pdf used on input 
 line 1090.
 (pdftex.def)             Requested size: 505.88998pt x 152.81148pt.
-
-Underfull \hbox (badness 3098) in paragraph at lines 1122--1131
-[]$\OT1/cmr/bx/n/10 F[]$ $F[]$ $F[]$ $o[]$ $o[]$ $o[]$ []$\OT1/cmr/m/n/10 (\OML
-/cmm/m/it/10 x[]; y[]\OT1/cmr/m/n/10 )$[] []$(\OML/cmm/m/it/10 x[]; y[]\OT1/cmr
-/m/n/10 )$[]
- []
-
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <6.6749> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1145.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1146.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <4.7678> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1145.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1146.
 
-Overfull \hbox (10.94733pt too wide) in alignment at lines 1184--1188
+Overfull \hbox (10.94733pt too wide) in alignment at lines 1185--1189
  [][][] []
  []
 
 
 LaTeX Warning: Reference `use-define-of-expectation' on page 6 undefined on inp
-ut line 1196.
+ut line 1197.
 
 [6]
 <figures/dhp_approach/training_framework.pdf, id=428, 540.51938pt x 173.89969pt
@@ -988,19 +981,19 @@ ut line 1196.
 File: figures/dhp_approach/training_framework.pdf Graphic file (type pdf)
  <use figures/dhp_approach/training_framework.pdf>
 Package pdftex.def Info: figures/dhp_approach/training_framework.pdf used on in
-put line 1241.
+put line 1242.
 (pdftex.def)             Requested size: 505.88998pt x 162.76253pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/dhp_approach/main_f
 ramework.pdf>]
-Overfull \hbox (17.886pt too wide) detected at line 1263
+Overfull \hbox (17.886pt too wide) detected at line 1264
 \OML/cmm/m/it/10 r[] \OT1/cmr/m/n/10 = [] [] \OML/cmm/m/it/10 e[]e[]e[]:
  []
 
 
-Overfull \hbox (11.6089pt too wide) detected at line 1284
+Overfull \hbox (11.6089pt too wide) detected at line 1285
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 jf[]\
 OML/cmm/m/it/10 ; []\OMS/cmsy/m/n/10 g\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 P[]\
 OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 jf\OML/cmm/m/it/10 x[]; y[
@@ -1008,13 +1001,13 @@ OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 jf\OML/cmm/m/it/10 x[]; y[
  []
 
 
-Overfull \hbox (6.61958pt too wide) detected at line 1300
+Overfull \hbox (6.61958pt too wide) detected at line 1301
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 ([]\OMS/cmsy/m/n/10 jf[]\OML/cmm/m/it/10 ; 
 []\OMS/cmsy/m/n/10 g\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e[]e[]:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1339--1343
+Underfull \hbox (badness 10000) in paragraph at lines 1340--1344
 \T1/ptm/m/n/9.53561 (+20) Reward $\OML/cmm/m/it/10 r[]$ \T1/ptm/m/n/9.53561 (+2
 0) can be sim-i-lar-ly rep-re-sent-ed by
  []
@@ -1025,58 +1018,58 @@ Underfull \vbox (badness 1057) has occurred while \output is active []
  [8 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/dhp_approach/traini
 ng_framework.pdf>]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1360.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1361.
 
 LaTeX Font Info:    Calculating math sizes for size <9.03374> on input line 136
-0.
-LaTeX Font Info:    Calculating math sizes for size <> on input line 1361.
+1.
+LaTeX Font Info:    Calculating math sizes for size <> on input line 1362.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.7> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.5> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.7> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.5> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.7> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.5> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <0.7> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <0.5> not available
-(Font)              size <5> substituted on input line 1361.
+(Font)              size <5> substituted on input line 1362.
 
 
 <figures/dhp_approach_on_line/whole_framework_online_5.pdf, id=717, 457.50354pt
@@ -1086,18 +1079,18 @@ ype pdf)
 
 <use figures/dhp_approach_on_line/whole_framework_online_5.pdf>
 Package pdftex.def Info: figures/dhp_approach_on_line/whole_framework_online_5.
-pdf used on input line 1377.
+pdf used on input line 1378.
 (pdftex.def)             Requested size: 252.94499pt x 193.18768pt.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 1428.
+put line 1429.
 
-Underfull \hbox (badness 7030) in paragraph at lines 1439--1440
+Underfull \hbox (badness 7030) in paragraph at lines 1440--1441
 [] []\T1/ptm/m/n/9.53561 (+20) Obtain pol-i-cy and L-ST-M fea-ture: $[]\OML/cmm
 /m/it/10 ; f[] \OT1/cmr/m/n/10 =$
  []
 
 
-LaTeX Warning: Reference `opt-1' on page 9 undefined on input line 1448.
+LaTeX Warning: Reference `opt-1' on page 9 undefined on input line 1449.
 
 [9 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/dhp_approach_on_line
 /whole_framework_online_5.pdf>]
@@ -1106,7 +1099,7 @@ LaTeX Warning: Reference `opt-1' on page 9 undefined on input line 1448.
 File: figures/experiment/objective_result_1.pdf Graphic file (type pdf)
  <use figures/experiment/objective_result_1.pdf>
 Package pdftex.def Info: figures/experiment/objective_result_1.pdf used on inpu
-t line 1494.
+t line 1495.
 (pdftex.def)             Requested size: 505.88998pt x 157.45572pt.
 
 
@@ -1118,7 +1111,7 @@ File: figures/experiment/cc_0731_2.pdf Graphic file (type pdf)
 
 <use figures/experiment/cc_0731_2.pdf>
 Package pdftex.def Info: figures/experiment/cc_0731_2.pdf used on input line 15
-53.
+54.
 (pdftex.def)             Requested size: 505.88998pt x 129.4946pt.
 
 
@@ -1130,7 +1123,7 @@ File: figures/experiment/nss_0731_1.pdf Graphic file (type pdf)
 
 <use figures/experiment/nss_0731_1.pdf>
 Package pdftex.def Info: figures/experiment/nss_0731_1.pdf used on input line 1
-561.
+562.
 (pdftex.def)             Requested size: 505.88998pt x 125.30469pt.
 
 <figures/experiment/scanpath_objective_result.pdf, id=801, 1856.76474pt x 468.8
@@ -1138,11 +1131,11 @@ Package pdftex.def Info: figures/experiment/nss_0731_1.pdf used on input line 1
 File: figures/experiment/scanpath_objective_result.pdf Graphic file (type pdf)
  <use figures/experiment/scanpath_objective_result.pdf>
 Package pdftex.def Info: figures/experiment/scanpath_objective_result.pdf used 
-on input line 1567.
+on input line 1568.
 (pdftex.def)             Requested size: 505.88998pt x 127.73923pt.
 
 
-LaTeX Warning: Citation `Li_2015_ICCV' on page 10 undefined on input line 1579.
+LaTeX Warning: Citation `Li_2015_ICCV' on page 10 undefined on input line 1580.
 
 
 [10]
@@ -1159,7 +1152,7 @@ t>
 File: figures/experiment_on_line/Online_compare.pdf Graphic file (type pdf)
  <use figures/experiment_on_line/Online_compare.pdf>
 Package pdftex.def Info: figures/experiment_on_line/Online_compare.pdf used on 
-input line 1606.
+input line 1607.
 (pdftex.def)             Requested size: 505.88998pt x 51.7239pt.
 
 <figures/experiment_on_line/Mean_MO.pdf, id=863, 496.21886pt x 143.74403pt>
@@ -1167,7 +1160,7 @@ File: figures/experiment_on_line/Mean_MO.pdf Graphic file (type pdf)
 
 <use figures/experiment_on_line/Mean_MO.pdf>
 Package pdftex.def Info: figures/experiment_on_line/Mean_MO.pdf used on input l
-ine 1613.
+ine 1614.
 (pdftex.def)             Requested size: 505.88998pt x 146.55334pt.
  [11 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/experiment/objecti
 ve_result_1.pdf> <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/experi
@@ -1183,12 +1176,12 @@ olunteered geography,''
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1780.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1781.
  [14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1780.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1781.
  (J:\ff_paper\pami_2017_dhp_master\pami_2017_dhp\pami2017_dhp.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1780.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1780.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1781.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1781.
 
 Package rerunfilecheck Info: File `pami2017_dhp.out' has not changed.
 (rerunfilecheck)             Checksum: 0A089F2D5E3404E0B8EF8182BE9E76F6;1437.
@@ -1256,7 +1249,7 @@ ype1/urw/helvetic/uhvro8a.pfb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmb8a.pfb>
 <C:/CTEX/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/CTEX/MiKTeX/fonts/type1/u
 rw/times/utmr8a.pfb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmri8a.pfb><C:/CTEX/
 MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on pami2017_dhp.pdf (14 pages, 5079978 bytes).
+Output written on pami2017_dhp.pdf (14 pages, 5080274 bytes).
 PDF statistics:
  5153 PDF objects out of 5155 (max. 8388607)
  184 named destinations out of 1000 (max. 500000)

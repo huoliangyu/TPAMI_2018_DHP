@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.5.17)  31 AUG 2017 21:10
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.5.17)  7 SEP 2017 18:53
 entering extended mode
 **C:/Users/IceClear/Desktop/works/DQN/pami_2017_dhp/pami2017_dhp.tex
 (C:/Users/IceClear/Desktop/works/DQN/pami_2017_dhp/pami2017_dhp.tex
@@ -1069,7 +1069,7 @@ LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <0.5> not available
 (Font)              size <5> substituted on input line 1363.
 
 
-<figures/dhp_approach_on_line/whole_framework_online_5.pdf, id=742, 506.6428pt 
+<figures/dhp_approach_on_line/whole_framework_online_5.pdf, id=782, 506.6428pt 
 x 389.20406pt>
 File: figures/dhp_approach_on_line/whole_framework_online_5.pdf Graphic file (t
 ype pdf)
@@ -1092,7 +1092,7 @@ Underfull \hbox (badness 7030) in paragraph at lines 1441--1442
 LaTeX Warning: Reference `opt-1' on page 10 undefined on input line 1450.
 
 
-<figures/experiment/objective_result_1.pdf, id=829, 3635.06029pt x 1131.47412pt
+<figures/experiment/objective_result_1.pdf, id=869, 3635.06029pt x 1131.47412pt
 >
 File: figures/experiment/objective_result_1.pdf Graphic file (type pdf)
  <use figures/experiment/objective_result_1.pdf>
@@ -1104,7 +1104,7 @@ t line 1496.
 pdfTeX warning: pdflatex.exe (file C:/Users/IceClear/Desktop/works/DQN/pami_201
 7_dhp/figures/experiment/cc_0731_2.pdf): PDF inclusion: found PDF version <1.7>
 , but at most version <1.5> allowed
-<figures/experiment/cc_0731_2.pdf, id=834, 920.0194pt x 235.50284pt>
+<figures/experiment/cc_0731_2.pdf, id=874, 920.0194pt x 235.50284pt>
 File: figures/experiment/cc_0731_2.pdf Graphic file (type pdf)
 
 <use figures/experiment/cc_0731_2.pdf>
@@ -1116,7 +1116,7 @@ Package pdftex.def Info: figures/experiment/cc_0731_2.pdf used on input line 15
 pdfTeX warning: pdflatex.exe (file C:/Users/IceClear/Desktop/works/DQN/pami_201
 7_dhp/figures/experiment/nss_0731_1.pdf): PDF inclusion: found PDF version <1.7
 >, but at most version <1.5> allowed
-<figures/experiment/nss_0731_1.pdf, id=835, 919.31015pt x 227.69968pt>
+<figures/experiment/nss_0731_1.pdf, id=875, 919.31015pt x 227.69968pt>
 File: figures/experiment/nss_0731_1.pdf Graphic file (type pdf)
 
 <use figures/experiment/nss_0731_1.pdf>
@@ -1124,7 +1124,7 @@ Package pdftex.def Info: figures/experiment/nss_0731_1.pdf used on input line 1
 563.
 (pdftex.def)             Requested size: 505.88998pt x 125.30469pt.
 
-<figures/experiment/scanpath_objective_result.pdf, id=836, 1856.76474pt x 468.8
+<figures/experiment/scanpath_objective_result.pdf, id=876, 1856.76474pt x 468.8
 6247pt>
 File: figures/experiment/scanpath_objective_result.pdf Graphic file (type pdf)
  <use figures/experiment/scanpath_objective_result.pdf>
@@ -1145,7 +1145,7 @@ pdfTeX warning: pdflatex.exe (file C:/Users/IceClear/Desktop/works/DQN/pami_201
 7_dhp/figures/experiment_on_line/Online_compare.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
 
-<figures/experiment_on_line/Online_compare.pdf, id=897, 913.28041pt x 93.37485p
+<figures/experiment_on_line/Online_compare.pdf, id=937, 913.28041pt x 93.37485p
 t>
 File: figures/experiment_on_line/Online_compare.pdf Graphic file (type pdf)
  <use figures/experiment_on_line/Online_compare.pdf>
@@ -1153,7 +1153,7 @@ Package pdftex.def Info: figures/experiment_on_line/Online_compare.pdf used on
 input line 1608.
 (pdftex.def)             Requested size: 505.88998pt x 51.7239pt.
 
-<figures/experiment_on_line/Mean_MO.pdf, id=898, 496.21886pt x 143.74403pt>
+<figures/experiment_on_line/Mean_MO.pdf, id=938, 496.21886pt x 143.74403pt>
 File: figures/experiment_on_line/Mean_MO.pdf Graphic file (type pdf)
 
 <use figures/experiment_on_line/Mean_MO.pdf>
@@ -1248,9 +1248,9 @@ ype1/urw/helvetic/uhvro8a.pfb><D:/CTEX/MiKTeX/fonts/type1/urw/times/utmb8a.pfb>
 <D:/CTEX/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><D:/CTEX/MiKTeX/fonts/type1/u
 rw/times/utmr8a.pfb><D:/CTEX/MiKTeX/fonts/type1/urw/times/utmri8a.pfb><D:/CTEX/
 MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on pami2017_dhp.pdf (14 pages, 5240967 bytes).
+Output written on pami2017_dhp.pdf (14 pages, 5332058 bytes).
 PDF statistics:
- 5188 PDF objects out of 6186 (max. 8388607)
+ 5228 PDF objects out of 6186 (max. 8388607)
  184 named destinations out of 1000 (max. 500000)
  48380 words of extra memory for PDF output out of 51595 (max. 10000000)
 

@@ -1098,7 +1098,7 @@ Figure \ref{main-framework} shows the overall framework of our approach, in whic
 
 \begin{table*}
 \center
-\caption{Notations denoted in Figure \ref{main-framework}} \label{notation_framework}
+\caption{Notations denoted in Figure \ref{main-framework}, \ref{train-framework} and \ref{online-framework}} \label{notation_framework}
 \begin{tabular}{ll}
 $\{t\}_{1}^{T}$ & The frames of panoramic video from $1$ to $T$, with $t$ being the currently processed frame \\
 $\{\mathbf{F}_t\}_1^{T}$ & The panoramic frames from $1$ to $T$, as the input to offline-DHP/online-DHP\\
@@ -1113,8 +1113,9 @@ $\alpha^n_t$ & The ground-truth HM direction of the $n$-th subject at frame $t$ 
 $\nu_t$ & The predicted HM magnitude at frame $t$ from one DRL workflow, as the $action$ of the DRL $agent$ \\
 $\nu^n_t$ & The ground-truth HM magnitude of the $n$-th subject at frame $t$ \\
 $r^{\alpha}_t$ & The estimated reward for deciding $\alpha_t$, as the $reward$ of the DRL $agent$ \\
+$r^{\nu}_t$ & The estimated reward for deciding $\nu_t$, as the $reward$ of the DRL $agent$ \\
 $\mathbf{f}_{t-1}$ & The extracted LSTM feature \cite{hausknecht2015deep} at frame $t-1$,  as part of \textit{observed state} of the DRL $agent$ \\
-$\mathbf{f}_{t-1}$ & The extracted LSTM feature at frame $t-1$,  as part of \textit{observed state} of the DRL $agent$ \\
+${H}_{t}$ & The HM Map at frame $t$ \\
 \end{tabular}
 \end{table*}
 

@@ -1427,8 +1427,55 @@ Then, similar training procedure is conducted for frame $t+1$, for the HM positi
 Finally, online-DHP is achieved by training till current frame, for predicting at the next frame.
 
 \begin{algorithm}
-   \caption{Online-DHP}
-   \label{online-DHP-algorithm}
+   \caption{Online-DHP-train}
+   \label{online-DHP-algorithm-train}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} Panoramic video and viewer's ground-truth HM position $(x^{n}_{1 \sim T},y^{n}_{1 \sim T})$, where $T$ is the number of frame in the video;
+   \STATE Load offline-DHP model to initialize model with parameter vectors: $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
+   \FOR{$t=1$ {\bfseries to} $T$}
+        \FOR{$e=1$ {\bfseries to} $E$}
+           \STATE Initialize HM position: $x_1=0,y_1=0$;
+           \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
+           \FOR{$i=1$ {\bfseries to} $t-1$}
+               \STATE Extract FoV $o_i$ according to $(x_{i},y_{i})$;
+               \STATE Obtain policy and LSTM feature: $\hat{\pi}_{i}, f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
+               \STATE Select $\hat{\alpha}_{i}$ according to the $\epsilon$-greedy policy based on $\hat{\pi}_{i}$;
+               \STATE Obtain HM magnitude: $\hat{\nu}_{i}=\hat{\nu}(o_{i}, f_{i-1} ; \theta_{\hat{\nu}})$;
+               \STATE According to $\hat{\alpha}_{i},\hat{\nu}_{i}$, update $(x_{i}, y_{i})$ to $(x_{i+1}, y_{i+1})$;
+               \STATE Estimate reward $r^{\nu}_{i},\! r^{\alpha}_{i}$ of $\hat{\alpha}_{i},\hat{\nu}_{i}$ according to \eqref{reward-alpha}, \eqref{reward-nu};
+               \STATE Compute $\text{MO}_i$ of $(x_{i},y_{i})$ and $(x^{g}_{i},y^{g}_{i})$;
+               \STATE Store a set of experience: $\{ o_{i}, \! f_{i-1},\! \hat{\nu}_{i},\! \hat{\alpha}_{i},\! r^{\nu}_{i},\! r^{\alpha}_{i} \}$;
+               \STATE $i \leftarrow i+1$;
+           \ENDFOR
+           \STATE Update $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$ according to \eqref{opt-1}, \eqref{opt-2}, \eqref{opt-3} but replace $\{ \theta^{'}_{\hat{\nu}}, \theta^{'}_{\hat{\pi}}, \theta^{'}_{V} \}$ with $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
+           \STATE $e \leftarrow e+1$;
+           \STATE $\text{MO} =  \frac{\sum_{i} \text{MO}_{i}}{t-1}$;
+           \IF{$\text{MO}> th_{MO}$}
+               \STATE \textbf{break};
+           \ENDIF
+       \ENDFOR
+       \STATE Initialize HM position: $x_1=0,y_1=0$;
+       \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
+       \FOR{$i=1$ {\bfseries to} $t-1$}
+           \STATE Extract FoV $o_i$ according to $(x^{g}_{i},y^{g}_{i})$;
+           \STATE Obtain LSTM feature: $f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
+           \STATE $i \leftarrow i+1$;
+       \ENDFOR
+       \STATE Extract FoV $o_t$ according to $(x^{g}_{t},y^{g}_{t})$;
+       \STATE Obtain policy: $\hat{\pi}_{t}=\hat{\pi}( o_{t}, f_{t-1} ; \theta_{\hat{\pi}})$;
+       \STATE Choose $\hat{\alpha}_{t}$ with the greedy policy based on $\hat{\pi}_{i}$;
+       \STATE Obtain HM magnitude: $\hat{\nu}_{t}=\hat{\nu}(o_{t}, f_{t-1} ; \theta_{\hat{\nu}})$;
+       \STATE According to $\hat{\alpha}_{t},\hat{\nu}_{t}$, update $(x^{g}_{t}, y^{g}_{t})$ to $(x^{p}_{t+1}, y^{p}_{t+1})$, which is the prediction of HM position at frame $t+1$;
+       \STATE Compute $\text{MO}_{t+1}$ of $(x^{p}_{t+1},y^{p}_{t+1})$ and $(x^{g}_{t+1},y^{g}_{t+1})$, which evaluates this prediction;
+       \STATE $t \leftarrow t+1$;
+  \ENDFOR
+  \STATE {\bfseries Return:} The online prediction of the viewer's HM position $(x^{p}_{2 \sim T+1},y^{p}_{2 \sim T+1})$; // Every $(x^{p}_{t+1},y^{p}_{t+1})$ only utilizes $(x^{g}_{1 \sim t},y^{g}_{1 \sim t})$, so it is an online prediction.
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+   \caption{Online-DHP-predict}
+   \label{online-DHP-algorithm-predict}
 \begin{algorithmic}
    \STATE {\bfseries Input:} Panoramic video and viewer's ground-truth HM position $(x^{g}_{1 \sim T},y^{g}_{1 \sim T})$, where $T$ is the number of frame in the video;
    \STATE Load offline-DHP model to initialize model with parameter vectors: $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;

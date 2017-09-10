@@ -919,9 +919,9 @@ Specifically, we have the following five findings.
   \hline
   \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC \\
   \hline
-  \multirow{6}{*}{\rotatebox{90}{CA}} & AcerPredator & 0.839$\pm$0.087
+  \multirow{6}{*}{\rotatebox{90}{CA}} & AcerEngine & 0.833$\pm$0.077
 &
-  \multirow{6}{*}{\rotatebox{90}{Driving}} & AirShow & 0.783$\pm$0.078
+  \multirow{6}{*}{\rotatebox{90}{Driving}} & AirShow & 0.828$\pm$0.048
  &
   \multirow{6}{*}{\rotatebox{90}{Others}} & A380 & 0.839$\pm$0.106
  &
@@ -1002,13 +1002,6 @@ Specifically, we have the following five findings.
   \end{tabular}}
 \end{center}
 \end{table*}
-\begin{figure*}
-	\begin{center}
-		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence-distribution}}%of
-		\caption{\footnotesize{Distribution of HM scan-path over 8 discrete directions, for all 76 sequences from the PVS-HM database. Note that the proportions of subjects, whose HM scan-path directions fall into each discrete direction, are ranked and then shown in this figure.}}
-		\label{direction-consistence-distribution}
-	\end{center}
-\end{figure*}
 
 
 \emph{\\Finding 1: When watching panoramic video, different subjects are highly consistent in HM positions.}
@@ -1548,21 +1541,145 @@ For evaluating the performance of online-DHP, XXX
 %        }
 %    \end{center}
 %\end{table*}
+%\begin{table*}
+%	\begin{center}
+%        \caption{CC results of HM map prediction by our and other approaches}
+%        \label{table-result}
+%    		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/cc_0731_2}}%of
+%	\end{center}
+%\end{table*}
+
+%the cc table
 \begin{table*}
-	\begin{center}
+    \begin{center}
         \caption{CC results of HM map prediction by our and other approaches}
         \label{table-result}
-    		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/cc_0731_2}}%of
-	\end{center}
+        \tiny
+        \resizebox{\textwidth}{!}{
+            \begin{tabular}{cc*{16}{c}c}
+
+				\tabincell{c}{\rotatebox{45}{CC}} & \rotatebox{45}{Method}
+					& \rotatebox{45}{StarryPolar} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{InsideCar}
+					& \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Waterfall} & \rotatebox{45}{Dancing}
+					& \rotatebox{45}{CMLauncher2} & \rotatebox{45}{Guitar} & \rotatebox{45}{KingKong} & \rotatebox{45}{BTSRun} & \rotatebox{45}{WaitingForLove}
+					& \rotatebox{45}{\textbf{Average}}
+                \\
+                \toprule
+
+                \multirow{4}{*}{\rotatebox{45}{Non-FCB}}
+                \abovespace
+    			& Our
+    				& 0.185 & 0.710 & 0.573 & 0.717 & \textbf{0.783} & 0.673 & 0.673 & 0.678 & \textbf{0.763} & \textbf{0.837} & 0.585 & 0.645 & 0.751 & 0.764 & 0.471 & \textbf{0.654}
+    			\\
+    			& BMS
+    				& 0.450 & 0.167 & 0.274 & 0.228 & 0.331 & 0.067 & 0.463 & 0.169 & 0.393 & 0.121 & 0.203 & 0.328 & 0.105 & 0.105 & 0.223 & 0.242
+    			\\
+    			& OBDL
+    				& 0.107 & 0.184 & 0.028 & 0.190 & 0.260 & 0.100 & 0.308 & 0.027 & 0.025 & 0.176 & 0.117 & 0.066 & 0.125 & 0.047 & 0.222 & 0.132
+    			\\
+    			\belowspace
+    			& SALICON
+    				& 0.293 & 0.129 & 0.126 & 0.153 & 0.364 & 0.034 & 0.186 & 0.265 & 0.103 & 0.120 & 0.166 & 0.216 & 0.150 & 0.063 & 0.256 & 0.175
+                \\
+                \midrule
+                \multirow{4}{*}{\rotatebox{45}{FCB}}
+                \abovespace
+    			& Our
+    				& 0.497 & \textbf{0.816} & 0.574 & 0.768 & 0.712 & 0.655 & \textbf{0.810} & 0.748 & \textbf{0.797} & 0.764 & 0.747 & 0.652 & 0.673 & 0.679 & 0.677 & \textbf{0.704}
+    			\\
+    			& BMS
+    				& 0.692 & 0.567 & 0.520 & 0.494 & 0.495 & 0.368 & \textbf{0.711} & 0.500 & 0.655 & 0.414 & 0.546 & 0.494 & 0.311 & 0.322 & 0.503 & 0.506
+    			\\
+    			& OBDL
+				    & 0.510 & 0.540 & 0.321 & 0.441 & 0.496 & 0.455 & 0.638 & 0.464 & 0.434 & 0.408 & 0.468 & 0.461 & 0.410 & 0.288 & 0.598 & 0.462
+			    \\
+                \belowspace
+    			& SALICON
+    				& 0.664 & 0.563 & 0.456 & 0.539 & 0.528 & 0.452 & 0.658 & 0.596 & 0.525 & 0.355 & 0.667 & 0.461 & 0.362 & 0.346 & 0.628 & 0.520
+    			\\
+                \midrule
+    			\multicolumn{2}{c}{FCB Only}
+    				\abovespace\belowspace
+    				& 0.557 & 0.747 & 0.317 & 0.403 & 0.292 & 0.239 & 0.585 & 0.477 & 0.583 & 0.387 & 0.735 & 0.356 & 0.271 & 0.201 & 0.497 & 0.443
+    			\\
+                \bottomrule
+
+            \end{tabular}
+        }
+    \end{center}
 \end{table*}
 
+
+
+%\begin{table*}
+%	\begin{center}
+%    \caption{NSS results of HM map prediction by our and other approaches}
+%    \label{NSS}
+%		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/nss_0731_1}}%of
+%	\end{center}
+%\end{table*}
+
+%the Nss table
 \begin{table*}
-	\begin{center}
-    \caption{NSS results of HM map prediction by our and other approaches}
-    \label{NSS}
-		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/nss_0731_1}}%of
-	\end{center}
+    \begin{center}
+        \caption{NSS results of HM map prediction by our and other approaches}
+        \label{table-result}
+        \tiny
+        \resizebox{\textwidth}{!}{
+            \begin{tabular}{cc*{16}{c}c}
+
+				\tabincell{c}{\rotatebox{45}{NSS}} & \rotatebox{45}{Method}
+					& \rotatebox{45}{StarryPolar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar}
+					& \rotatebox{45}{Waterfall} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Guitar} & \rotatebox{45}{Dancing}
+					& \rotatebox{45}{InsideCar} & \rotatebox{45}{CMLauncher2} & \rotatebox{45}{WaitingForLove} & \rotatebox{45}{BTSRun} & \rotatebox{45}{KingKong}
+					& \rotatebox{45}{\textbf{Average}}
+                \\
+                \toprule
+
+                \multirow{4}{*}{\rotatebox{45}{Non-FCB}}
+                \abovespace
+     			& Our
+    				& 0.899 & 2.806 & 2.237 & 3.346 & 2.180 & 3.765 & 2.529 & 3.196 & \textbf{3.461} & \textbf{5.297} & \textbf{4.402} & 3.529 & 2.278 & 4.572 & 3.334 & \textbf{3.189}
+    			\\
+    			& BMS
+    				& 1.313 & 0.772 & 0.137 & 0.710 & 0.807 & 1.673 & 1.613 & 0.841 & 1.497 & 0.670 & 1.657 & 1.034 & 0.997 & 0.546 & 0.119 & 0.959
+    			\\
+    			& OBDL
+    				& 0.126 & 0.637 & 0.301 & 0.260 & 0.064 & 0.073 & 1.015 & 0.035 & 0.393 & 0.980 & 1.375 & 0.660 & 0.964 & 0.215 & 0.107 & 0.480
+    			\\
+    			\belowspace
+    			& SALICON
+    				& 0.730 & 0.600 & 0.251 & 0.456 & 0.344 & 0.410 & 0.669 & 1.138 & 0.965 & 0.230 & 1.823 & 0.921 & 1.298 & 0.337 & 0.203 & 0.692
+    			\\
+                \midrule
+                \multirow{4}{*}{\rotatebox{45}{FCB}}
+                \abovespace
+    			& Our
+    				& 1.825 & 2.911 & 2.064 & \textbf{3.756} & 2.031 & 3.755 & 2.943 & 3.393 & 3.395 & \textbf{4.608} & 3.816 & \textbf{4.463} & 3.351 & 3.931 & 2.883 & \textbf{3.275}
+    			\\
+    			& BMS
+    				& 2.206 & 1.779 & 1.063 & 2.537 & 1.667 & 2.891 & 2.507 & 2.280 & 2.386 & 2.366 & 2.508 & \textbf{3.136} & 2.434 & 1.771 & 1.288 & 2.188
+    			\\
+    			& OBDL
+    				& 1.712 & 1.572 & 1.371 & 2.368 & 1.055 & 1.920 & 2.225 & 2.007 & 2.377 & 2.319 & 2.556 & 2.777 & 2.912 & 1.580 & 1.693 & 2.030
+    			\\
+    			\belowspace
+    			& SALICON
+    				& 2.083 & 2.024 & 1.332 & 2.477 & 1.493 & 2.353 & 2.352 & 2.619 & 2.264 & 1.957 & 2.672 & 3.932 & 3.143 & 1.915 & 1.496 & 2.274
+    			\\
+                \midrule
+    			\multicolumn{2}{c}{FCB Only}
+    				\abovespace\belowspace
+				        & 2.388 & 1.613 & 0.699 & 4.123 & 1.190 & 3.191 & 2.406 & 2.286 & 1.828 & 2.151 & 1.387 & 5.764 & 2.600 & 1.095 & 1.020 & 2.249
+    			\\
+                \bottomrule
+
+            \end{tabular}
+        }
+    \end{center}
 \end{table*}
+
+
 
 \begin{figure*}
 	\begin{center}

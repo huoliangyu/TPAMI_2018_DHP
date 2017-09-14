@@ -211,10 +211,6 @@ E.~Matin, ``Saccadic suppression: a review and an analysis.''
 M.~J. Frederic P.~Miller, Agnes F.~Vandome, ``Mean of circular quantities,''
   \emph{Mathematics}, 2010.
 
-\bibitem{hausknecht2015deep}
-M.~Hausknecht and P.~Stone, ``Deep recurrent q-learning for partially
-  observable mdps,'' in \emph{AAAI}, 2015.
-
 \bibitem{simonyan2014very}
 K.~Simonyan and A.~Zisserman, ``Very deep convolutional networks for
   large-scale image recognition,'' in \emph{ICLR}, 2014.
@@ -223,11 +219,9 @@ K.~Simonyan and A.~Zisserman, ``Very deep convolutional networks for
 S.~Hochreiter and J.~Schmidhuber, ``Long short-term memory,'' \emph{Neural
   computation}, vol.~9, no.~8, pp. 1735--1780, 1997.
 
-\bibitem{ENU}
-I.~T. Li and J.~Georganas, ``Multi-target multi-platform sensor registration in
-  geodetic coordinates,'' in \emph{Proceedings of the Fifth International
-  Conference on Information Fusion. FUSION 2002. (IEEE Cat.No.02EX5997)},
-  vol.~1, 2002.
+\bibitem{hausknecht2015deep}
+M.~Hausknecht and P.~Stone, ``Deep recurrent q-learning for partially
+  observable mdps,'' in \emph{AAAI}, 2015.
 
 \bibitem{shumaker1984astronomical}
 B.~Shumaker and R.~Sinnott, ``Virtues of the haversine,'' \emph{Sky and

@@ -1279,6 +1279,38 @@ As seen in this figure, the directions of HM scan-paths from $57.1\%$, $20.6\%$ 
 	\end{center}
 \end{figure}
 
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=1.5\columnwidth]{figures/dhp_approach/main_framework}}%of
+		\caption{Framework of our Offline-DHP approach.}
+		\label{main-framework}
+	\end{center}
+\end{figure*}
+
+\begin{table*}
+\center
+\caption{Notations denoted in Figure \ref{main-framework}} \label{notation_framework}
+\begin{tabular}{ll}
+%$\{t\}_{1}^{T}$ & The frames of panoramic video from $1$ to $T$, with $t$ being the currently processed frame \\
+$\{\mathbf{F}_t\}_{t=1}^{T}$ & The panoramic frames with frame number $t$ ranging from $1$ to $T$, as the input to offline-DHP\\
+$\{\mathbf{H}_t\}_{t=1}^{T}$ & The HM maps for frames from $1$ to $T$, as the output of offline-DHP\\
+$\{m\}_{m=1}^{M}$ & The subjects from $1$ to $M$, with $m$ being the $m$-th subject\\
+$\{n\}_{n=1}^{N}$ & The DRL workflows from $1$ to $N$, with $n$ being the $n$-th workflow\\
+$\{\mathbf{o}^n_t\}_{t=1}^{T}$ & The FoV for frames from $1$ to $T$, as the $observation$ of the $n$-th DRL workflow \\
+$(x^m_t, y^m_t)$ & The ground-truth HM position of the $m$-th subject at frame $t$ \\
+$(\hat{x}^n_t, \hat{y}^n_t)$ & The HM position predicted by the $n$-th DRL workflow at frame $t$  \\
+%$(\mathbf{x}_t, \mathbf{y}_t)$ & The predicted HM position at frame $t$ \\
+$\mathbf{\pi}_t$ & The predicted probability distribution of HM direction at frame $t$, as the $policy$ of DRL \\
+$\hat{\alpha}^n_t$ & The predicted HM scan-path direction at frame $t$ from the $n$-th DRL workflow, as the $action$ of DRL\\
+$\alpha^m_t$ & The ground-truth HM scan-path direction of the $m$-th subject at frame $t$ \\
+$\hat{\nu}^n_t$ & The predicted HM scan-path magnitude at frame $t$ from the $n$-th DRL workflow, as the $action$ of DRL\\
+$\nu^m_t$ & The ground-truth HM scan-path magnitude of the $m$-th subject at frame $t$ \\
+$r^{\alpha}_{n,t}$ & The \textit{reward} for deciding $\hat{\alpha}^n_t$ in the $n$-th DRL workflow\\
+$r^{\nu}_{n,t}$ & The \textit{reward} for deciding $\hat{\nu}^n_t$ in  the $n$-th DRL workflow\\
+$\mathbf{f}^n_{t}$ & The extracted LSTM feature at frame $t$,  as part of \textit{observed state} in the $n$-th DRL workflow \\
+\end{tabular}
+\end{table*}
+
 \emph{Finding 5: For one subject, the HM scan-path at the current time interval is correlated with that at the previous time interval and observed video content. }
 \\ \textit{Analysis:} For each individual subject, the vectors of HM scan-paths across the time interval of 0.3 second are extracted from all 76 sequences in our the PVS-HM database. Here, we calculate the correlation coefficient (CC) of HM scan-path vectors between two successive time periods, and then average the CC value over all 76 sequences for each subject. Figure \ref{consi_on_time} shows averaged CC values for each of 58 subjects, which range from 0.39 - 0.51. This figure implies that the HM scan-path at the current time interval is somewhat correlated with that at the previous time interval. On the other hand, \cite{hu2017deep} shows that the current HM scan-path of one subject is also related to observed video content. The above completes the validation of \textit{Finding 5}.
 
@@ -1309,338 +1341,342 @@ This completes the verification of \textit{Finding 6}.
 
 
 
-\section{Offline-DHP approach}
+\section{Offline-DHP approach}\label{sec::offline-DHP}
 
 \subsection{Framework of offline-DHP}
 \label{framework}
 
-\begin{figure*}
-	\begin{center}
-		\centerline{\includegraphics[width=2\columnwidth]{figures/dhp_approach/main_framework}}%of
-		\caption{Framework of our Offline-DHP approach.}
-		\label{main-framework}
-	\end{center}
-\end{figure*}
-
-In the following, we present our offline-DHP approach, in light of our findings in Section \ref{Database_analysis}.
-Figure \ref{main-framework} shows the overall framework of our approach, in which multiple DRL workflows are embedded to generate HM maps of the input panoramic video frames. The notations used in this figure are listed in Table \ref{notation_framework}.
-
-\begin{table*}
-\center
-\caption{Notations denoted in Figure \ref{main-framework}, \ref{train-framework} and \ref{online-framework}} \label{notation_framework}
-\begin{tabular}{ll}
-$\{t\}_{1}^{T}$ & The frames of panoramic video from $1$ to $T$, with $t$ being the currently processed frame \\
-$\{\mathbf{F}_t\}_1^{T}$ & The panoramic frames from $1$ to $T$, as the input to offline-DHP/online-DHP\\
-$\{\mathbf{o}_t\}_1^{T}$ & The FoV from $1$ to $T$, as the $observation$ of DRL $agent$ \\
-$\{n\}_{1}^{N}$ & The \textit{subjects} from $1$ to $N$, with $n$ being the $n$-th subject\\
-$(x_t, y_t)$ & The predicted HM position at frame $t$ \\
-$(x^n_t, y^n_t)$ & The ground-truth HM position of the $n$-th subject at frame $t$ \\
-$\{i\}_{1}^{I}$ & The DRL workflow from $1$ to $I$, with $i$ being the $i$-th workflow \\
-$\mathbf{\pi}_t$ & The predicted probability distribution of HM direction at frame $t$, as the $policy$\footnote{All DRL workflows share the same policy.} of the DRL $agent$ \\
-$\alpha_t$ & The predicted HM direction at frame $t$ from one DRL workflow, as the $action$ of the DRL $agent$ \\
-$\alpha^n_t$ & The ground-truth HM direction of the $n$-th subject at frame $t$ \\
-$\nu_t$ & The predicted HM magnitude at frame $t$ from one DRL workflow, as the $action$ of the DRL $agent$ \\
-$\nu^n_t$ & The ground-truth HM magnitude of the $n$-th subject at frame $t$ \\
-$r^{\alpha}_t$ & The estimated reward for deciding $\alpha_t$, as the $reward$ of the DRL $agent$ \\
-$r^{\nu}_t$ & The estimated reward for deciding $\nu_t$, as the $reward$ of the DRL $agent$ \\
-$\mathbf{f}_{t-1}$ & The extracted LSTM feature \cite{hausknecht2015deep} at frame $t-1$,  as part of \textit{observed state} of the DRL $agent$ \\
-${H}_{t}$ & The HM Map at frame $t$ \\
-\end{tabular}
-\end{table*}
-
-% notations in figure
-$\mathbf{F}_{t-2}$
-$\mathbf{F}_{t-1}$
-$\mathbf{F}_{t}$
-$\mathbf{o}_{t-2}$
-$\mathbf{o}_{t-1}$
-$\mathbf{o}_{t}$
-$\mathbf{H}_{t}$
-\textcolor{red}{$(x_t, y_t)$}
-\textcolor{red}{$(x_{t-1}, y_{t-1})$}
-\textcolor{red}{$(x_{t-2}, y_{t-2})$}
-
-As shown in Figure \ref{main-framework}, the input to our approach is the panoramic video frames $\{\mathbf{F}_t\}_1^{T}$.
-Since \textit{Finding 1} points out that $(x^n_t, y^n_t)$ are highly consistent for different $n$, it also indicates $p^n(x_t,y_t)$ consistences for different $n$ at a specific $(x_t,y_t)$, where . As a result, we propose to generate HM maps for modeling offline HM attention on panoramic video, which is the expected $p^n(x_t,y_t)$ across different $n$,
- \begin{equation}\label{define-hm-maps}
-   p(x_t,y_t) = \mathbb{E}\{ p^n(x_t, y_t) \}
- \end{equation}
-where $p(x_t,y_t)$ XXX
-
- Above \eqref{define-hm-maps} is seen as the output of our approach, and is visualized with heatmap.
-
-XXX $p^n(\ast)$: The probability of event $\ast$ happening for the $n$-th subjects\footnote{In our paper, the event is specified to: being at a HM position $(x_t,y_y)$, or taking a HM direction of $\alpha_t$}.
-
-According to Proposition \ref{lemma1}, $p^n(x_t, y_t)$ in \eqref{define-hm-maps} can be modeled by predicting a series of $\alpha_1,\alpha_2,...,\alpha_t$ and $\nu_1,\nu_2,...,\nu_t$. Furthermore, \textit{Findings 2} and \textit{3} point out predicting them is reasonable since their consistence.
-\begin{proposition}
-    \label{lemma1}
-    Assume that $\Psi_{ x_{t}, y_{t} }$ denotes all possible HM scan-path arriving at $(x_{t}, y_{t})$. Given the direction and magnitude of HM scan-path at frame $t$, i.e., $\alpha_t$ and $\nu_t$, $p^n(x_t, y_t)$ can be written by,
-    \begin{eqnarray}
-            \label{proposition_1}
-            && p^n(x_t, y_t) \nonumber\\
-            \nonumber &=& \sum_{ \Psi_{ x_{t-1}, y_{t-1} } } \sum_{ \Psi_{ x_{t-2}, y_{t-2} } } \cdots \sum_{ \Psi_{ x_{1}, y_{1} } }
-            \\ \nonumber && p^n( \alpha_{t-1}, \nu_{t-1} | \Psi_{ x_{t-1}, y_{t-1} } )
-            \\ \nonumber && p^n( \alpha_{t-2}, \nu_{t-2} | \Psi_{ x_{t-2}, y_{t-2} } )
-            \\ && \cdots p^n( \Psi_{ x_{1}, y_{1} } )
-        \end{eqnarray}
-
-    \textbf{Proof:}
-        For one subject, since $(x_t,y_t)$ equals to experiencing a HM scan-path that leads to $(x_t,y_t)$,
-        \begin{equation}
-            \label{define}
-            p^n(x_t, y_t) = p^n( \Psi_{ x_t, y_t } ).
-        \end{equation}
-        Since $\Psi_{ x_t, y_t }$ is a conditional transition under $\Psi_{ x_{t-1}, y_{t-1} }$, we have
-        \begin{eqnarray}
-            \label{expand-path}
-             \Psi_{ x_t, y_t } = \bigcup_{x_{t-1}, y_{t-1}} \{ (\alpha_{t-1}, \nu_{t-1}),\Psi_{ x_{t-1}, y_{t-1} } \}.
-        \end{eqnarray}
-        According to law of total probability, the following holds,
-        \begin{eqnarray}
-            \label{expand-define-with-full-prob-formula}
-            && p^n(x_t, y_t) \nonumber\\
-            &=& p^n( \Psi_{ x_t, y_t } ) \nonumber\\
-            &=& \sum_{ \Psi_{ x_{t-1}, y_{t-1} } } \!\!\!p^n( \alpha_{t-1}, \nu_{t-1} | \Psi_{ x_{t-1}, y_{t-1} } ) p^n( \Psi_{ x_{t-1}, y_{t-1} } ),
-        \end{eqnarray}
-        Above \eqref{expand-define-with-full-prob-formula} can be iterated till $p^n( \Psi_{ x_{1}, y_{1} } )$, which derives \eqref{proposition_1} in Proposition 1.
-
-\end{proposition}
-Then, $\mathbb{E}$ in \eqref{define-hm-maps} can be modeled by running $N$ DRL workflows according to Proposition \ref{lemma2}. As a result, out offline-DHP method runs multiple DRL workflows, each of which works independently to generate an $\Psi_{ x_{t}, y_{t} }$, i.e., $(x_{t}, y_{t})$ by random sampling actions based on a learnt policy.
-These $(x_{t}, y_{t})$ are latter integrated to produce expectation and achieve \eqref{define-hm-maps}.
-\textit{Finding 4} also indicates that $\mathbb{E}$ in \eqref{define-hm-maps} can not be achieved by running one DRL workflow with deterministic action, since $\alpha^n$ of different $n$ are consistent in more than one directions.
-
-\begin{proposition}
-    \label{lemma2}
-      $\mathbb{E}$ in \eqref{define-hm-maps} can be modeled by running multiple DRL workflows, given a learned HM scan-path predictor.
-        \begin{eqnarray}
-        \label{proposition_2}
-        && \mathbb{E}\{ p^n(x_t, y_t) \} \nonumber\\
-        &=& \mathbb{E}_{\pi(x_{t},y_{t} |\Psi_{ x_{t-1}, y_{t-1} } ),...,\pi(x_{2},y_{2} |\Psi_{ x_{1}, y_{1} } )} \{ \mathbb{E} \{ p^n( \Psi_{ x_{1}, y_{1} } ) \} \}.
-        \end{eqnarray}
-
-    \textbf{Proof:}
-        Since \textit{Findings 2-4} have revealed that $\alpha^n_t$ and $\nu^n_t$ are generally consistent across different $n$, we assume that $p(\alpha_{t-1}, \nu_{t-1} | \Psi_{ x_{t-1}, y_{t-1} } )$ of all subjects is with the same probability distribution, denoted by $\pi(x_{t},y_{t}|\Psi_{x_{t-1}, y_{t-1} } )$. That is,
-        \begin{eqnarray}
-        \label{p-sim-pi}
-        p( \alpha_{t-1}, \nu_{t-1} | \Psi_{ x_{t-1}, y_{t-1} } ) \sim \pi(x_{t},y_{t} | \Psi_{ x_{t-1}, y_{t-1} } ).
-        \end{eqnarray}
-        Thus, based on \eqref{expand-define-with-full-prob-formula} and \eqref{p-sim-pi}, the expectation of \eqref{use-define-of-expectation} can be rewritten in the following,
-        \begin{eqnarray}
-        \label{use-define-of-expectation1}
-        && \mathbb{E}\{ p^n(x_t, y_t) \} \nonumber\\
-        \nonumber &=& \mathbb{E}\{ p^n(\Psi_{ x_t, y_t }) \} \nonumber\\
-        &=& \mathbb{E}_{\pi(x_{t},y_{t} |\Psi_{ x_{t-1}, y_{t-1} } ) } \{ \mathbb{E} \{ p^n( \Psi_{ x_{t-1}, y_{t-1} } ) \} \}.
-        \end{eqnarray}
-         Above \eqref{use-define-of-expectation1} can be iterated till $p^n( \Psi_{ x_{1}, y_{1} } )$, which derives \eqref{proposition_2} in Proposition 2.
-
-\end{proposition}
+In this section, we present our offline-DHP approach, in light of our findings in Section \ref{Database_analysis}.
+Figure \ref{main-framework} shows the overall framework of our approach, in which the multiple DRL workflows are embedded to generate HM maps of the input panoramic video frames. The notations used in this figure and in our approach are listed in Table \ref{notation_framework}.
 
 
-As can be seen in Figure \ref{main-framework}, in a single DRL workflow one HM scan-path is generated by interaction between FoV extractor and HM scan-path predictor.
-Note that the extracted FoV is $103^{\circ} \times 60^{\circ}$, the same as the setting of HMD.
-Specifically, we can see from Figure \ref{main-framework} that FoV (red rectangles) is extracted according to the predicted \textit{action} of HM scan-paths (red arrows) at previous video frames.
-Then, the content of extracted FoV works as \textit{observation} of DRL, for predicting the next \textit{action} of HM scan-path.
-The HM scan-path generated by each DRL workflow is forwarded to obtain HM positions at panoramic video frames.
-Afterwards, the HM positions from multiple DRL workflows are integrated, and then smoothed by a 2D Gaussian filter.
-Finally, HM maps of the panoramic video are obtained, which model the heat maps for probability of HM positions.
-
-\subsection{DRL model of the Offline-DHP approach}
-\label{train}
-As described in Sections \ref{framework}, the DRL workflow is a key component in our Offline-DHP framework, which targets at predicting HM scan-paths.
-This section presents how to train the DRL model in our Offline-DHP approach.
-Figure \ref{train-framework} shows the proposed training model of DRL, which can be used to predict HM scan-paths.
-As shown in Figure \ref{train-framework},  FoV of the input panoramic video is extracted upon predicted HM scan-paths.
-In our approach, the predicted HM scan-paths and extracted FoV are seen as \textit{action} and \textit{observation} of DRL, respectively.
-In addition, \textit{reward} is estimated on the basis of the ground-truth HM scan-paths, for generating an \textit{action} at each panoramic video frame.
-Then, both FoV and estimated \textit{reward} compose \textit{environment}.
-In training the DRL model,  \textit{environment} interacts with the HM scan-path predictor.
-The interaction is achieved in our DRL model by the following procedure.\\
-(1) At frame $t$, the FoV extractor extracts $\mathbf{o}_t$ from $\mathbf{F}_t$ according to $(x_t,y_t)$.
-In our work, $\mathbf{o}_{t}$ is the content of FoV ($103^{\circ} \times 60^{\circ}$) projected to 2D region and then down-sampled to $42\times42$.\\
-(2) $\mathbf{o}_t$ and $\mathbf{f}_{t-1}$ are delivered to the DRL network in the HM scan-path predictor.
-In our work, the DRL network contains four convolutional layers \cite{simonyan2014very} and one LSTM layer \cite{hochreiter1997long, hausknecht2015deep}, which are used to extract spatial and temporal features, respectively. The details about the architecture of the DRL network can be found in Figure \ref{train-framework}.\\
-(3) The DRL network produces $\mathbf{f}_{t}$, $\nu_{t}$ and $\pi_{t}$.\\
-(4) Given $\pi_{t}$, the HM scan-path predictor randomly samples an $\alpha_t$, with standard deviation $\varepsilon$ to ensure exploration. Here, $\alpha_t$ includes 8 discrete directions \textcolor{blue}{based on the ENU coordinate system}\cite{ENU}, i.e., $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$.\\
-(5) \textit{Environment} is updated with $\nu_t$ and $\alpha_t$, $(x_t, y_t)\longrightarrow (x_{t+1},y_{t+1})$. Specifically, the FoV extractor returns a new $o_{t+1}$ according to the $(x_{t+1},y_{t+1})$, and the reward estimator returns the corresponding $r^{\nu}_t$ and $r^{\alpha}_t$ for estimating $\nu_t$ and $\alpha_t$, upon $\nu^n_t$ and $\alpha^n_t$.\\
-(6) A set of experiences $\{ o_{t}, \! \mathbf{f}_{t-1},\! \nu_t,\! \alpha_t,\! r^{\nu}_{t},\! r^{\alpha}_{t} \}$ is stored in an experience buffer for frame $t$.\\
-(7) \textcolor{red}{Once $t$ meets the terminal condition $T$, all experiences in the buffer are delivered to the optimizer for updating the DRL network}.
 
 
+
+%$\mathbf{f}_{t-1}$ & LSTM feature produced by DRL model at frame $t-1$. $\mathbf{F}_t$ and $f_{t-1}$ compose a \textit{full observed state} of DRL $agent$ \\
 
 \begin{figure*}
 	\begin{center}
-		\centerline{\includegraphics[width=2\columnwidth]{figures/dhp_approach/training_framework}}%of
-		\caption{\footnotesize{DRL model for the HM scan-path predictor.}}
+		\centerline{\includegraphics[width=1.5\columnwidth]{figures/dhp_approach/training_framework}}%of
+		\caption{\footnotesize{Framework of training the DRL model for obtain each DRL workflow in Figure \ref{main-framework}.}}
 		\label{train-framework}
 	\end{center}
 \end{figure*}
 
+
+As shown in Figure \ref{main-framework}, the input to our offline-DHP approach is the panoramic video frames $\{\mathbf{F}_t\}_1^{T}$.
+Since \textit{Finding 1} has shown that the HM positions are highly consistent across different subjects,  we propose to generate HM maps for modeling human attention on the panoramic video, seen as the output of our offline-DHP approach. The HM map $\mathbf{H}_t$ of frame $t$ represents the probability of each pixel being the HM position.
+Similar to saliency maps of 2D videos, $\mathbf{H}_t$ is obtained by convoluting the predicted HM positions $\{(\hat{x}^n_t, \hat{y}^n_t)\}_{n=1}^{N}$ with a 2D Gaussian filter.
+Because \textit{Finding 4} has found that the HM scan-paths of different subjects are consistent in more than one directions, the HM positions $\{({x}^m_t, {y}^m_t)\}_{m=1}^{M}$ of $M$ subjects may be different from each other. Accordingly, this paper assumes that the number of the predicted HM positions $N$ is equivalent to $M$ at each frame, for predicting HM positions of all subjects.
+In other words, to obtain $(\hat{x}^n_t, \hat{y}^n_t)$, our offline-DHP approach estimates the HM positions of one subject through HM scan-path prediction of one DRL workflow.
+Then, $N$ DRL workflows are run to obtain $N$ HM positions $\{(\hat{x}^n_t, \hat{y}^n_t)\}_{n=1}^{N}$ at frame $t$, corresponding to the ground-truth HM positions  $\{({x}^m_t, {y}^m_t)\}_{m=1}^{M}$ of $M$ ($=N$) subjects at this frame.
+Each of DRL workflows works independently to generate a HM scan-path by randomly sampling actions based on a learnt policy $\pi_t$.
+Note that all DRL workflows share the same policy $\pi_t$ in our approach.
+
+In a single DRL workflow , $\{(\hat{x}^n_t, \hat{y}^n_t)\}_{t=1}^T$ can be modeled by determining a series of \textit{actions}: $\{\hat{\alpha}^n_t\}_{t=1}^T$ and $\{\hat{\nu}^n_t\}_{t=1}^T$.
+It is worth pointing out that $\{\hat{\alpha}^n_t\}_{t=1}^{T}$ and $\{\hat{\nu}^n_t\}_{t=1}^{T}$, as the \textit{actions} in the DRL workflow, are predicable, since \textit{Findings 2} and \textit{3} have indicated that subjects are consistent in the magnitudes and directions of HM scan-paths.
+As can be seen in Figure \ref{main-framework}, in each workflow, one HM scan-path is generated through the interaction between FoV extractor and HM scan-path predictor.
+Note that the extracted FoV is $103^{\circ} \times 60^{\circ}$, the same as the setting of the HMD.
+Specifically, Figure \ref{main-framework} shows that FoV $\mathbf{o}^n_t$ is extracted via making its center locate at the HM position $(\hat{x}^n_t,\hat{y}^n_t)$, and $(\hat{x}^n_t,\hat{y}^n_t)$ is generated by the predicted \textit{action} of HM scan-paths $(\hat{\alpha}^n_{t-1},\hat{\nu}^n_{t-1})$ at the previous video frame.
+Then, the content of extracted FoV works as \textit{observation} of DRL, for predicting the next \textit{action} of HM scan-path $(\hat{\alpha}^n_{t},\hat{\nu}^n_{t})$.
+The HM scan-path generated by each DRL workflow is forwarded to obtain HM positions at incoming frames.
+Afterwards, the HM positions from multiple DRL workflows are integrated, and then smoothed by the 2D Gaussian filter.
+Finally, the HM maps $\{\mathbf{H}_t\}_1^{T}$ of the panoramic video are obtained, which model the heat maps for HM positions at each frame.
+
+%Assuming that $p^n(x_t,y_t)$ is the probability of the $n$-th subject's HM position being at $(x_t,y_t)$, $p(x_t,y_t)$ can be estimated by the following expectation:
+% \begin{equation}\label{define-hm-maps}
+%   p(x_t,y_t) = \mathbb{E}\{ p^n(x_t, y_t) \}.
+% \end{equation}
+%
+%To obtain $ p^n(x_t, y_t)$, our offline-DHP approach estimates the HM positions of one subject through HM scan-path prediction of one DRL workflow. In fact, $p^n(x_t, y_t)$ of \eqref{define-hm-maps} can be modeled by determining a series of \textit{actions} in the DRL workflow: $\alpha_1,\alpha_2,...,\alpha_t$ and $\nu_1,\nu_2,...,\nu_t$. It is worth pointing out that it is reasonable to model $\{\alpha_t\}_{t=1}^{T}$ and $\{\nu_t\}_{t=1}^{T}$ as the \textit{actions} in the DRL workflow, since \textit{Findings 2} and \textit{3} have indicated that subjects are consistent in the magnitudes and directions of HM scan-paths.
+
+%Since \textit{Finding 4} has found that the HM scan-paths of different subjects are consistent in more than one directions, it is impossible to model $p(x_t,y_t)$ of \eqref{define-hm-maps} through $p^n(x_t, y_t)$ of only one DRL workflow.
+%Instead, the HM map can be generated by running $N$ DRL workflows to calculate $p(x_t,y_t)$ with \eqref{define-hm-maps}.
+%More specifically, our offline-DHP method runs multiple DRL workflows, each of which works independently to generate a HM scan-path by random sampling actions based on a learnt policy $\pi_t$.
+%The generated HM scan-paths of all DRL workflows are then integrated to produce the HM map upon the expectation of HM positions in \eqref{define-hm-maps}.
+
+
+
+%\begin{proposition}
+%    \label{lemma2}
+%      $\mathbb{E}$ in \eqref{define-hm-maps} can be modeled by running multiple DRL workflows, given a learned HM scan-path predictor.
+%        \begin{eqnarray}
+%        \label{proposition_2}
+%        && \mathbb{E}\{ p^n(x_t, y_t) \} \nonumber\\
+%        &=& \mathbb{E}_{\pi(x_{t},y_{t} |\Psi_{ x_{t-1}, y_{t-1} } ),...,\pi(x_{2},y_{2} |\Psi_{ x_{1}, y_{1} } )} \{ \mathbb{E} \{ p^n( \Psi_{ x_{1}, y_{1} } ) \} \}.
+%        \end{eqnarray}
+%
+%    \textbf{Proof:}
+%        Since \textit{Findings 2-4} have revealed that $\alpha^n_t$ and $\nu^n_t$ are generally consistent across different $n$, we assume that $p(\alpha_{t-1}, \nu_{t-1} | \Psi_{ x_{t-1}, y_{t-1} } )$ of all subjects is with the same probability distribution, denoted by $\pi(x_{t},y_{t}|\Psi_{x_{t-1}, y_{t-1} } )$. That is,
+%        \begin{eqnarray}
+%        \label{p-sim-pi}
+%        p( \alpha_{t-1}, \nu_{t-1} | \Psi_{ x_{t-1}, y_{t-1} } ) \sim \pi(x_{t},y_{t} | \Psi_{ x_{t-1}, y_{t-1} } ).
+%        \end{eqnarray}
+%        Thus, based on \eqref{expand-define-with-full-prob-formula} and \eqref{p-sim-pi}, the expectation of \eqref{use-define-of-expectation} can be rewritten in the following,
+%        \begin{eqnarray}
+%        \label{use-define-of-expectation1}
+%        && \mathbb{E}\{ p^n(x_t, y_t) \} \nonumber\\
+%        \nonumber &=& \mathbb{E}\{ p^n(\Psi_{ x_t, y_t }) \} \nonumber\\
+%        &=& \mathbb{E}_{\pi(x_{t},y_{t} |\Psi_{ x_{t-1}, y_{t-1} } ) } \{ \mathbb{E} \{ p^n( \Psi_{ x_{t-1}, y_{t-1} } ) \} \}.
+%        \end{eqnarray}
+%         Above \eqref{use-define-of-expectation1} can be iterated till $p^n( \Psi_{ x_{1}, y_{1} } )$, which derives \eqref{proposition_2} in Proposition 2.
+%
+%\end{proposition}
+
+
+\subsection{DRL model of the offline-DHP approach}
+\label{train}
+As described in Sections \ref{framework}, the DRL workflow is a key component in our offline-DHP framework, which targets at predicting HM scan-paths.
+This section presents how to train the DRL model of each workflow in Figure \ref{main-framework} for predicting HM maps.
+In this section, we take the $n$-th workflow as an example.
+Figure \ref{train-framework} shows the framework of training the DRL model.
+As shown in Figure \ref{train-framework}, the FoV of input video frame is extracted upon the \textit{action} of the predicted HM scan-path at the previous frame.
+The extracted FoV, as the \textit{observation}, is then feeded into the DRL network.
+In addition, the \textit{reward}, which measures the similarity between the prediction and ground-truth of HM scan-paths, is estimated to evaluate the \textit{action} made by the DRL model. Then, the \textit{reward} is used to make decision on the \textit{action} through the DRL model, i.e., the HM scan-path at the current frame. In the DRL model, the \textit{observation} of the extracted FoV and the \textit{reward} of HM scan-path prediction compose an \textit{environment}.
+
+In training the DRL model,  \textit{environment} interacts with the HM scan-path predictor.
+The interaction is achieved in our DRL model by the following procedure.\\
+(1) At frame $t$, the FoV extractor obtains the current $\textit{observation}$ $\mathbf{o}^n_t$ ($103^{\circ} \times 60^{\circ}$) from the input video frame $\mathbf{F}_t$, according to the predicted HM position $(\hat{x}^n_t,\hat{y}^n_t)$.
+In our work, $\mathbf{o}^n_{t}$ is projected to the 2D region and then down-sampled to $42\times42$.\\
+(2) The current $\mathbf{o}^n_t$ and the LSTM feature $\mathbf{f}^n_{t-1}$ from  the last frame are delivered to the DRL network in the HM scan-path predictor.
+In our work, the DRL network contains four convolutional layers \cite{simonyan2014very} and one LSTM layer \cite{hochreiter1997long, hausknecht2015deep}, which are used to extract the spatial and temporal features, respectively. The details about the architecture of the DRL network can be found in Figure \ref{train-framework}.\\
+(3) At frame $t$, the DRL network produces the LSTM feature $\mathbf{f}^n_{t}$, HM scan-path magnitude $\hat{\nu}^n_{t}$ and policy $\pi_{t}$. Here, $\pi_{t}$ is the probability distribution over the \textit{actions} of HM scan-path directions.\\
+(4) Given $\pi_{t}$, the HM scan-path predictor randomly samples an \textit{action} $\hat{\alpha}^n_t$, with standard deviation $\varepsilon$ to ensure exploration. Here, $\hat{\alpha}^n_t$ includes 8 discrete directions in GDS: $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$.\\
+(5) \textit{Environment} is updated with $\hat{\nu}^n_t$ and $\hat{\alpha}^n_t$, leading to $(\hat{x}^n_t, \hat{y}^n_t)\longrightarrow (\hat{x}^n_{t+1},\hat{y}^n_{t+1})$. The FoV extractor returns a new $\mathbf{o}^n_{t+1}$ according to the HM position $(\hat{x}^n_{t+1},\hat{y}^n_{t+1})$. The \textit{reward} estimator returns the \textit{rewards} $r^{\nu}_{n,t}$ and $r^{\alpha}_{n,t}$ in predicting $\hat{\nu}^n_t$ and $\hat{\alpha}^n_t$, upon the ground-truth HM scan-paths of $\{\nu^m_t\}_{m=1}^{M}$ and $\{\alpha^m_t\}_{m=1}^{M}$. \\
+(6) A set of experiences $\{ \mathbf{o}^n_{t}, \! \mathbf{f}^n_{t-1},\! \hat{\nu}^n_t,\! \hat{\alpha}^n_t,\! r^{\nu}_{n,t},\! r^{\alpha}_{n,t} \}$ are stored in an experience buffer for frame $t$.
+In addition, $\mathbf{o}^n_{t+1}$ and $\mathbf{f}^n_{t}$ are preserved for processing frame $t+1$.\\
+(7) Once $t$ meets the terminal condition of exceeding the frame number $T$, all experiences in the buffer are delivered to the optimizer for updating the DRL network.
+
+
+
 \textbf{Reward Estimation.}
-Next, we focus on modeling the \textit{reward}: $r^{\alpha}_t$ and $r^{\nu}_t$.
-As has been discussed in Proposition \ref{lemma2}, our goal is to make $\hat{\alpha}_{t}$ and $\hat{\nu}_{t}$ approach to ground-truth HM data.
-Thus, the  \textit{reward} $r^{\alpha}_t$ and $r^{\nu}_t$ can be represented by the difference from $\hat{\alpha}_{t}$ and $\hat{\nu}_{t}$ to their corresponding ground-truth.
-Let $\{ \nu^{n}_{t}, \alpha^{n}_{t}\}$ be the ground-truth magnitude and direction of HM scan-path, and $\{x^{n}_{t},y^{n}_{t} \}$ be the ground-truth HM position, at frame $t$ for the $n$-th subject. Note that $\{x^{n}_{t},y^{n}_{t} \}$ is the \textcolor{blue}{geographic coordinate position}. \cite{Goodchild2007}.
-Then, $r^{\alpha}_t$ can be written as
+Next, we focus on modeling the \textit{rewards}: $r^{\alpha}_{n,t}$ and $r^{\nu}_{n,t}$.
+When training the DRL model, our goal is to make $\hat{\alpha}^n_{t}$ and $\hat{\nu}^n_{t}$ approach to the ground-truth HM data.
+Thus, the  \textit{rewards} $r^{\alpha}_{n,t}$ and $r^{\nu}_{n,t}$ can be represented by the differences from $\hat{\alpha}^n_{t}$ and $\hat{\nu}^n_{t}$ to $\{{\alpha}^m_{t}\}_{m=1}^M$ and $\{{\nu}^m_{t}\}_{m=1}^M$, respectively.
+In our approach, we use the Gaussian distribution to measure the differences between $\hat{\alpha}^n_{t}$ and the ground-truth $\{\alpha^{m}_{t}\}_{m=1}^M$. In addition, we also consider the distances from predicted HM position $(\hat{x}^n_t,\hat{y}^n_t)$ to $\{(x^{n}_{t},y^{n}_{t})\}_{m=1}^M$ in calculating the \textit{rewards} of $r^{\alpha}_{n,t}$ and $r^{\nu}_{n,t}$. Such distances are modeled by the 2D Gaussian distribution.
+Then, $r^{\alpha}_{n,t}$ can be written as
 \begin{equation}
 \label{reward-alpha}
-r^{\alpha}_{t} = \frac{1}{N}\sum_{n=1}^{N} e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2},
+r^{\alpha}_{n,t} = \frac{1}{N}\sum_{m=1}^{M} e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}^n_{t}, \alpha^m_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}^n_{t},\hat{y}^n_{t}),(x^m_{t},y^m_{t}))}{\varrho}\right)^2},
 \end{equation}
-where $D_d$ defines \textit{phase difference}, $D_s$ denotes \textit{great-circle distance} \cite{shumaker1984astronomical} and $\rho$, $\varrho$ are hyper-parameters.
-Similarly, we have
+In \eqref{reward-alpha}, $D_d$ defines the \textit{phase difference}, and $D_s$ denotes the \textit{great-circle distance} \cite{shumaker1984astronomical}. Moreover, $\rho$ and $\varrho$ are the standard deviations of Gaussian distributions, as the hyper-parameters. Similarly, we have
 \begin{equation}
 \label{reward-nu}
-r^{\nu}_{t} = \frac{1}{N}\sum_{n=1}^{N}
-e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+r^{\nu}_{n,t} \!\!=\!\! \frac{1}{N}\!\sum_{m=1}^{M}\!
+e^{\!-\frac{1}{2}\left(\!{\frac{\hat{\nu}^n_{t}-\nu^{m}_{t}}{\varsigma}}\!\right)^2} \! e^{\!-\frac{1}{2}\left(\!\frac{D_d(\hat{\alpha}^n_{t}, \alpha^m_{t})}{\rho}\!\right)^2} \!\!e^{\!-\frac{1}{2}\left(\!\frac{D_s((\hat{x}^n_{t},\hat{y}^n_{t}),(x^m_{t},y^m_{t}))}{\varrho}\!\right)^2}.
 \end{equation}
+where $\varsigma$ is the hyper-parameter for the standard deviation of HM scan-path magnitude.
 
-\begin{proposition}
-    \label{lemma3}
-    Assume that the probability of each pixel $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position decays along with the distance to the ground truth HM position, following 2D coordinate Gaussian distribution \textcolor{blue}{along with longitude and latitude}.
-    In addition, assume that the probability for the degree $\alpha^{n}_{t}$ of HM scan path also follows the Gaussian distribution with the mean being $\alpha^{n}_{t}$.
-    Then $r^{\alpha}_t$ can be represented by \eqref{reward-alpha}.
 
-    \textbf{Proof:} At frame $t$, the ground truth HM position is $\{x^{n}_{t},y^{n}_{t} \}$ for  the $n$-th subject.
-    besides, $\alpha^{n}_{t}$ is the direction of HM scan path for the $n$-th subject.
-    Thus, we can acquire:
-    \begin{eqnarray}
-        \label{reward-Pro1}
-        && P(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) = 1.
-        %\label{reward-Pro2}
-%        && P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) = 1
-    \end{eqnarray}
-    Since the probability of $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position follows Gaussian distribution centered at $\{x^{n}_{t},y^{n}_{t} \}$, the equality below can be obtained:
-    \begin{equation}
-        \label{reward-Pro3}
-        P_{n}(\alpha^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
-    \end{equation}
-    Similarly, we have:
-    \begin{eqnarray}
-        \label{reward-Pro4}
-        P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
-    \end{eqnarray}
-    Based on \eqref{reward-Pro3}, \eqref{reward-Pro4} can be written as:
-    \begin{eqnarray}
-        \label{reward-Pro5}
-        \nonumber && P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) \cdot \\ && e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
-        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
-    \end{eqnarray}
-    According to \eqref{reward-Pro1}, the following holds:
-    \begin{equation}
-        \label{reward-Pro6}
-        P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
-    \end{equation}
-    Reward $r^{\alpha}_t$ can be represented by $P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\})$ averaged overall subjects, i.e., \eqref{reward-alpha},which estimates how likely human agent conducts the action of $\hat{\alpha}_{t}$. Finally, this proposition is proved.
-\end{proposition}
+%\begin{proposition}
+%    \label{lemma3}
+%    Assume that probability $p(x_t,y_t)$ decays along with the distance of $(x_t,y_t)$ to the ground-truth HM position $(x^{n}_{t},y^{n}_{t})$, obeying the 2D Gaussian distribution.
+%    Additionally, assume that the probability of $\alpha_{t}$ also follows the Gaussian distribution with the mean being $\alpha^{n}_{t}$.
+%    Then, $r^{\alpha}_t$ can be represented by \eqref{reward-alpha}.
+%
+%    \textbf{Proof:} At frame $t$, the ground-truth HM position is $\{x^{n}_{t},y^{n}_{t} \}$ for  the $n$-th subject.
+%    Besides, $\alpha^{n}_{t}$ is the  ground-truth direction of HM scan-path for the $n$-th subject.
+%    Thus, we can acquire:
+%    \begin{eqnarray}
+%        \label{reward-Pro10}
+%        && P(\alpha^{n}_{t}|(x^{n}_{t}, y^{n}_{t})) = 1.
+%        %\label{reward-Pro2}
+%%        && P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) = 1
+%    \end{eqnarray}
+%    Since the probability of $(x_{t},y_{t})$ being the HM position follows Gaussian distribution centered at $(x^{n}_{t},y^{n}_{t})$, the equality below can be obtained:
+%    \begin{equation}
+%        \label{reward-Pro11}
+%        P_{n}(\alpha^{n}_{t}|(x_{t},y_{t})) = P_{n}(\alpha^{n}_{t}|(x^n_{t},y^n_{t})) e^{-\frac{1}{2}\left(\frac{D_s((x_{t},y_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+%    \end{equation}
+%    Similarly, we have
+%    \begin{eqnarray}
+%        \label{reward-Pro12}
+%        P_{n}(\alpha_{t}|(x_{t},y_{t})) = P_{n}(\alpha^{n}_{t}|(x_{t},y_{t})) e^{-\frac{1}{2}\left(\frac{D_d(\alpha_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+%    \end{eqnarray}
+%    Based on \eqref{reward-Pro11}, we can rewrite \eqref{reward-Pro12} as
+%    \begin{eqnarray}
+%        \label{reward-Pro5}
+%        \nonumber && P_{n}(\alpha_{t}|(x_{t},y_{t})) = P_{n}(\alpha^{n}_{t}|(x^{n}_{t}, y^{n}_{t})) \cdot \\ && e^{-\frac{1}{2}\left(\frac{D_s((x_{t},y_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+%        e^{-\frac{1}{2}\left(\frac{D_d(\alpha_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+%    \end{eqnarray}
+%   Because of \eqref{reward-Pro10}, the following holds:
+%    \begin{equation}
+%        \label{reward-Pro6}
+%        P_{n}(\alpha_{t}|(x_{t},y_{t}))\!=\! e^{-\frac{1}{2}\left(\frac{D_d(\alpha_{t}, \alpha^n_{t})}{\rho}\right)^2}\! e^{-\frac{1}{2}\left(\frac{D_s((x_{t},y_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+%    \end{equation}
+%    Reward $r^{\alpha}_t$ can be represented by $P_{n}(\alpha_{t}|(x_{t},y_{t}))$ averaged overall subjects, i.e., \eqref{reward-alpha}, which calculates how likely the subjects conduct the action of $\alpha_{t}$. Finally, this proposition is proved.
+%\end{proposition}
 
-\begin{proposition}
-    \label{lemma4}
-    Assume that the probability of each pixel $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position decays along with the distance to the ground truth HM position, following 2D coordinate Gaussian distribution \textcolor{blue}{along with longitude and latitude}.
-    In addition, assume that the probability for the degree $\alpha^{n}_{t}$ of HM scan path also follows the Gaussian distribution with the mean being $\alpha^{n}_{t}$.
-    Then $r^{\alpha}_t$ can be represented by \eqref{reward-alpha}.
-    Provided that the probability for the magnitude $\hat{\nu}_{t}$ of HM scan path follows the Gaussian distribution with the mean of $\nu^{n}_{t}$.
-    We have \eqref{reward-nu}.
 
-    \textbf{Proof:} At frame $t$, $\nu^{n}_{t}$ is the magnitude of HM scan path at the direction $\alpha^{n}_{t}$ for the $n$-th subject.
-    Then, similar to the proof of \eqref{reward-Pro1}, the following holds:
-    \begin{equation}
-        \label{mu-Pro1}
-        P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) = 1.
-    \end{equation}
-    \begin{eqnarray}
-        \label{mu-Pro2}
-        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\}) = P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) \cdot \\ && e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
-        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
-    \end{eqnarray}
-    Due to the Gaussian distribution of the probability for magnitude $\hat{\nu}_{t}$, we can obtain:
-    \begin{eqnarray}
-        \label{mu-Pro3}
-        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\})\\
-        \nonumber &=& P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t})
-        e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} \cdot \\ &&
-        e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
-        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
-    \end{eqnarray}
-    According to \eqref{mu-Pro1} and \eqref{mu-Pro3}, we have:
-    \begin{eqnarray}
-        \label{mu-Pro4}
-        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\}) =
-        e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} \cdot \\ &&
-        e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
-        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
-    \end{eqnarray}
-    Reward $r^{\nu}_{t}$ can be similarly represented by
-    $P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t})$ averaged overall subjects, i.e., \eqref{reward-nu}.
-    This completes the proof of proposition 4.
-\end{proposition}
+
+%\begin{proposition}
+%    \label{lemma3}
+%    Assume that the probability of each pixel $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position decays along with the distance to the ground truth HM position, following 2D coordinate Gaussian distribution \textcolor{blue}{along with longitude and latitude}.
+%    In addition, assume that the probability for the degree $\alpha^{n}_{t}$ of HM scan path also follows the Gaussian distribution with the mean being $\alpha^{n}_{t}$.
+%    Then $r^{\alpha}_t$ can be represented by \eqref{reward-alpha}.
+%
+%    \textbf{Proof:} At frame $t$, the ground truth HM position is $\{x^{n}_{t},y^{n}_{t} \}$ for  the $n$-th subject.
+%    besides, $\alpha^{n}_{t}$ is the direction of HM scan path for the $n$-th subject.
+%    Thus, we can acquire:
+%    \begin{eqnarray}
+%        \label{reward-Pro1}
+%        && P(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) = 1.
+%        %\label{reward-Pro2}
+%%        && P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) = 1
+%    \end{eqnarray}
+%    Since the probability of $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position follows Gaussian distribution centered at $\{x^{n}_{t},y^{n}_{t} \}$, the equality below can be obtained:
+%    \begin{equation}
+%        \label{reward-Pro3}
+%        P_{n}(\alpha^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+%    \end{equation}
+%    Similarly, we have:
+%    \begin{eqnarray}
+%        \label{reward-Pro4}
+%        P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+%    \end{eqnarray}
+%    Based on \eqref{reward-Pro3}, \eqref{reward-Pro4} can be written as:
+%    \begin{eqnarray}
+%        \label{reward-Pro5}
+%        \nonumber && P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = P_{n}(\alpha^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\}) \cdot \\ && e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+%        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+%    \end{eqnarray}
+%    According to \eqref{reward-Pro1}, the following holds:
+%    \begin{equation}
+%        \label{reward-Pro6}
+%        P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\}) = e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2} e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}.
+%    \end{equation}
+%    Reward $r^{\alpha}_t$ can be represented by $P_{n}(\hat{\alpha}_{t}|\{\hat{x}_{t},\hat{y}_{t}\})$ averaged overall subjects, i.e., \eqref{reward-alpha},which estimates how likely human agent conducts the action of $\hat{\alpha}_{t}$. Finally, this proposition is proved.
+%\end{proposition}
+
+%\begin{proposition}
+%    \label{lemma4}
+%    Assume that the probability of each pixel $\{\hat{x}_{t},\hat{y}_{t}\}$ being the HM position decays along with the distance to the ground truth HM position, following 2D coordinate Gaussian distribution \textcolor{blue}{along with longitude and latitude}.
+%    In addition, assume that the probability for the degree $\alpha^{n}_{t}$ of HM scan path also follows the Gaussian distribution with the mean being $\alpha^{n}_{t}$.
+%    Then $r^{\alpha}_t$ can be represented by \eqref{reward-alpha}.
+%    Provided that the probability for the magnitude $\hat{\nu}_{t}$ of HM scan path follows the Gaussian distribution with the mean of $\nu^{n}_{t}$.
+%    We have \eqref{reward-nu}.
+%
+%    \textbf{Proof:} At frame $t$, $\nu^{n}_{t}$ is the magnitude of HM scan path at the direction $\alpha^{n}_{t}$ for the $n$-th subject.
+%    Then, similar to the proof of \eqref{reward-Pro1}, the following holds:
+%    \begin{equation}
+%        \label{mu-Pro1}
+%        P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) = 1.
+%    \end{equation}
+%    \begin{eqnarray}
+%        \label{mu-Pro2}
+%        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\}) = P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t}) \cdot \\ && e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+%        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+%    \end{eqnarray}
+%    Due to the Gaussian distribution of the probability for magnitude $\hat{\nu}_{t}$, we can obtain:
+%    \begin{eqnarray}
+%        \label{mu-Pro3}
+%        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\})\\
+%        \nonumber &=& P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t})
+%        e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} \cdot \\ &&
+%        e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+%        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+%    \end{eqnarray}
+%    According to \eqref{mu-Pro1} and \eqref{mu-Pro3}, we have:
+%    \begin{eqnarray}
+%        \label{mu-Pro4}
+%        \nonumber && P_{n}(\nu^{n}_{t}|\{\hat{x}_{t},\hat{y}_{t}, \hat{\alpha}_{t}\}) =
+%        e^{-\frac{1}{2}\left({\hat{\nu}_{t}-\nu^{n}_{t}}\right)^2} \cdot \\ &&
+%        e^{-\frac{1}{2}\left(\frac{D_s((\hat{x}_{t},\hat{y}_{t}),(x^n_{t},y^n_{t}))}{\varrho}\right)^2}
+%        e^{-\frac{1}{2}\left(\frac{D_d(\hat{\alpha}_{t}, \alpha^n_{t})}{\rho}\right)^2}.
+%    \end{eqnarray}
+%    Reward $r^{\nu}_{t}$ can be similarly represented by
+%    $P(\nu^{n}_{t}|\{x^{n}_{t}, y^{n}_{t}\},\alpha^{n}_{t})$ averaged overall subjects, i.e., \eqref{reward-nu}.
+%    This completes the proof of proposition 4.
+%\end{proposition}
 
 \textbf{Optimization.}
-Now, we need to optimize \textit{reward}: $r^{\alpha}_t$ and $r^{\nu}_t$, such that we can learn the network parameters of our DRL model in Figure \ref{train-framework}.
-Our Offline-DHP approach implements the asynchronous DRL method \cite{mnih2016asynchronous}.
-Hence, multiple workflows are run to interact with multiple \textit{environments} with workflow-specific parameter vectors $\{ \theta^{'}_{\hat{\nu}}, \theta^{'}_{\hat{\pi}}, \theta^{'}_{V} \}$, producing $\hat{\nu}_t$, $\hat{\pi}_t$ and $V$.
-Here, $V$ denotes \textit{state value} output by the DRL network.
-Meanwhile, global-shared parameter vectors $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$\footnote{As can be seen in Figure \ref{train-framework}, $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$ share all CNN and LSTM layers in our Offline-DHP approach, but they are separated at the output layer.} are updated via accumulating gradient.
-For more details about workflow-specific and global-shared parameter vectors, refer to \cite{mnih2016asynchronous}.
-In our approach, \textit{reward} $r^{\nu}_t$ is optimized to train $\theta_{\hat{\nu}}$ as follows,
+Next, we need to optimize the \textit{rewards}: $r^{\alpha}_{n,t}$ and $r^{\nu}_{n,t}$, when learning the network parameters of our DRL model in Figure \ref{train-framework}.
+Our offline-DHP approach implements the asynchronous DRL method \cite{mnih2016asynchronous} to learn the DRL parameters with optimized \textit{rewards}.
+Hence, multiple workflows are run to interact with multiple \textit{environments} with workflow-specific parameter vectors $\{ \theta^{n}_{\nu}, \theta^{n}_{\pi}, \theta^{n}_{V} \}$, producing $\hat{\nu}^n_t$, $\hat{\pi}^n_t$ and $V$.
+Here, $V$ denotes \textit{state value} output by the DRL network, which is obtained using the same way as \cite{mnih2016asynchronous}.
+Meanwhile, global-shared parameter vectors $\{ \theta_{\nu}, \theta_{\pi}, \theta_{V} \}$\footnote{As can be seen in Figure \ref{train-framework}, $\{ \theta_{\nu}, \theta_{\pi}, \theta_{V} \}$ share all CNN and LSTM layers in our offline-DHP approach, but they are separated at the output layer.} are updated via accumulating gradient.
+For more details about the workflow-specific and global-shared parameter vectors, refer to \cite{mnih2016asynchronous}.
+In our approach, \textit{reward} $r^{\nu}_{n,t}$ is optimized to train $\theta_{\nu}$ as follows,
 \begin{equation}
-\label{lemma-1}
-d \theta_{\hat{\nu}} \leftarrow d \theta_{\hat{\nu}} + \nabla_{\theta_{\hat{\nu}}^{'}} \sum_{t=1}^{t_{\text{max}}} r^{\nu}_t.
+\label{opt-1}
+d \theta_{\nu} \leftarrow d \theta_{\nu} + \nabla_{\theta_{\nu}^{n}} \sum_{t=1}^{T} r^{\nu}_{n,t}.
 \end{equation}
-Besides, we can optimize \textit{reward} $r^{\alpha}_t$ by
+Besides, we can optimize \textit{reward} $r^{\alpha}_{n,t}$ by
 \begin{equation}
 \label{opt-2}
-\small d \theta_{V} \leftarrow d \theta_{V} + \nabla_{\theta_{V}^{'}} \sum_{t = 1}^{t_{\text{max}}} (\sum_{i=t}^{t_{\text{max}}} \gamma^{i-t} r^{\alpha}_{i} - V(o_{t}, f_{t-1} ; \theta_{V}^{'}))^2,
+\small d \theta_{V} \leftarrow d \theta_{V} + \nabla_{\theta_{V}^{n}} \sum_{t = 1}^{T} (\sum_{i=t}^{T} \gamma^{i-t} r^{\alpha}_{n,i} - V(\mathbf{o}^n_{t}, \mathbf{f}^n_{t-1} ; \theta_{V}^{n}))^2,
 \end{equation}
 \begin{small}
 \begin{eqnarray}
 \label{opt-3}
-\hspace{0.1cm} \nonumber d \theta_{\hat{\pi}} \leftarrow d \theta_{\hat{\pi}} +\nabla_{\theta_{\hat{\pi}}^{'}} \sum_{t = 1}^{t_{\text{max}}} \log \hat{\pi}( \alpha_{t} | o_{t}, f_{t-1} ; \theta_{\hat{\pi}}^{'})\cdot \\
-(\sum_{i = t}^{t_{\text{max}}} \gamma^{i-t} r^{\alpha}_{i} - V(o_{t}, f_{t-1} ; \theta_{V}^{'})),
+\hspace{0.1cm} \nonumber d \theta_{\pi} \leftarrow d \theta_{\pi} +\nabla_{\theta_{\pi}^{n}} \sum_{t = 1}^{T} \log \pi( \hat{\alpha}^n_{t} | \mathbf{o}^n_{t}, \mathbf{f}^n_{t-1} ; \theta_{\pi}^{n})\cdot \\
+(\sum_{i = t}^{T} \gamma^{i-t} r^{\alpha}_{n,i} - V(\mathbf{o}^n_{t}, \mathbf{f}^n_{t-1} ; \theta_{V}^{n})),
 \end{eqnarray}
 \end{small}
 where $\gamma$ is the discount factor of \textit{Q-learning} \cite{watkins1992q}.
-In addition, $V(o_{t}, f_{t-1} ; \theta_{V}^{'})$ denotes state value $V$ yielded by $o_{t}, f_{t-1}$ and $\theta_{V}^{'}$; $\hat{\pi}( \alpha_{t} | o_{t}, f_{t-1} ; \theta_{\hat{\pi}}^{'})$ stands for the probability of \textit{action} $\alpha_{t}$ that yields by policy $\hat{\pi}_t$ from $o_{t}, f_{t-1}$ and $\theta_{\hat{\pi}}^{'}$.
-Finally, upon the above equations, RMSProp \cite{tieleman2012lecture} is applied to optimize \textit{reward} in training data. As a result, workflow-specific and global-shared parameter vectors can be learned for predicting HM scan-paths.
+In addition, $V(\mathbf{o}^n_{t}, \mathbf{f}^n_{t-1} ; \theta_{V}^{n})$ denotes state value $V$ yielded by $\mathbf{o}^n_{t}, \mathbf{f}^n_{t-1}$ and $\theta_{V}^{n}$; $\pi( \hat{\alpha}^n_{t} | \mathbf{o}^n_{t}, \mathbf{f}^n_{t-1} ; \theta_{\pi}^{n})$ stands for the probability of \textit{action} $\hat{\alpha}^n_{t}$ that is yielded by policy $\pi_t$ from $\mathbf{o}^n_{t}, \mathbf{f}^n_{t-1}$ and $\theta_{\pi}^{n}$.
+Finally, upon the above equations, RMSProp \cite{tieleman2012lecture} is applied to optimize \textit{rewards} in training data. As a result, the workflow-specific and global-shared parameter vectors can be learned to predict HM scan-paths.
+
 
 \section{Online-DHP approach}
 
 \begin{figure}
 	\begin{center}
 		\centerline{\includegraphics[width=\columnwidth]{figures/dhp_approach_on_line/whole_framework_online_5}}%of
-		\caption{\footnotesize{Framework of our Online-DHP approach.}}
+		\caption{\footnotesize{Framework of our online-DHP approach.}}
 		\label{online-framework}
 	\end{center}
 \end{figure}
 
 In this section, we present our online-DHP approach.
-Our online-DHP approach refers to predicting a specific subject's HM position at the next frame, given his/her HM scan-path till the current frame.
-Here, we define this subject as a \textit{viewer}. % online viewer
-Figure \ref{online-framework} shows the framework of our online-DHP approach, which predicts the HM position of the viewer at frame $t+1$ upon observation till frame $t$.
-As shown in this framework, the input to our online-DHP approach is the viewer's HM scan-path and frame content till frame $t$, while the output is the predicted HM position at frame $t+1$ for the viewer.
-At the beginning, the HM position of the viewer is initialized to be the center of front region, which is the general setting of  the panoramic video player.
-Then, the trained DRL network of our offline-DHP approach is loaded as the initial DRL network for online prediction, and both networks share the same structure.
+The online-DHP approach refers to predicting the a specific subject's HM position $(\hat{x}_{t+1},\hat{y}_{t+1})$ at frame $t+1$, given his/her HM positions $\{(x_{1},y_{1}),\ldots, (x_{t},y_{t})\}$ till frame $t$.
+Note that the definition of notations in this section is similar to those of Section \ref{sec::offline-DHP}, and the only difference is that $n$ is removed in all notations as there is only one subject/workflow in online-DHP.
+In this section, we define the subject as the \textit{viewer}, whose HM positions need to be predicted online. % online viewer
+Figure \ref{online-framework} shows the framework of our online-DHP approach. %, which predicts the HM position $(x_{t+1},y_{t+1})$ upon observation $\{\mathbf{o}_1, \ldots, \mathbf{o}_t\}$ till frame $t$.
+According to \textit{Finding 5}, the input to our online-DHP framework is the \textit{viewer's} HM scan-path $\{(\alpha_1,\nu_1),\ldots, (\alpha_{t-1},\nu_{t-1})\}$ and frame content $\{\mathbf{F}_1, \ldots, \mathbf{F}_t \}$, while the output is the predicted HM position $(\hat{x}_{t+1},\hat{y}_{t+1})$ at the next frame for the \textit{viewer}.
+This can be seen as online prediction of HM positions $\{(\hat{x}_{t},\hat{y}_{t})\}_{t=1}^{T}$ .
+To this end, our online-DHP consists of two stages: the training and prediction stages.
+At the first stage, the parameters of the DRL network are trained.
+At the second state, the \textit{action} of HM scan-path is yielded upon the trained DRL network, to predict the HM position online.
+In the following, we discuss these two stages with more details.
+
+\subsection{Stage I: Training}
+At the beginning frame, the HM position $(\hat{x}_1,\hat{y}_1)$ of the \textit{viewer} is initialized to be the center of front region, which is the general setting of  the panoramic video player. Then, the trained DRL network of our offline-DHP approach is loaded as the initial DRL network for online prediction, and both networks share the same structure.
 The reason for loading the offline-DHP network is that it contains the knowledge of HM related features.
-Later, this initial DRL network is fine-tuned by the viewer's HM scan-path at incoming frames.
+Later, this initial DRL network is fine-tuned by the \textit{viewer's} HM scan-path at incoming frames.
 
-As aforementioned, the offline DRL network is loaded in the initialization of our online-DHP approach. Thus, training the DRL network for online-DHP generally follows that of offline-DHP, both containing the basic reinforcement learning procedure.
-The following shows the procedure of one episode,
+Next, we focus on the algorithm of training the DRL network in our online-DHP approach. As aforementioned, the initial parameters of the DRL network at the first frame are directly from those of offline-DHP. At each of the incoming frames, several episodes are run to update the DRL network of online-DHP. The following summarizes the procedure of one episode at frame $t+1$.
+
+%As aforementioned, the offline DRL network is loaded in the initialization of our online-DHP approach. Thus, training the DRL network for online-DHP generally follows that of offline-DHP, both containing the basic reinforcement learning procedure. XXX.
+%To predict the HM position of
+%
+%The following shows the procedure of one episode,
 \begin{enumerate}
-  \item Take \textit{action} upon current \textit{observation}. The action selects 1 among 8 discrete HM scan-path directions, i.e., $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$. The action also contains a scalar of HM scan-path magnitude.
-  \item Calculate \textit{reward} from the reward estimator with \eqref{reward-alpha} and \eqref{reward-nu}, which measures how close this action to the ground-truth action of the viewer.
-  \item Generate new \textit{observation} from the FoV extractor with above \textit{action}, and then make the content of extracted FoV as the input of the DRL network
-  \item \textcolor{red}{Iterate from 1) to 4), if the number of iteration does not exceed $t$. Otherwise, update DRL network with \eqref{opt-2} and \eqref{opt-3}. This episode ends and move to the next episode.}
+  \item Iterate the following steps from $i=1$ to $t$. At each iteration, $(\hat{\alpha}_i,\hat{\nu}_i)$ and $(\alpha_i,\nu_i)$ are the predicted and ground-truth \textit{actions} of the HM scan-path for the subject, and $\mathbf{o}_i$ is the \textit{observation} of the FoV content.
+  \item Take \textit{action} of $(\hat{\alpha}_i,\hat{\nu}_i)$ using the DRL network, given the current \textit{observation} $\{\mathbf{o}_1, \ldots, \mathbf{o}_i\}$ till frame $i$. The \textit{action} of $\hat{\alpha}_i$ selects 1 among 8 discrete HM scan-path directions, i.e., $\{ 0^{\circ}, 45^{\circ}, \cdots, 315^{\circ} \}$. The \textit{action} of $\hat{\nu}_i$ also contains a scalar of HM scan-path magnitude.
+  \item Calculate \textit{rewards} $(r^{\alpha}_{i}, r^{\nu}_{i})$ from the \textit{reward} estimator with \eqref{reward-alpha} and \eqref{reward-nu}, which measures how close the \textit{action} $(\hat{\alpha}_i,\hat{\nu}_i)$ to the ground-truth HM scan-path $(\alpha_i,\nu_i)$  of the \textit{viewer}. Here, the \textit{reward} calculation does not require the sums of \eqref{reward-alpha} and \eqref{reward-nu}, since the ground-truth HM scan-path of online prediction is from a single \textit{viewer}, rather than from all subjects.
+  \item Generate new \textit{observation} ${\mathbf{o}_{i+1}}$ from the FoV extractor with the above \textit{action} $(\hat{\alpha}_i,\hat{\nu}_i)$, and then it is input to the DRL network.
+  \item Update the DRL network using \eqref{opt-1}, \eqref{opt-2} and \eqref{opt-3}, if the iteration number $i$ is equivalent to $t$.
 \end{enumerate}
-The detailed implementation of the above process has been presented in Section \ref{train}.
-Besides, the definition of \textit{action}, \textit{reward} and \textit{observation} is the same as Section \ref{train}.
-However, the main differences between the online- and offline-DHP approach are:
+Here,  the definitions of \textit{action}, \textit{reward} and \textit{observation} are the same as Section \ref{train}.
+The above iterations share the same implementation of training the DRL model in offline-DHP, which is already presented in Section \ref{train}.
+%The detailed implementation of reinforce learning has been presented in Section \ref{train}.
 
-\begin{itemize}
-    \item \textcolor{red}{For online-DHP, the termination condition of iteration is $t$, where $t$ is the frame the viewer is currently seeing, instead of the last frame of the video in offline-DHP.}
-    \item For online-DHP, the ground-truth HM scan-path used in \eqref{reward-alpha} and \eqref{reward-nu} is from the single viewer, rather then from all subjects.
-\end{itemize}
+%Note that the definitions of \textit{action}, \textit{reward} and \textit{observation} are the similar to Section \ref{train}.
+%The detailed implementation of the above process has been presented in Section \ref{train}.
+%The main differences between the online- and offline-DHP approach are:
+%
+%\begin{itemize}
+%    \item \textcolor{red}{For online-DHP, the termination condition of iteration is $t$, where $t$ is the frame the viewer is currently seeing, instead of the last frame of the video in offline-DHP.}
+%    \item For online-DHP, the ground-truth HM scan-path used in \eqref{reward-alpha} and \eqref{reward-nu} is from the single viewer, rather then from all subjects.
+%\end{itemize}
 
-The above training procedure ends for frame $t$, once meeting the termination condition.
-In our approach, the termination condition is based on the mean overlap (MO), which measures how close the predicted HM position to the ground truth HM position.
-The MO ranges from 0 to 1, where larger MO indicates more precise prediction.
+Once the above iterations are terminated, our algorithm moves to the next episode.
+%The episodes end for frame $t+1$ and the final \textit{action} $(\hat{\alpha}^n_t,\hat{\nu}^n_t)$ is used to obtain the predicted HM position $(\hat{x}^n_{t+1},\hat{y}^n_{t+1})$ at this frame, when meeting the termination conditions.
+After a number of episodes, the training stage ends for frame $t+1$, when meeting the the termination conditions.
+In our approach, there are two criteria for the termination condition. The first criterion is the maximum number $E$ of episodes, which is set to be 500 in this paper.
+The second one is based on the metric of mean overlap (MO), which measures how close the predicted HM position to the ground-truth HM position.
+MO ranges from 0 to 1, and larger MO indicates more precise prediction.
 Specifically, MO is defined as,
 \begin{equation}
 \label{mo-defination}
@@ -1648,106 +1684,101 @@ Specifically, MO is defined as,
 \end{equation}
 where $\textrm{FoV}_{p}$ and $\textrm{FoV}_{g}$ represent the FoVs at predicted and ground-truth HM positions, respectively.
 In \eqref{mo-defination}, $A$ represents the area of a panoramic region, which counts for number of pixels.
-When the average MO is larger than a threshold $0.7$ \footnote{The threshold is set to the average MO achieved in \cite{hu2017deep}}, the switch in Figure \ref{online-framework} is turned to "predict" and the DRL network make a prediction for action at frame $t+1$.
+
+Finally, the training DRL network can be obtained at frame $t+1$, once satisfying one of  the above termination criteria.
+Algorithm \ref{online-DHP-algorithm-training} presents the summary of the training stage in online-DHP.
+
+
+
+\begin{algorithm}
+   \caption{The algorithm of the training stage in online-DHP for frame $t+1$.}
+   \label{online-DHP-algorithm-training}
+   \footnotesize
+\begin{algorithmic}
+   \STATE {\bfseries Input:} Panoramic video frames $\{\mathbf{F}_1, \ldots, \mathbf{F}_t \}$, and the ground-truth HM positions of the \textit{viewer} $\{(x_{1},y_{1}),\ldots, (x_{t},y_{t})\}$;
+   \STATE Initialize the DRL network of online-DHP with parameter vectors $\{ \theta_{{\nu}}, \theta_{{\pi}}, \theta_{V} \}$, by loading the network of offline-DHP;
+   \FOR{$e=1$ {\bfseries to} $E$}
+       \STATE Initialize the HM position to be center of front region: $\hat{x}_1=0,\hat{y}_1=0$;
+       \STATE Initialize LSTM feature to be the zero vector: $\mathbf{f}_0=\mathbf{0}$;
+       \FOR{$i=1$ {\bfseries to} $t-1$}
+           \STATE Extract \textit{observation} $\mathbf{o}_i$ (FoV) from $\mathbf{F}_i$ according to $(\hat{x}_{i},\hat{y}_{i})$;
+           \STATE Obtain \textit{policy} $\pi_{i}$ and LSTM feature $\mathbf{f}_{i}$ using the DRL network with $\{\mathbf{o}_i, \mathbf{f}_{i-1}, \theta_{\pi}\}$;
+           \STATE Select \textit{action} $\hat{\alpha}_{i}$ according to the $\epsilon$-greedy policy of $\pi_{i}$;
+           \STATE Generate \textit{action} $\hat{\nu}_{i}$ using the DRL network given $\mathbf{o}_{i}, \mathbf{f}_{i-1}$ and $ \theta_{\nu}$;
+           \STATE Calculate $(\hat{x}_{i+1}, \hat{y}_{i+1})$ with regard to $\hat{\alpha}_{i},\hat{\nu}_{i}$, and $(\hat{x}_{i}, \hat{y}_{i})$;
+           \STATE Estimate \textit{rewards} $r^{\nu}_{i},\! r^{\alpha}_{i}$ of $\hat{\alpha}_{i},\hat{\nu}_{i}$ using \eqref{reward-alpha}, \eqref{reward-nu};
+           \STATE Calculate MO between $(\hat{x}_{i},\hat{y}_{i})$ and $(x_{i},y_{i})$, denoted as $\text{MO}_i$;
+           \STATE Store a set of experience: $\{ \mathbf{o}_{i}, \! \mathbf{f}_{i-1},\! \hat{\nu}_{i},\! \hat{\alpha}_{i},\! r^{\nu}_{i},\! r^{\alpha}_{i} \}$;
+           \STATE $i \leftarrow i+1$;
+       \ENDFOR
+       \STATE Update $\{ \theta_{\nu}, \theta_{\pi}, \theta_{V} \}$ according to \eqref{opt-1}, \eqref{opt-2}, \eqref{opt-3}, in which $\{ \theta^{n}_{\nu}, \theta^{n}_{\pi}, \theta^{n}_{V} \}$ are replaced by $\{ \theta_{\nu}, \theta_{\pi}, \theta_{V} \}$;
+       \STATE $e \leftarrow e+1$;
+       \STATE $\text{MO} =  \frac{\sum_{i=1}^{t-1} \text{MO}_{i}}{t-1}$;
+       \IF{$\text{MO}> th_{\text{MO}}$}
+           \STATE \textbf{break};
+       \ENDIF
+  \ENDFOR
+  \STATE {\bfseries Return:} The trained parameter vectors: $\{ \theta_{\nu}, \theta_{\pi}, \theta_{V} \}$.
+\end{algorithmic}
+\end{algorithm}
+
+$\{\mathbf{F}_i\}_{i=1}^{t-1}$
+$\mathbf{F}_t$
+$\mathbf{o}_t$
+$\{\mathbf{o}_i\}_{i=1}^{t-1}$
+$\{(x_i,y_i)\}_{i=1}^{t-1}$
+$\{r_i^{\nu}\}_{i=1}^{t-1}$
+$\{r_i^{\alpha}\}_{i=1}^{t-1}$
+$\{\hat{\alpha}\}_{i=1}^{t-1}$ 
+$\{\hat{\nu}\}_{i=1}^{t-1}$ 
+$\hat{\nu}_t$ 
+$\hat{\alpha}_t$
+$(\hat{x}_{t+1},\hat{y}_{+1})$
+\subsection{Stage II: Prediction}
+When the average MO is larger than a threshold $th_{\text{mo}}$, the switch in Figure \ref{online-framework} is turned to ``predict'' and the DRL network make a prediction for the action of HM scan-path at frame $t+1$.
 Note that if the number of training episodes exceeds $E$, the "predict" is also switched on, so that the training episodes end in a limited time.
-The above prediction for action at frame $t+1$ includes the direction and magnitude of HM scan-path.
-As a result, the HM position at frame $t+1$ can be predicted, given the ground-truth HM position at frame $t$.
-Then, similar training procedure is conducted for frame $t+1$, for the HM position at frame $t+2$.
-Finally, online-DHP is achieved by training till current frame, for predicting at the next frame.
+When entering the prediction stage, the DRL model trained at the first stage is used to produce the HM position as follows.
+
+First, the LSTM features $\{\mathbf{f}_i\}_{i=1}^{t-1}$ are sequentially updated from frame $1$ to $t-1$, upon the observed FoVs $\{\mathbf{o}\}_{i=1}^{t-1}$ and the DRL parameters $\theta_{\pi}$ of the training stage. Note that the LSTM feature is initialized with the zero vector $\mathbf{0}$ at frame $1$. Then, $\{\mathbf{o}_t, \mathbf{f}_{t-1}, \theta_{\pi}\}$ produces the action $\hat{\alpha}_t$ of HM scan-path direction. In addition, the HM scan-path magnitude $\hat{\nu}_t$ is generated using $\{\mathbf{o}_t, \mathbf{f}_{t-1}, \theta_{\nu}\}$, in which the parameters of $\theta_{\nu}$ are obtained at the training stage. Afterwards, the HM position $(\hat{x}_{t+1}, \hat{y}_{t+1})$ at frame $t+1$ can be predicted, given the ground-truth HM position $(\!x_{t}, \!y_{t}\!)$ and the estimated HM scan-path $(\hat{\alpha}_t, \hat{\nu}_t)$ at frame $t$. Algorithm \ref{online-DHP-algorithm-predicting} presents the summary of the prediction stage in online-DHP. Finally, online-DHP is achieved by alternating between the stages of training and prediction till the last frame.
+
+%HM position $(\!\hat{x}_{t+1}, \!\hat{y}_{t+1}\!)$ at frame $t+1$, upon $\hat{\alpha}_{t},\hat{\nu}_{t}$ and $(\!x_{t}, \!y_{t}\!)$
+%
+%With the trained DRL model at the first stage, XXX
+%
+%With the trained DRL model at the first stage, the prediction procedure of online-DHP is,
+%\begin{itemize}
+%  \item Extract $\mathbf{o}_i$, according to $(x^m_i,y^m_i)$, where $i\in[1,t]$
+%  \item Obtain $\mathbf{f}_i$, with above $\mathbf{o}_i$, where $i\in[1,t-1]$
+%  \item Feed $\mathbf{f}_{t-1}$ and $\mathbf{o}_{t}$ to DRL model and obtain $\hat{\alpha}_t,\hat{\nu}_t$
+%  \item Update $(x^m_t,y^m_t)$ to $(\hat{x}_t,\hat{y}_t)$ according to $\hat{\alpha}_t,\hat{\nu}_t$, which is the online prediction for $t+1$
+%\end{itemize}
+%
+%
+%The direction and magnitude of HM scan-path, i.e., $\hat{\alpha}_t$ and $\hat{\nu}_t$, can be obtained at frame $t+1$, as the \textit{action} of DRL. As a result, the HM position $(\hat{x}_{t+1},\hat{y}_{t+1})$ at frame $t+1$ can be predicted, given the ground-truth HM position $(x_{t},y_{t})$ at frame $t$. Algorithm \ref{online-DHP-algorithm-predicting} presents the summary of the prediction stage in online-DHP. Finally, online-DHP is achieved by training and predicting till the last frame.
+
 
 \begin{algorithm}
-   \caption{Online-DHP-train}
-   \label{online-DHP-algorithm-train}
+   \caption{The algorithm of the prediction stage in online-DHP for frame $t+1$.}
+   \label{online-DHP-algorithm-predicting}
+   \footnotesize
 \begin{algorithmic}
-   \STATE {\bfseries Input:} Panoramic video and viewer's ground-truth HM position $(x^{n}_{1 \sim T},y^{n}_{1 \sim T})$, where $T$ is the number of frame in the video;
-   \STATE Load offline-DHP model to initialize model with parameter vectors: $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
-   \FOR{$t=1$ {\bfseries to} $T$}
-        \FOR{$e=1$ {\bfseries to} $E$}
-           \STATE Initialize HM position: $x_1=0,y_1=0$;
-           \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
-           \FOR{$i=1$ {\bfseries to} $t-1$}
-               \STATE Extract FoV $o_i$ according to $(x_{i},y_{i})$;
-               \STATE Obtain policy and LSTM feature: $\hat{\pi}_{i}, f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
-               \STATE Select $\hat{\alpha}_{i}$ according to the $\epsilon$-greedy policy based on $\hat{\pi}_{i}$;
-               \STATE Obtain HM magnitude: $\hat{\nu}_{i}=\hat{\nu}(o_{i}, f_{i-1} ; \theta_{\hat{\nu}})$;
-               \STATE According to $\hat{\alpha}_{i},\hat{\nu}_{i}$, update $(x_{i}, y_{i})$ to $(x_{i+1}, y_{i+1})$;
-               \STATE Estimate reward $r^{\nu}_{i},\! r^{\alpha}_{i}$ of $\hat{\alpha}_{i},\hat{\nu}_{i}$ according to \eqref{reward-alpha}, \eqref{reward-nu};
-               \STATE Compute $\text{MO}_i$ of $(x_{i},y_{i})$ and $(x^{g}_{i},y^{g}_{i})$;
-               \STATE Store a set of experience: $\{ o_{i}, \! f_{i-1},\! \hat{\nu}_{i},\! \hat{\alpha}_{i},\! r^{\nu}_{i},\! r^{\alpha}_{i} \}$;
-               \STATE $i \leftarrow i+1$;
-           \ENDFOR
-           \STATE Update $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$ according to \eqref{opt-1}, \eqref{opt-2}, \eqref{opt-3} but replace $\{ \theta^{'}_{\hat{\nu}}, \theta^{'}_{\hat{\pi}}, \theta^{'}_{V} \}$ with $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
-           \STATE $e \leftarrow e+1$;
-           \STATE $\text{MO} =  \frac{\sum_{i} \text{MO}_{i}}{t-1}$;
-           \IF{$\text{MO}> th_{MO}$}
-               \STATE \textbf{break};
-           \ENDIF
-       \ENDFOR
-       \STATE Initialize HM position: $x_1=0,y_1=0$;
-       \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
-       \FOR{$i=1$ {\bfseries to} $t-1$}
-           \STATE Extract FoV $o_i$ according to $(x^{g}_{i},y^{g}_{i})$;
-           \STATE Obtain LSTM feature: $f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
-           \STATE $i \leftarrow i+1$;
-       \ENDFOR
-       \STATE Extract FoV $o_t$ according to $(x^{g}_{t},y^{g}_{t})$;
-       \STATE Obtain policy: $\hat{\pi}_{t}=\hat{\pi}( o_{t}, f_{t-1} ; \theta_{\hat{\pi}})$;
-       \STATE Choose $\hat{\alpha}_{t}$ with the greedy policy based on $\hat{\pi}_{i}$;
-       \STATE Obtain HM magnitude: $\hat{\nu}_{t}=\hat{\nu}(o_{t}, f_{t-1} ; \theta_{\hat{\nu}})$;
-       \STATE According to $\hat{\alpha}_{t},\hat{\nu}_{t}$, update $(x^{g}_{t}, y^{g}_{t})$ to $(x^{p}_{t+1}, y^{p}_{t+1})$, which is the prediction of HM position at frame $t+1$;
-       \STATE Compute $\text{MO}_{t+1}$ of $(x^{p}_{t+1},y^{p}_{t+1})$ and $(x^{g}_{t+1},y^{g}_{t+1})$, which evaluates this prediction;
-       \STATE $t \leftarrow t+1$;
-  \ENDFOR
-  \STATE {\bfseries Return:} The online prediction of the viewer's HM position $(x^{p}_{2 \sim T+1},y^{p}_{2 \sim T+1})$; // Every $(x^{p}_{t+1},y^{p}_{t+1})$ only utilizes $(x^{g}_{1 \sim t},y^{g}_{1 \sim t})$, so it is an online prediction.
-\end{algorithmic}
+   \STATE {\bfseries Input:} The trained parameter vectors: $\{ \theta_{\nu}, \theta_{\pi}, \theta_{V} \}$ from the training stage, panoramic video frames $\{\mathbf{F}_1, \ldots, \mathbf{F}_t \}$, and the ground-truth HM positions of the \textit{viewer} $\{(x_{1},y_{1}),\ldots, (x_{t},y_{t})\}$;
+   %\STATE Load trained parameter vectors from stage training: $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
+   \STATE Initialize the LSTM feature with the zero vector: $\mathbf{f}_0=\mathbf{0}$;
+   \FOR{$i=1$ {\bfseries to} $t-1$}
+       \STATE Extract \textit{observation} $\mathbf{o}_i$ (FoV) from $\mathbf{F}_i$ according to $(x_{i},y_{i})$;
+       \STATE Obtain LSTM feature $\mathbf{f}_{i}$ using the DRL network with $\{\mathbf{o}_{i},\!\mathbf{f}_{i-1},\! \theta_{\pi}\}$;
+       \STATE $i \leftarrow i+1$;
+   \ENDFOR
+   \STATE Extract \textit{observation} $\mathbf{o}_t$ (FoV) from $\mathbf{F}_t$ according to $(x_{t},y_{t})$;
+   \STATE Obtain \textit{policy} $\pi_{t}$ using the DRL network with $\{\mathbf{o}_{t},\!\mathbf{f}_{t-1},\! \theta_{\pi}\}$;
+   \STATE Choose \textit{action} $\hat{\alpha}_{t}$ with the greedy policy based on $\pi_{t}$;
+   \STATE Generate HM magnitude $\hat{\nu}_{t}$ using the DRL network with $\{\mathbf{o}_{t}, \mathbf{f}_{t-1}, \theta_{\nu}\}$;
+   \STATE Estimate HM position $(\!\hat{x}_{t+1}, \!\hat{y}_{t+1}\!)$ at frame $t+1$, upon $\hat{\alpha}_{t},\hat{\nu}_{t}$ and $(\!x_{t}, \!y_{t}\!)$;
+   \STATE {\bfseries Return:} The HM position at frame $t+1$: $(\hat{x}_{t+1},\hat{y}_{t+1})$.
+   \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}
-   \caption{Online-DHP-predict}
-   \label{online-DHP-algorithm-predict}
-\begin{algorithmic}
-   \STATE {\bfseries Input:} Panoramic video and viewer's ground-truth HM position $(x^{g}_{1 \sim T},y^{g}_{1 \sim T})$, where $T$ is the number of frame in the video;
-   \STATE Load offline-DHP model to initialize model with parameter vectors: $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
-   \FOR{$t=1$ {\bfseries to} $T$}
-        \FOR{$e=1$ {\bfseries to} $E$}
-           \STATE Initialize HM position: $x_1=0,y_1=0$;
-           \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
-           \FOR{$i=1$ {\bfseries to} $t-1$}
-               \STATE Extract FoV $o_i$ according to $(x_{i},y_{i})$;
-               \STATE Obtain policy and LSTM feature: $\hat{\pi}_{i}, f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
-               \STATE Select $\hat{\alpha}_{i}$ according to the $\epsilon$-greedy policy based on $\hat{\pi}_{i}$;
-               \STATE Obtain HM magnitude: $\hat{\nu}_{i}=\hat{\nu}(o_{i}, f_{i-1} ; \theta_{\hat{\nu}})$;
-               \STATE According to $\hat{\alpha}_{i},\hat{\nu}_{i}$, update $(x_{i}, y_{i})$ to $(x_{i+1}, y_{i+1})$;
-               \STATE Estimate reward $r^{\nu}_{i},\! r^{\alpha}_{i}$ of $\hat{\alpha}_{i},\hat{\nu}_{i}$ according to \eqref{reward-alpha}, \eqref{reward-nu};
-               \STATE Compute $\text{MO}_i$ of $(x_{i},y_{i})$ and $(x^{g}_{i},y^{g}_{i})$;
-               \STATE Store a set of experience: $\{ o_{i}, \! f_{i-1},\! \hat{\nu}_{i},\! \hat{\alpha}_{i},\! r^{\nu}_{i},\! r^{\alpha}_{i} \}$;
-               \STATE $i \leftarrow i+1$;
-           \ENDFOR
-           \STATE Update $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$ according to \eqref{opt-1}, \eqref{opt-2}, \eqref{opt-3} but replace $\{ \theta^{'}_{\hat{\nu}}, \theta^{'}_{\hat{\pi}}, \theta^{'}_{V} \}$ with $\{ \theta_{\hat{\nu}}, \theta_{\hat{\pi}}, \theta_{V} \}$;
-           \STATE $e \leftarrow e+1$;
-           \STATE $\text{MO} =  \frac{\sum_{i} \text{MO}_{i}}{t-1}$;
-           \IF{$\text{MO}> th_{MO}$}
-               \STATE \textbf{break};
-           \ENDIF
-       \ENDFOR
-       \STATE Initialize HM position: $x_1=0,y_1=0$;
-       \STATE Initialize LSTM feature: $f_0=\mathbb{0}$;
-       \FOR{$i=1$ {\bfseries to} $t-1$}
-           \STATE Extract FoV $o_i$ according to $(x^{g}_{i},y^{g}_{i})$;
-           \STATE Obtain LSTM feature: $f_{i}=\hat{\pi}( o_{i}, f_{i-1} ; \theta_{\hat{\pi}})$;
-           \STATE $i \leftarrow i+1$;
-       \ENDFOR
-       \STATE Extract FoV $o_t$ according to $(x^{g}_{t},y^{g}_{t})$;
-       \STATE Obtain policy: $\hat{\pi}_{t}=\hat{\pi}( o_{t}, f_{t-1} ; \theta_{\hat{\pi}})$;
-       \STATE Choose $\hat{\alpha}_{t}$ with the greedy policy based on $\hat{\pi}_{i}$;
-       \STATE Obtain HM magnitude: $\hat{\nu}_{t}=\hat{\nu}(o_{t}, f_{t-1} ; \theta_{\hat{\nu}})$;
-       \STATE According to $\hat{\alpha}_{t},\hat{\nu}_{t}$, update $(x^{g}_{t}, y^{g}_{t})$ to $(x^{p}_{t+1}, y^{p}_{t+1})$, which is the prediction of HM position at frame $t+1$;
-       \STATE Compute $\text{MO}_{t+1}$ of $(x^{p}_{t+1},y^{p}_{t+1})$ and $(x^{g}_{t+1},y^{g}_{t+1})$, which evaluates this prediction;
-       \STATE $t \leftarrow t+1$;
-  \ENDFOR
-  \STATE {\bfseries Return:} The online prediction of the viewer's HM position $(x^{p}_{2 \sim T+1},y^{p}_{2 \sim T+1})$; // Every $(x^{p}_{t+1},y^{p}_{t+1})$ only utilizes $(x^{g}_{1 \sim t},y^{g}_{1 \sim t})$, so it is an online prediction.
-\end{algorithmic}
-\end{algorithm}
 
 \section{Experimental results}
 This section presents experimental results to validate the effectiveness of our offline-DHP and online-DHP approaches. In Section \ref{sec:settings}, we discuss the settings of offline-DHP and online-DHP in our experiments. Sections \ref{sec:evaluation_offline} and \ref{sec:evaluation_online} compares the performance of our offline-DHP and online-DHP approaches with other approaches, in predicting HM positions of offline and online scenarios, respectively.

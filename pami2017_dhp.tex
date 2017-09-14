@@ -910,6 +910,100 @@ Based on the recorded posture data, HM data of all 58 subjects at each frame of 
 In this section, we mine our PVS-HM database to analyze HM data of different subjects across panoramic video sequences.
 Specifically, we have the following five findings.
 
+%\begin{table*}
+%\begin{center}
+%  \caption{CC between ground-truth HM maps of Groups $A$ and $B$, for each panoramic video sequence} \label{tab:CC}
+%  \tiny
+%  \resizebox{\textwidth}{!}{
+%  \begin{tabular}{*{4}{|c|c|c}|}
+%  \hline
+%  \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC \\
+%  \hline
+%  \multirow{6}{*}{\rotatebox{90}{CA}} & AcerPredator & 0.839$\pm$0.087
+%&
+%  \multirow{6}{*}{\rotatebox{90}{Driving}} & AirShow & 0.783$\pm$0.078
+% &
+%  \multirow{6}{*}{\rotatebox{90}{Others}} & A380 & 0.839$\pm$0.106
+% &
+%  \multirow{6}{*}{\rotatebox{90}{Video Game}} & CS & 0.819$\pm$0.084
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & BFG & 0.644$\pm$0.146
+% & & DrivingInAlps & 0.857$\pm$0.071
+% & & CandyCarnival & 0.723$\pm$0.094
+% & & Dota2 & 0.714$\pm$0.103
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & CMLauncher & 0.828$\pm$0.119
+% & & F5Fighter & 0.592$\pm$0.126
+% & & MercedesBenz & 0.592$\pm$0.133
+% & & GalaxyOnFire & 0.762$\pm$0.084
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & Cryogenian & 0.526$\pm$0.174
+% & & HondaF1 & 0.872$\pm$0.053
+% & & RingMan & 0.897$\pm$0.054
+% & & LOL & 0.724$\pm$0.097
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & LoopUniverse & 0.779$\pm$0.078
+% & & Rally & 0.867$\pm$0.047
+% & & RioOlympics & 0.624$\pm$0.123
+% & & MC & 0.726$\pm$0.115
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & Pokemon & 0.607$\pm$0.182
+% & & Supercar & 0.854$\pm$0.064
+% & & VRBasketball & 0.770$\pm$0.105
+% & & SuperMario64 & 0.860$\pm$0.054
+% \\
+%  \hline
+%  \multirow{6}{*}{\rotatebox{90}{Movie}} & Help & 0.859$\pm$0.122
+% &
+%  \multirow{6}{*}{\rotatebox{90}{Scenery}} & Antarctic & 0.674$\pm$0.135
+% &
+%  \multirow{6}{*}{\rotatebox{90}{Show}} & BTSRun & 0.867$\pm$0.061
+% &
+%  \multirow{6}{*}{\rotatebox{90}{Action Sports}} & Gliding & 0.528$\pm$0.158
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & IRobot & 0.771$\pm$0.078
+% & & BlueWorld & 0.559$\pm$0.156
+% & & Graffiti & 0.807$\pm$0.100
+% & & Parachuting & 0.628$\pm$0.157
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & Predator & 0.696$\pm$0.124
+% & & Dubai & 0.646$\pm$0.133
+% & & KasabianLive & 0.722$\pm$0.132
+% & & RollerCoaster & 0.834$\pm$0.078
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & ProjectSoul & 0.918$\pm$0.053
+% & & Egypt & 0.665$\pm$0.131
+% & & NotBeAloneTonight & 0.587$\pm$0.131
+% & & Skiing & 0.766$\pm$0.104
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & StarWars & 0.950$\pm$0.016
+% & & StarryPolar & 0.495$\pm$0.152
+% & & Symphony & 0.779$\pm$0.096
+% & & Surfing & 0.830$\pm$0.096
+% \\
+%  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+%  & Terminator & 0.843$\pm$0.078
+% & & WesternSichuan & 0.667$\pm$0.138
+% & & VRBasketball & 0.770$\pm$0.105
+% & & Waterskiing & 0.781$\pm$0.128
+% \\
+%  \hline
+%  \multicolumn{2}{|c|}{Overall} & \multicolumn{10}{c|}{0.745$\pm$ 0.114}\\
+%  \hline
+%  \end{tabular}}
+%\end{center}
+%\end{table*}
+
+%TABLE HA_HB_NEW
 \begin{table*}
 \begin{center}
   \caption{CC between ground-truth HM maps of Groups $A$ and $B$, for each panoramic video sequence} \label{tab:CC}
@@ -919,89 +1013,205 @@ Specifically, we have the following five findings.
   \hline
   \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC \\
   \hline
-  \multirow{6}{*}{\rotatebox{90}{CA}} & AcerPredator & 0.839$\pm$0.087
+  \multirow{10}{*}{\rotatebox{90}{CA}} & AcerEngine & 0.891$\pm$0.058
 &
-  \multirow{6}{*}{\rotatebox{90}{Driving}} & AirShow & 0.783$\pm$0.078
+  \multirow{10}{*}{\rotatebox{90}{Others}} & A380 & 0.867$\pm$0.058
  &
-  \multirow{6}{*}{\rotatebox{90}{Others}} & A380 & 0.839$\pm$0.106
+  \multirow{10}{*}{\rotatebox{90}{Driving}} & AirShow & 0.883$\pm$0.033
  &
-  \multirow{6}{*}{\rotatebox{90}{Video Game}} & CS & 0.819$\pm$0.084
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & BFG & 0.644$\pm$0.146
- & & DrivingInAlps & 0.857$\pm$0.071
- & & CandyCarnival & 0.723$\pm$0.094
- & & Dota2 & 0.714$\pm$0.103
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & CMLauncher & 0.828$\pm$0.119
- & & F5Fighter & 0.592$\pm$0.126
- & & MercedesBenz & 0.592$\pm$0.133
- & & GalaxyOnFire & 0.762$\pm$0.084
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & Cryogenian & 0.526$\pm$0.174
- & & HondaF1 & 0.872$\pm$0.053
- & & RingMan & 0.897$\pm$0.054
- & & LOL & 0.724$\pm$0.097
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & LoopUniverse & 0.779$\pm$0.078
- & & Rally & 0.867$\pm$0.047
- & & RioOlympics & 0.624$\pm$0.123
- & & MC & 0.726$\pm$0.115
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & Pokemon & 0.607$\pm$0.182
- & & Supercar & 0.854$\pm$0.064
- & & VRBasketball & 0.770$\pm$0.105
- & & SuperMario64 & 0.860$\pm$0.054
+  \multirow{10}{*}{\rotatebox{90}{Show}} & BTSRun & 0.926$\pm$0.041
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & AcerPredator & 0.876$\pm$0.063
+
+& & Camping & 0.851$\pm$0.073
+
+& & Bicycle & 0.953$\pm$0.021
+
+& & Catwalks & 0.834$\pm$0.069
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & BFG & 0.732$\pm$0.101
+
+& & CandyCarnival & 0.830$\pm$0.088
+
+& & DrivingInAlps & 0.858$\pm$0.073
+
+& & DanceInTurn & 0.934$\pm$0.030
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & CMLauncher & 0.894$\pm$0.041
+
+& & Lion & 0.937$\pm$0.034
+
+& & F5Fighter & 0.572$\pm$0.109
+
+& & Dancing & 0.906$\pm$0.052
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & CMLauncher2 & 0.924$\pm$0.045
+
+& & MercedesBenz & 0.685$\pm$0.137
+
+& & HondaF1 & 0.944$\pm$0.020
+
+& & Graffiti & 0.906$\pm$0.037
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & LoopUniverse & 0.881$\pm$0.044
+
+& & RingMan & 0.923$\pm$0.032
+
+& & InsideCar & 0.903$\pm$0.036
+
+& & Guitar & 0.866$\pm$0.096
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & Orion & 0.810$\pm$0.082
+
+& & Shark & 0.812$\pm$0.116
+
+& & Rally & 0.925$\pm$0.025
+
+& & KasabianLive & 0.819$\pm$0.087
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & Pearl & 0.838$\pm$0.120
+
+& & Square & 0.842$\pm$0.076
+
+& & Stratosphere & 0.792$\pm$0.090
+
+& & NotBeAloneTonight & 0.695$\pm$0.104
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & Roma & 0.896$\pm$0.054
+
+& & TalkingInCar & 0.858$\pm$0.078
+
+& & VRBasketball & 0.739$\pm$0.098
+
+& & Symphony & 0.826$\pm$0.068
  \\
   \hline
-  \multirow{6}{*}{\rotatebox{90}{Movie}} & Help & 0.859$\pm$0.122
- &
-  \multirow{6}{*}{\rotatebox{90}{Scenery}} & Antarctic & 0.674$\pm$0.135
- &
-  \multirow{6}{*}{\rotatebox{90}{Show}} & BTSRun & 0.867$\pm$0.061
- &
-  \multirow{6}{*}{\rotatebox{90}{Action Sports}} & Gliding & 0.528$\pm$0.158
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & IRobot & 0.771$\pm$0.078
- & & BlueWorld & 0.559$\pm$0.156
- & & Graffiti & 0.807$\pm$0.100
- & & Parachuting & 0.628$\pm$0.157
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & Predator & 0.696$\pm$0.124
- & & Dubai & 0.646$\pm$0.133
- & & KasabianLive & 0.722$\pm$0.132
- & & RollerCoaster & 0.834$\pm$0.078
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & ProjectSoul & 0.918$\pm$0.053
- & & Egypt & 0.665$\pm$0.131
- & & NotBeAloneTonight & 0.587$\pm$0.131
- & & Skiing & 0.766$\pm$0.104
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & StarWars & 0.950$\pm$0.016
- & & StarryPolar & 0.495$\pm$0.152
- & & Symphony & 0.779$\pm$0.096
- & & Surfing & 0.830$\pm$0.096
- \\
-  \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
-  & Terminator & 0.843$\pm$0.078
- & & WesternSichuan & 0.667$\pm$0.138
- & & VRBasketball & 0.770$\pm$0.105
- & & Waterskiing & 0.781$\pm$0.128
+ \multirow{10}{*}{\rotatebox{90}{VideoGame}} & Yacht & 0.780$\pm$0.126
+&
+ \multirow{10}{*}{\rotatebox{90}{Movie}} & IRobot & 0.907$\pm$0.029
+&
+ \multirow{10}{*}{\rotatebox{90}{Scenery}} & BlueWorld & 0.793$\pm$0.159
+&
+ \multirow{10}{*}{\rotatebox{90}{ActionSports}} & Supercar & 0.915$\pm$0.041
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & WaitingForLove & 0.867$\pm$0.083
+
+& & KingKong & 0.740$\pm$0.091
+
+& & Castle & 0.698$\pm$0.105
+
+& & Flight & 0.834$\pm$0.072
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & CS & 0.872$\pm$0.061
+
+& & Murder & 0.921$\pm$0.058
+
+& & Egypt & 0.779$\pm$0.094
+
+& & Motorbike & 0.746$\pm$0.105
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & GalaxyOnFire & 0.895$\pm$0.062
+
+& & Predator & 0.743$\pm$0.132
+
+& & Manhattan & 0.795$\pm$0.085
+
+& & Parachuting & 0.777$\pm$0.103
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & GTA & 0.930$\pm$0.026
+
+& & ProjectSoul & 0.946$\pm$0.024
+
+& & Snowfield & 0.824$\pm$0.142
+
+& & Parasailing & 0.836$\pm$0.058
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & MC & 0.728$\pm$0.124
+
+& & StarWars & 0.910$\pm$0.038
+
+& & StarryPolar & 0.637$\pm$0.120
+
+& & Skiing & 0.748$\pm$0.099
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & SpaceWar & 0.681$\pm$0.116
+
+& & StarWars2 & 0.912$\pm$0.035
+
+& & Sunset & 0.746$\pm$0.080
+
+& & SnowRopeway & 0.728$\pm$0.093
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & SpaceWar2 & 0.577$\pm$0.148
+
+& & Terminator & 0.908$\pm$0.054
+
+& & Village & 0.819$\pm$0.084
+
+& & Surfing & 0.850$\pm$0.080
+
+\\
+\cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12}
+
+ & StreetFighter & 0.930$\pm$0.023
+
+& & TheInvisible & 0.871$\pm$0.052
+
+& & Waterfall & 0.824$\pm$0.066
+
+& & SurfingArctic & 0.695$\pm$0.119
  \\
   \hline
-  \multicolumn{2}{|c|}{Overall} & \multicolumn{10}{c|}{0.745$\pm$ 0.114}\\
+  \multicolumn{2}{|c|}{Overall} & \multicolumn{10}{c|}{0.830$\pm$ 0.075}\\
   \hline
   \end{tabular}}
 \end{center}
 \end{table*}
+
+
 \begin{figure*}
 	\begin{center}
 		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence-distribution}}%of
@@ -1103,6 +1313,25 @@ $\mathbf{f}^n_{t}$ & The extracted LSTM feature at frame $t$,  as part of \texti
 
 \emph{Finding 5: For one subject, the HM scan-path at the current time interval is correlated with that at the previous time interval and observed video content. }
 \\ \textit{Analysis:} For each individual subject, the vectors of HM scan-paths across the time interval of 0.3 second are extracted from all 76 sequences in our the PVS-HM database. Here, we calculate the correlation coefficient (CC) of HM scan-path vectors between two successive time periods, and then average the CC value over all 76 sequences for each subject. Figure \ref{consi_on_time} shows averaged CC values for each of 58 subjects, which range from 0.39 - 0.51. This figure implies that the HM scan-path at the current time interval is somewhat correlated with that at the previous time interval. On the other hand, \cite{hu2017deep} shows that the current HM scan-path of one subject is also related to observed video content. The above completes the validation of \textit{Finding 5}.
+
+\begin{figure*}
+	\begin{center}
+		\centerline{\includegraphics[width=2\columnwidth]{figures/database/huoshantu}}%of
+		\caption{\footnotesize{The distribution of people's concerns on panorama video. }}
+		\label{huoshantu}
+	\end{center}
+\end{figure*}
+
+{\color{red}
+\emph{Finding 6: When watching panorama video, people will be more concerned about the middle of the region, and people will tend to look around instead of looking up and down, which provides a basis for our prediction of the concerns. }
+
+Analysis: We divide the entire panorama video into a $60$ x $30$ grid, and we counted the number of people's concerns on each grid.Then we got the following figure\ref{huoshantu} by fitting.
+
+In this figure, the x axis represents the longitude, the y axis represents the dimension, and the z axis represents the number of views.
+From \ref{huoshantu} we can see that this function is whit a single peak in the middle,which means that the overwhelming majority of people are focused on the middle, and this is our first conclusion. Then we can see that the protruding part of the figure is long in the longitude direction and short in the latitude direction, which means the number of people who watch in the direction of the longitude is more than people who watch in the direction of the latitude. This also illustrates our second conclusion,people will tend to look around instead of looking up and down.
+This completes the verification of \textit{Finding 6}.
+}
+
 
 %The relevance decreases when the time interval is increased.
 %\emph{Finding 5: HM scan-path is predictable.The behavior of the next moment is of great relevance to the state of the last moment.We have proved that correlation between the direction of the next moment and the direction of this moment is more than $87.9\%$ (The longer the time interval, the smaller the correlation will be). }
@@ -1576,70 +1805,124 @@ For evaluating the performance of online-DHP, XXX
 		\label{figure-object}
 	\end{center}
 \end{figure*}
-
-%\begin{table*}
-%    \begin{center}
-%        \caption{CC results of HM map prediction by our and other approaches}
-%        \label{table-result}
-%        \tiny
-%        \resizebox{\textwidth}{!}{
-%            \begin{tabular}{cc*{11}{c}c}
-%
-%                \tabincell{c}{\rotatebox{30}{CC}} & \rotatebox{30}{Method}
-%                    & \rotatebox{30}{Gliding} & \rotatebox{30}{Egypt} & \rotatebox{30}{BlueWorld} & \rotatebox{30}{RollerCoaster} & \rotatebox{30}{Help} & \rotatebox{30}{BTSRun} & \rotatebox{30}{Dubai} & \rotatebox{30}{CandyCarnival} & \rotatebox{30}{StarryPolar} & \rotatebox{30}{Surfing} & \rotatebox{30}{\textbf{Average}}
-%                \\
-%                \toprule
-%
-%                \multirow{3}{*}{\rotatebox{30}{Non-FCB}}
-%                \abovespace
-%                & Our
-%                    & 0.635 & 0.722 & \textbf{0.746} & 0.782 & \textbf{0.751} & 0.650 & \textbf{0.682} & 0.639 & 0.583 & 0.699 & 0.689
-%                \\
-%                & BMS
-%                    & 0.451 & 0.232 & 0.353 & 0.342 & 0.321 & 0.341 & 0.343 & 0.426 & 0.245 & 0.643 & 0.370
-%                \\
-%                \belowspace
-%                & OBDL
-%                    & 0.237 & 0.553 & 0.620 & 0.250 & 0.502 & 0.270 & 0.300 & 0.539 & 0.276 & 0.236 & 0.378
-%                \\
-%                \midrule
-%                \multirow{3}{*}{\rotatebox{30}{FCB}}
-%                \abovespace
-%                & Our
-%                    & \textbf{0.721} & \textbf{0.794} & 0.729 & \textbf{0.800} & 0.488 & \textbf{0.790} & 0.643 & \textbf{0.682} & \textbf{0.620} & 0.746 & \textbf{0.701}
-%                \\
-%                & BMS
-%                    & 0.477 & 0.635 & 0.585 & 0.658 & 0.542 & 0.399 & 0.533 & 0.596 & 0.343 & \textbf{0.753} & 0.552
-%                \\
-%                \belowspace
-%                & OBDL
-%                    & 0.277 & 0.333 & 0.706 & 0.334 & 0.654 & 0.284 & 0.376 & 0.668 & 0.211 & 0.350 & 0.419
-%                \\
-%                \midrule
-%                \multicolumn{2}{c}{FCB Only}
-%                    \abovespace\belowspace
-%                    & 0.505 & 0.672 & 0.596 & 0.692 & 0.243 & 0.455 & 0.536 & 0.207 & 0.481 & 0.593 & 0.498
-%                \\
-%                \bottomrule
-%
-%            \end{tabular}
-%        }
-%    \end{center}
-%\end{table*}
+% the CC table
 \begin{table*}
-	\begin{center}
+    \begin{center}
         \caption{CC results of HM map prediction by our and other approaches}
         \label{table-result}
-    		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/cc_0731_2}}%of
-	\end{center}
+        \tiny
+        \resizebox{\textwidth}{!}{
+            \begin{tabular}{cc*{16}{c}c}
+
+				\tabincell{c}{\rotatebox{45}{CC}} & \rotatebox{45}{Method}
+					& \rotatebox{45}{StarryPolar} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{InsideCar}
+					& \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Waterfall} & \rotatebox{45}{Dancing}
+					& \rotatebox{45}{CMLauncher2} & \rotatebox{45}{Guitar} & \rotatebox{45}{KingKong} & \rotatebox{45}{BTSRun} & \rotatebox{45}{WaitingForLove}
+					& \rotatebox{45}{\textbf{Average}}
+                \\
+                \toprule
+
+                \multirow{4}{*}{\rotatebox{45}{Non-FCB}}
+                \abovespace
+    			& Our
+    				& 0.185 & 0.710 & 0.573 & 0.717 & \textbf{0.783} & 0.673 & 0.673 & 0.678 & \textbf{0.763} & \textbf{0.837} & 0.585 & 0.645 & 0.751 & 0.764 & 0.471 & \textbf{0.654}
+    			\\
+    			& BMS
+    				& 0.450 & 0.167 & 0.274 & 0.228 & 0.331 & 0.067 & 0.463 & 0.169 & 0.393 & 0.121 & 0.203 & 0.328 & 0.105 & 0.105 & 0.223 & 0.242
+    			\\
+    			& OBDL
+    				& 0.107 & 0.184 & 0.028 & 0.190 & 0.260 & 0.100 & 0.308 & 0.027 & 0.025 & 0.176 & 0.117 & 0.066 & 0.125 & 0.047 & 0.222 & 0.132
+    			\\
+    			\belowspace
+    			& SALICON
+    				& 0.293 & 0.129 & 0.126 & 0.153 & 0.364 & 0.034 & 0.186 & 0.265 & 0.103 & 0.120 & 0.166 & 0.216 & 0.150 & 0.063 & 0.256 & 0.175
+                \\
+                \midrule
+                \multirow{4}{*}{\rotatebox{45}{FCB}}
+                \abovespace
+    			& Our
+    				& 0.497 & \textbf{0.816} & 0.574 & 0.768 & 0.712 & 0.655 & \textbf{0.810} & 0.748 & \textbf{0.797} & 0.764 & 0.747 & 0.652 & 0.673 & 0.679 & 0.677 & \textbf{0.704}
+    			\\
+    			& BMS
+    				& 0.692 & 0.567 & 0.520 & 0.494 & 0.495 & 0.368 & \textbf{0.711} & 0.500 & 0.655 & 0.414 & 0.546 & 0.494 & 0.311 & 0.322 & 0.503 & 0.506
+    			\\
+    			& OBDL
+				    & 0.510 & 0.540 & 0.321 & 0.441 & 0.496 & 0.455 & 0.638 & 0.464 & 0.434 & 0.408 & 0.468 & 0.461 & 0.410 & 0.288 & 0.598 & 0.462
+			    \\
+                \belowspace
+    			& SALICON
+    				& 0.664 & 0.563 & 0.456 & 0.539 & 0.528 & 0.452 & 0.658 & 0.596 & 0.525 & 0.355 & 0.667 & 0.461 & 0.362 & 0.346 & 0.628 & 0.520
+    			\\
+                \midrule
+    			\multicolumn{2}{c}{FCB Only}
+    				\abovespace\belowspace
+    				& 0.557 & 0.747 & 0.317 & 0.403 & 0.292 & 0.239 & 0.585 & 0.477 & 0.583 & 0.387 & 0.735 & 0.356 & 0.271 & 0.201 & 0.497 & 0.443
+    			\\
+                \bottomrule
+
+            \end{tabular}
+        }
+    \end{center}
 \end{table*}
 
+%the Nss table
 \begin{table*}
-	\begin{center}
-    \caption{NSS results of HM map prediction by our and other approaches}
-    \label{NSS}
-		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/nss_0731_1}}%of
-	\end{center}
+    \begin{center}
+        \caption{NSS results of HM map prediction by our and other approaches}
+        \label{table-result}
+        \tiny
+        \resizebox{\textwidth}{!}{
+            \begin{tabular}{cc*{16}{c}c}
+
+				\tabincell{c}{\rotatebox{45}{NSS}} & \rotatebox{45}{Method}
+					& \rotatebox{45}{StarryPolar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar}
+					& \rotatebox{45}{Waterfall} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Guitar} & \rotatebox{45}{Dancing}
+					& \rotatebox{45}{InsideCar} & \rotatebox{45}{CMLauncher2} & \rotatebox{45}{WaitingForLove} & \rotatebox{45}{BTSRun} & \rotatebox{45}{KingKong}
+					& \rotatebox{45}{\textbf{Average}}
+                \\
+                \toprule
+
+                \multirow{4}{*}{\rotatebox{45}{Non-FCB}}
+                \abovespace
+     			& Our
+    				& 0.899 & 2.806 & 2.237 & 3.346 & 2.180 & 3.765 & 2.529 & 3.196 & \textbf{3.461} & \textbf{5.297} & \textbf{4.402} & 3.529 & 2.278 & 4.572 & 3.334 & \textbf{3.189}
+    			\\
+    			& BMS
+    				& 1.313 & 0.772 & 0.137 & 0.710 & 0.807 & 1.673 & 1.613 & 0.841 & 1.497 & 0.670 & 1.657 & 1.034 & 0.997 & 0.546 & 0.119 & 0.959
+    			\\
+    			& OBDL
+    				& 0.126 & 0.637 & 0.301 & 0.260 & 0.064 & 0.073 & 1.015 & 0.035 & 0.393 & 0.980 & 1.375 & 0.660 & 0.964 & 0.215 & 0.107 & 0.480
+    			\\
+    			\belowspace
+    			& SALICON
+    				& 0.730 & 0.600 & 0.251 & 0.456 & 0.344 & 0.410 & 0.669 & 1.138 & 0.965 & 0.230 & 1.823 & 0.921 & 1.298 & 0.337 & 0.203 & 0.692
+    			\\
+                \midrule
+                \multirow{4}{*}{\rotatebox{45}{FCB}}
+                \abovespace
+    			& Our
+    				& 1.825 & 2.911 & 2.064 & \textbf{3.756} & 2.031 & 3.755 & 2.943 & 3.393 & 3.395 & \textbf{4.608} & 3.816 & \textbf{4.463} & 3.351 & 3.931 & 2.883 & \textbf{3.275}
+    			\\
+    			& BMS
+    				& 2.206 & 1.779 & 1.063 & 2.537 & 1.667 & 2.891 & 2.507 & 2.280 & 2.386 & 2.366 & 2.508 & \textbf{3.136} & 2.434 & 1.771 & 1.288 & 2.188
+    			\\
+    			& OBDL
+    				& 1.712 & 1.572 & 1.371 & 2.368 & 1.055 & 1.920 & 2.225 & 2.007 & 2.377 & 2.319 & 2.556 & 2.777 & 2.912 & 1.580 & 1.693 & 2.030
+    			\\
+    			\belowspace
+    			& SALICON
+    				& 2.083 & 2.024 & 1.332 & 2.477 & 1.493 & 2.353 & 2.352 & 2.619 & 2.264 & 1.957 & 2.672 & 3.932 & 3.143 & 1.915 & 1.496 & 2.274
+    			\\
+                \midrule
+    			\multicolumn{2}{c}{FCB Only}
+    				\abovespace\belowspace
+				        & 2.388 & 1.613 & 0.699 & 4.123 & 1.190 & 3.191 & 2.406 & 2.286 & 1.828 & 2.151 & 1.387 & 5.764 & 2.600 & 1.095 & 1.020 & 2.249
+    			\\
+                \bottomrule
+
+            \end{tabular}
+        }
+    \end{center}
 \end{table*}
 
 \begin{figure*}
@@ -1654,22 +1937,22 @@ Now, we evaluate the performance of our offline-DHP approach in predicting HM ma
 In particular, OBDL  \cite{hossein2015many} and BMS \cite{zhang2016exploiting} are the latest saliency detection approaches for video and image, respectively.
 SALICON\cite{huang2015salicon} is a state-of-the-art DNN approach for saliency detection.
 In addition to the above three approaches, we also compare our approach to the front-center-bias (FCB) baseline, since human attention normally biases towards front-center regions of panoramic video.
-Here, we model FCB by Gaussian distribution\footnote{The standard deviation is XXXX degree, obtained by least square fitting over all HM positions of the training set.}, similar to the center bias of saliency detection.
-In the field of saliency detection, the center bias  \cite{borji2013state} is normally multiplied to saliency maps for improving saliency detection accuracy. Hence, we further report results of HM maps multiplied by FCB, for our and other approaches.
-For evaluation, we measure the accuracy of HM map prediction in terms of CC and normalized scan-path saliency (NSS), which are two effective evaluation metrics \cite{Li_2015_ICCV} in saliency detection.
+Here, we model FCB by Gaussian distribution\footnote{The standard deviation is 12.8 degree, obtained by least square fitting over all HM positions of the training set.}, similar to the center bias of saliency detection.
+In the field of saliency detection, the center bias  \cite{borji2013state} is normally multiplied to saliency maps for improving saliency detection accuracy. Hence, we further report results of HM maps \textcolor{blue}{combined}/multiplied by FCB, for our and other approaches.
+For evaluation, we measure the accuracy of HM map prediction in terms of CC and normalized scan-path saliency (NSS), which are two effective evaluation metrics \textcolor{blue}{\cite{Li_2015_ICCV}} in saliency detection.
 Note that the larger value of CC or NSS means more accurate prediction of HM maps.
 
 Table \ref{table-result} tabulates the results of CC and NSS in predicting HM maps of 15 test sequences, for our and other approaches.
 In this table, the results of CC and NSS are averaged over all frames for each test sequence.
 We can see from this table that our offline-DHP approach is drastically superior to other approaches, when FCB is not integrated.
-Specifically, our  offline-DHP approach increases the CC value averaged over all 15 test sequences by XXX, XXXX and XXX, compared with OBDL, BMS and SALICON, respectively.
-Additionally, the increase of averaged NSS value is XXX, XXX and XXX in offline-DHP, over OBDL, BMS and SALICON.
+Specifically, our  offline-DHP approach increases the CC value averaged over all 15 test sequences by 0.522, 0.412 and 0.479, compared with OBDL, BMS and SALICON, respectively.
+Additionally, the increase of averaged NSS value is 2.709, 2.230 and 2.497 in offline-DHP, over OBDL, BMS and SALICON.
 Once integrated with FCB, all four approaches have performance improvement, and our approach still performs best among all three approaches. Meanwhile, our approach significantly outperforms the FCB baseline.
 In a word, our offline-DHP approach is effective in predicting HM maps of panoramic video, much better than other approaches and the FCB baseline.
 
 
 Next, we move to the comparison of subjective results. Figure \ref{figure-object} shows several frames from two selected sequences and their ground-truth HM maps of human.
-In Figure \ref{figure-object}, we further visualize the HM maps generated by our and other approaches including the FCB baseline. Here, the predicted HM maps are integrated with FCB, as FCB can improve the performance of all four approaches in predicting HM maps (as seen in Table \ref{table-result}).
+In Figure \ref{figure-object}, we further visualize the HM maps generated by our and other approaches including the FCB baseline. Here, the predicted HM maps are \textcolor{blue}{integrated with FCB}, as FCB can improve the performance of all four approaches in predicting HM maps (as seen in Table \ref{table-result}).
 From this figure, one can observe that HM maps of our approach are more close to the ground-truth HM maps, compared to other approaches and the FCB baseline.
 This indicates that our offline-DHP approach is capable of better locating HM positions of different subjects on panoramic video.
 Moreover, Figure \ref{scan-path-example} plots the HM scan-paths by different subjects and by multiple DRL workflows of offline-DHP, to investigate the agreement between the subjects and DRL workflows.
@@ -1681,11 +1964,48 @@ We can see from this figure that the DRL workflows are able to yield similar sca
 \subsection{Performance evaluation on online-DHP}\label{sec:evaluation_online}
 \label{online-compare}
 
+%\begin{table*}
+%	\begin{center}
+%		\caption{MO results of HM position prediction by our and other approaches} \centerline{\includegraphics[width=2\columnwidth]{figures/experiment_on_line/Online_compare}}%of
+%		\label{table-MeanMo}
+%	\end{center}
+%\end{table*}
+
+% the Ice Table
 \begin{table*}
-	\begin{center}
-		\caption{MO results of HM position prediction by our and other approaches} \centerline{\includegraphics[width=2\columnwidth]{figures/experiment_on_line/Online_compare}}%of
-		\label{table-MeanMo}
-	\end{center}
+    \begin{center}
+        \caption{MO results of HM position prediction by our and other approaches}
+        \label{table-result}
+        \tiny
+        \resizebox{\textwidth}{!}{
+            \begin{tabular}{cc*{16}{c}c}
+
+				\tabincell{c}{\rotatebox{45}{Method}}
+					& \rotatebox{45}{KingKong} & \rotatebox{45}{SpaceWar2} & \rotatebox{45}{StarryPolar} & \rotatebox{45}{Dancing} & \rotatebox{45}{Guitar}
+					& \rotatebox{45}{BTSRun} & \rotatebox{45}{InsideCar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{SpaceWar} & \rotatebox{45}{CMLauncher2}
+					& \rotatebox{45}{Waterfall} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Symphony} & \rotatebox{45}{WaitingForLove} & \rotatebox{45}{{\textbf{Average}}}
+
+                \\
+               \toprule
+               \multirow{1}{*}{\rotatebox{0}{Online}}
+               \abovespace
+     			
+    			  & 0.809 & 0.763 & 0.549 & 0.859 & 0.785 & 0.878 & 0.847 & 0.820 & 0.626 & 0.763 & 0.667 & 0.659 & 0.693 & 0.747 & 0.836 & 0.753
+    			\\
+                \multirow{1}{*}{\rotatebox{0}{Deep 360 Polit}}
+    			  & 0.266 & 0.285 & 0.258 & 0.386 & 0.341 & 0.381 & 0.258 & 0.240 & 0.298 & 0.270 & 0.274 & 0.283 & 0.314 & 0.432 & 0.393 & 0.312
+    			\\
+                 \multirow{1}{*}{\rotatebox{0}{Random-baseline}}
+    			 & 0.201 & 0.206 & 0.161 & 0.216 & 0.203 & 0.206 & 0.216 & 0.203 & 0.209 & 0.205 & 0.203 & 0.204 & 0.206 & 0.202 & 0.211 & 0.204
+    			\\
+    			\belowspace
+                 \multirow{1}{*}{\rotatebox{0}{Keep-baseline}}
+    			 & 0.224 & 0.231 & 0.197 & 0.217 & 0.227 & 0.237 & 0.234 & 0.225 & 0.216 & 0.251 & 0.251 & 0.209 & 0.229 & 0.216 & 0.225 & 0.226
+    			\\
+                \bottomrule
+            \end{tabular}
+        }
+    \end{center}
 \end{table*}
 
 \begin{figure*}
@@ -1705,7 +2025,7 @@ The second baseline (called baseline 2) produces the HM position, using the rand
 %More specifically, the HM positions of 58 subjects on the 15 test sequences of the PVS-HM are all tested.
 
 Table \ref{table-MeanMo} compares the MO results of our and other approaches for the 15 test sequences of our PVS-HM database. Note that the MO results of each sequence are averaged over the predicted HM positions of all 58 subjects in our database. As observed in this table, our online-DHP approach is significantly superior to two baselines, indicating the effectiveness of applying DRL in predicting HM positions online.
-In addition, we can see from Table \ref{table-MeanMo} that our online-DHP approach performs better than the deep 360 pilot \cite{hu2017deep}, with a increase of XXXX in average MO. Such a increase is probably because (1) the online DRL model of our approach is capable of generating the accurate \textit{actions} of HM scan-paths. and (2) the DRL network of offline-DHP is incorporated in our online prediction as the prior knowledge.
+In addition, we can see from Table \ref{table-MeanMo} that our online-DHP approach performs better than the deep 360 pilot \cite{hu2017deep}, with an increase of XXXX in average MO. Such a increase is probably because (1) the online DRL model of our approach is capable of generating the accurate \textit{actions} of HM scan-paths. and (2) the DRL network of offline-DHP is incorporated in our online prediction as the prior knowledge.
 
 To test the generalizability of our approach, we further evaluate the performance of our, the deep 360 pilot \cite{hu2017deep} and two baseline approaches on the test set of \cite{hu2017deep}. For such an evaluation, our online-DHP is still based on our offline DRL network that is learned from the training sequences of our PVS-HM database. The MO results are shown in Table XXX. From this table, we can see that our online-DHP approach again outperforms \cite{hu2017deep} and two baselines. In particular, our approach has XXX MO increase over \cite{hu2017deep}, despite testing on the test set of \cite{hu2017deep}. Therefore, the generalization capability of our approach can be confirmed.
 
@@ -1766,6 +2086,43 @@ Humans always perceive the world around them in a panorama, rather than the 2D p
 \section{Proof of Proposition 1}
 
 Example.
+
+
+
+
+\subsection{The Analysis of FCB Combined in HM Maps}
+The literature of saliency detection \cite{judd2009learning} has argued that human attention has strong center bias in images or videos, and that the incorporation of center bias can improve the performance of saliency detection. Similarly, there exists FCB in viewing panoramic videos, as discussed in \textit{Finding 1}. Hence, this appendix discusses the combination of the offline-DHP approach and the FCB feature. Here, we apply the FCB feature as an additional channel in generating HM maps of panoramic videos. Specifically, assume that $\mathbf{H}^f$ is the HM map of the FCB feature. Similar to the center bias feature of image saliency detection \cite{judd2009learning}, we apply the following 2D Gaussian distribution to model $\mathbf{H}^f$ for each frame,
+\begin{equation}
+\label{Gauss_sigma}
+\mathbf{H}^f(u,v)= \exp\left({-\frac{(u-u_f)^2+(v-v_f)^2}{\sigma_f^2}}\right),
+\end{equation}
+where $(u,v)$ is the longitude and latitude of the GDS location in the map, and $(u_f,v_f)$ is the longitude and latitude of the front center position in GDS. In addition, $\sigma_f$ is the standard deviation of  the 2D Gaussian distribution.
+
+Next, we need to combine $\mathbf{H}^f$ with the predicted HM map $\mathbf{H}_t$ for each panoramic frame by
+\begin{equation}
+\label{optmization_x}
+\mathbf{H}^c_t = w_1\cdot \mathbf{H}^f+w_2\cdot \mathbf{H}_t,
+\end{equation}
+where $\mathbf{H}^c_t$ is the HM map integrated with the FCB feature for frame $t$. In \eqref{optmization_x}, $w_1$ and $w_2$ are the weights corresponding to the channels of $\mathbf{H}_c$ and $\mathbf{H}_t$, respectively. Given \eqref{Gauss_sigma} and \eqref{optmization_x}, the following optimization formulation is applied to obtain the values of $\sigma_f$, $w_1$ and $w_2$:
+\begin{equation}
+\label{optmization_w}
+\min_{w_1,w_2} \sum_{t=1}^{T} \text{CC}(\mathbf{H}^c_t, \mathbf{H}^g_t), \quad \text{s.t.} \quad w_1+w_2=1.
+\end{equation}
+In \eqref{optmization_x}, $\mathbf{H}^g_t$ is the ground-truth HM map of each frame; $\text{CC}(\cdot,\cdot)$ indicates the CC value of two maps. Then, we solve the above optimization formulation by the least square fitting over all training data of our PVS-HM database. Consequently, the optimal values of $\sigma_f$, $w_1$ and $w_2$ are $21.1^\circ$, $0.52$ and $0.48$, respectively. These values are used in integrating the FCB feature in our offline-FCB approach. Note that the same way is applied to obtain weights of $w_1$ and $w_2$ when combining the FCB feature with other approaches.
+
+Figure \ref{fitting_surface} shows the results of  CC between the predicted and ground-truth HM maps at various values of $\sigma_f$ and $w_1$. From this figure, we can see that CC varies from $0.44$ to $0.70$ alongside the increase of $w_1$ from $0$ to $1$, reaching the maximum value at $\sigma_f=21.1^\circ$ and $w_1=0.52$. This indicates that both the FCB feature and our offline-DHP approach are effective in predicting the HM maps of panoramic video, and that the effectiveness of the FCB feature is different at varying combination weights. In addition, as shown in Figure \ref{fitting_surface}, at $w_1=0.52$, the CC value increases from 0.66 to 0.70, when $\sigma_f$ grows from $7^\circ$ to $21.1^\circ$, and then it decreases to 0.63 till $\sigma_f = 43.6^\circ$. Thus, the standard deviation of the 2D Gaussian distribution is set to be $21.1^\circ$ for the FCB feature in our experiments.
+
+
+\begin{figure}
+	\begin{center}
+		\centerline{\includegraphics[width=\columnwidth]{figures/experiment/Fitting}}%of
+		\caption{\footnotesize{The fitting surface of CC between the predicted and ground-truth HM maps at various $\sigma_f$ and $w_1$. The dark dots in this figure represent the CC results at each specific value of $\sigma_f$ and $w_1$, which are used to fit the surface. Note that the CC results are obtained over all training data of the PVS-HM database}}
+		\label{fitting_surface}
+	\end{center}
+\end{figure}
+
+
+
 
 
 % use section* for acknowledgment

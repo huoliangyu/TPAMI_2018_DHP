@@ -1729,9 +1729,9 @@ $\{\mathbf{o}_i\}_{i=1}^{t-1}$
 $\{(x_i,y_i)\}_{i=1}^{t-1}$
 $\{r_i^{\nu}\}_{i=1}^{t-1}$
 $\{r_i^{\alpha}\}_{i=1}^{t-1}$
-$\{\hat{\alpha}\}_{i=1}^{t-1}$ 
-$\{\hat{\nu}\}_{i=1}^{t-1}$ 
-$\hat{\nu}_t$ 
+$\{\hat{\alpha}\}_{i=1}^{t-1}$
+$\{\hat{\nu}\}_{i=1}^{t-1}$
+$\hat{\nu}_t$
 $\hat{\alpha}_t$
 $(\hat{x}_{t+1},\hat{y}_{+1})$
 \subsection{Stage II: Prediction}
@@ -1792,172 +1792,304 @@ In our experiments, the HM maps in a panorama were projected to the 2D coordinat
 For evaluating the performance of online-DHP, XXX
 
 
-
-
-
 \subsection{Performance evaluation on offline-DHP}\label{sec:evaluation_offline}
+
 \label{compare}
 
-\begin{figure*}
-	\begin{center}
-		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/objective_result_1}}%of
-		\caption{\footnotesize{HM maps of several frames selected from two test sequences in our PVS-HM database. They are all visualized in the 2D coordination.  The second row shows the ground-truth HM maps, which are generated upon HM portions of all 56 subjects. The third to sixth rows show the HM maps of our, BMS \cite{zhang2016exploiting} , OBDL \cite{hossein2015many},and {SALICON} approaches. The last row demonstrates the HM maps by the FCB baseline.}}
-		\label{figure-object}
-	\end{center}
-\end{figure*}
-% the CC table
-\begin{table*}
-    \begin{center}
-        \caption{CC results of HM map prediction by our and other approaches}
-        \label{table-result}
-        \tiny
-        \resizebox{\textwidth}{!}{
-            \begin{tabular}{cc*{16}{c}c}
 
-				\tabincell{c}{\rotatebox{45}{CC}} & \rotatebox{45}{Method}
-					& \rotatebox{45}{StarryPolar} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{InsideCar}
-					& \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Waterfall} & \rotatebox{45}{Dancing}
-					& \rotatebox{45}{CMLauncher2} & \rotatebox{45}{Guitar} & \rotatebox{45}{KingKong} & \rotatebox{45}{BTSRun} & \rotatebox{45}{WaitingForLove}
-					& \rotatebox{45}{\textbf{Average}}
+\begin{figure*}
+
+         \begin{center}
+
+                   \centerline{\includegraphics[width=2\columnwidth]{figures/experiment/objective_result_1}}%of
+
+                   \caption{\footnotesize{HM maps of several frames selected from two test sequences in our PVS-HM database. They are all visualized in the 2D coordination.  The second row shows the ground-truth HM maps, which are generated upon HM portions of all 58 subjects. The second to fifth rows show the HM maps of our, BMS \cite{zhang2016exploiting} , OBDL \cite{hossein2015many}, and {SALICON} approaches. }}
+
+                   \label{figure-object}
+
+         \end{center}
+
+\end{figure*}
+
+% the CC table
+
+\begin{table*}
+
+    \begin{center}
+
+        \caption{CC results of HM map prediction by our and other approaches over 15 test sequences}
+
+        \label{table-result}
+
+        \tiny
+
+        \resizebox{\textwidth}{!}{
+
+            \begin{tabular}{cc*{16}{c}c}
+                                     \tabincell{c}{\rotatebox{45}{CC}} & \rotatebox{45}{Method}
+
+                                               & \rotatebox{45}{StarryPolar} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{InsideCar}
+
+                                               & \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Waterfall} & \rotatebox{45}{Dancing}
+
+                                               & \rotatebox{45}{CMLauncher2} & \rotatebox{45}{Guitar} & \rotatebox{45}{KingKong} & \rotatebox{45}{BTSRun} & \rotatebox{45}{WaitingForLove}
+
+                                               & \rotatebox{45}{\textbf{Average}}
+
                 \\
+
                 \toprule
 
+
+
                 \multirow{4}{*}{\rotatebox{45}{Non-FCB}}
+
                 \abovespace
-    			& Our
-    				& 0.185 & 0.710 & 0.573 & 0.717 & \textbf{0.783} & 0.673 & 0.673 & 0.678 & \textbf{0.763} & \textbf{0.837} & 0.585 & 0.645 & 0.751 & 0.764 & 0.471 & \textbf{0.654}
-    			\\
-    			& BMS
-    				& 0.450 & 0.167 & 0.274 & 0.228 & 0.331 & 0.067 & 0.463 & 0.169 & 0.393 & 0.121 & 0.203 & 0.328 & 0.105 & 0.105 & 0.223 & 0.242
-    			\\
-    			& OBDL
-    				& 0.107 & 0.184 & 0.028 & 0.190 & 0.260 & 0.100 & 0.308 & 0.027 & 0.025 & 0.176 & 0.117 & 0.066 & 0.125 & 0.047 & 0.222 & 0.132
-    			\\
-    			\belowspace
-    			& SALICON
-    				& 0.293 & 0.129 & 0.126 & 0.153 & 0.364 & 0.034 & 0.186 & 0.265 & 0.103 & 0.120 & 0.166 & 0.216 & 0.150 & 0.063 & 0.256 & 0.175
+
+                            & Our
+
+                                     & 0.185 & \textbf{0.710} & \textbf{0.573} & \textbf{0.717} & \textbf{0.783} & \textbf{0.673} & \textbf{0.673} & \textbf{0.678} & \textbf{0.763} & \textbf{0.837} & \textbf{0.585} & \textbf{0.645} & \textbf{0.751} & \textbf{0.764} & \textbf{0.471} & \textbf{0.654}
+
+                            \\
+
+                            & BMS
+
+                                     & \textbf{0.450} & 0.167 & 0.274 & 0.228 & 0.331 & 0.067 & 0.463 & 0.169 & 0.393 & 0.121 & 0.203 & 0.328 & 0.105 & 0.105 & 0.223 & 0.242
+
+                            \\
+
+                            & OBDL
+
+                                     & 0.107 & 0.184 & 0.028 & 0.190 & 0.260 & 0.100 & 0.308 & 0.027 & 0.025 & 0.176 & 0.117 & 0.066 & 0.125 & 0.047 & 0.222 & 0.132
+
+                            \\
+
+                            \belowspace
+
+                            & SALICON
+
+                                     & 0.293 & 0.129 & 0.126 & 0.153 & 0.364 & 0.034 & 0.186 & 0.265 & 0.103 & 0.120 & 0.166 & 0.216 & 0.150 & 0.063 & 0.256 & 0.175
+
                 \\
+
                 \midrule
+
                 \multirow{4}{*}{\rotatebox{45}{FCB}}
+
                 \abovespace
-    			& Our
-    				& 0.497 & \textbf{0.816} & 0.574 & 0.768 & 0.712 & 0.655 & \textbf{0.810} & 0.748 & \textbf{0.797} & 0.764 & 0.747 & 0.652 & 0.673 & 0.679 & 0.677 & \textbf{0.704}
-    			\\
-    			& BMS
-    				& 0.692 & 0.567 & 0.520 & 0.494 & 0.495 & 0.368 & \textbf{0.711} & 0.500 & 0.655 & 0.414 & 0.546 & 0.494 & 0.311 & 0.322 & 0.503 & 0.506
-    			\\
-    			& OBDL
-				    & 0.510 & 0.540 & 0.321 & 0.441 & 0.496 & 0.455 & 0.638 & 0.464 & 0.434 & 0.408 & 0.468 & 0.461 & 0.410 & 0.288 & 0.598 & 0.462
-			    \\
+
+                            & Our
+
+                                     & 0.497 & \textbf{0.816} &  \textbf{0.574} &  \textbf{0.768} &  \textbf{0.712} &  \textbf{0.655} & \textbf{0.810} &  \textbf{0.748} & \textbf{0.797} &  \textbf{0.764} &  \textbf{0.747} &  \textbf{0.652} &  \textbf{0.673} &  \textbf{0.679} &  \textbf{0.677} & \textbf{0.704}
+
+                            \\
+
+                            & BMS
+
+                                     &  \textbf{0.692} & 0.567 & 0.520 & 0.494 & 0.495 & 0.368 & 0.711 & 0.500 & 0.655 & 0.414 & 0.546 & 0.494 & 0.311 & 0.322 & 0.503 & 0.506
+
+                            \\
+
+                            & OBDL
+
+                                         & 0.510 & 0.540 & 0.321 & 0.441 & 0.496 & 0.455 & 0.638 & 0.464 & 0.434 & 0.408 & 0.468 & 0.461 & 0.410 & 0.288 & 0.598 & 0.462
+
+                                \\
+
                 \belowspace
-    			& SALICON
-    				& 0.664 & 0.563 & 0.456 & 0.539 & 0.528 & 0.452 & 0.658 & 0.596 & 0.525 & 0.355 & 0.667 & 0.461 & 0.362 & 0.346 & 0.628 & 0.520
-    			\\
+
+                            & SALICON
+
+                                     & 0.664 & 0.563 & 0.456 & 0.539 & 0.528 & 0.452 & 0.658 & 0.596 & 0.525 & 0.355 & 0.667 & 0.461 & 0.362 & 0.346 & 0.628 & 0.520
+
+                            \\
+
                 \midrule
-    			\multicolumn{2}{c}{FCB Only}
-    				\abovespace\belowspace
-    				& 0.557 & 0.747 & 0.317 & 0.403 & 0.292 & 0.239 & 0.585 & 0.477 & 0.583 & 0.387 & 0.735 & 0.356 & 0.271 & 0.201 & 0.497 & 0.443
-    			\\
+
+                            \multicolumn{2}{c}{FCB Only}
+
+                                     \abovespace\belowspace
+
+                                     & 0.557 & 0.747 & 0.317 & 0.403 & 0.292 & 0.239 & 0.585 & 0.477 & 0.583 & 0.387 & 0.735 & 0.356 & 0.271 & 0.201 & 0.497 & 0.443
+
+                            \\
+
                 \bottomrule
 
+
+
             \end{tabular}
+
         }
+
     \end{center}
+
 \end{table*}
+
+
 
 %the Nss table
+
 \begin{table*}
+
     \begin{center}
-        \caption{NSS results of HM map prediction by our and other approaches}
+
+        \caption{NSS results of HM map prediction by our and other approaches  over 15 test sequences}
+
         \label{table-result}
+
         \tiny
+
         \resizebox{\textwidth}{!}{
+
             \begin{tabular}{cc*{16}{c}c}
 
-				\tabincell{c}{\rotatebox{45}{NSS}} & \rotatebox{45}{Method}
-					& \rotatebox{45}{StarryPolar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar}
-					& \rotatebox{45}{Waterfall} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Guitar} & \rotatebox{45}{Dancing}
-					& \rotatebox{45}{InsideCar} & \rotatebox{45}{CMLauncher2} & \rotatebox{45}{WaitingForLove} & \rotatebox{45}{BTSRun} & \rotatebox{45}{KingKong}
-					& \rotatebox{45}{\textbf{Average}}
+
+
+                                     \tabincell{c}{\rotatebox{45}{NSS}} & \rotatebox{45}{Method}
+
+                                               & \rotatebox{45}{StarryPolar} & \rotatebox{45}{RioOlympics} & \rotatebox{45}{SpaceWar2} & \rotatebox{45}{Symphony} & \rotatebox{45}{SpaceWar}
+
+                                               & \rotatebox{45}{Waterfall} & \rotatebox{45}{Sunset} & \rotatebox{45}{BlueWorld} & \rotatebox{45}{Guitar} & \rotatebox{45}{Dancing}
+
+                                               & \rotatebox{45}{InsideCar} & \rotatebox{45}{CMLauncher2} & \rotatebox{45}{WaitingForLove} & \rotatebox{45}{BTSRun} & \rotatebox{45}{KingKong}
+
+                                               & \rotatebox{45}{\textbf{Average}}
+
                 \\
+
                 \toprule
 
+
+
                 \multirow{4}{*}{\rotatebox{45}{Non-FCB}}
+
                 \abovespace
-     			& Our
-    				& 0.899 & 2.806 & 2.237 & 3.346 & 2.180 & 3.765 & 2.529 & 3.196 & \textbf{3.461} & \textbf{5.297} & \textbf{4.402} & 3.529 & 2.278 & 4.572 & 3.334 & \textbf{3.189}
-    			\\
-    			& BMS
-    				& 1.313 & 0.772 & 0.137 & 0.710 & 0.807 & 1.673 & 1.613 & 0.841 & 1.497 & 0.670 & 1.657 & 1.034 & 0.997 & 0.546 & 0.119 & 0.959
-    			\\
-    			& OBDL
-    				& 0.126 & 0.637 & 0.301 & 0.260 & 0.064 & 0.073 & 1.015 & 0.035 & 0.393 & 0.980 & 1.375 & 0.660 & 0.964 & 0.215 & 0.107 & 0.480
-    			\\
-    			\belowspace
-    			& SALICON
-    				& 0.730 & 0.600 & 0.251 & 0.456 & 0.344 & 0.410 & 0.669 & 1.138 & 0.965 & 0.230 & 1.823 & 0.921 & 1.298 & 0.337 & 0.203 & 0.692
-    			\\
+
+                            & Our
+
+                                     & 0.899 & \textbf{2.806} & \textbf{2.237} & \textbf{3.346} & \textbf{2.180} & \textbf{3.765} & \textbf{2.529} & \textbf{3.196} & \textbf{3.461} & \textbf{5.297} & \textbf{4.402} & \textbf{3.529} & \textbf{2.278} & \textbf{4.572} & \textbf{3.334} & \textbf{3.189}
+
+
+                            & BMS
+
+                                     & \textbf{1.313} & 0.772 & 0.137 & 0.710 & 0.807 & 1.673 & 1.613 & 0.841 & 1.497 & 0.670 & 1.657 & 1.034 & 0.997 & 0.546 & 0.119 & 0.959
+
+                            \\
+
+                            & OBDL
+
+                                     & 0.126 & 0.637 & 0.301 & 0.260 & 0.064 & 0.073 & 1.015 & 0.035 & 0.393 & 0.980 & 1.375 & 0.660 & 0.964 & 0.215 & 0.107 & 0.480
+
+                            \\
+
+                            \belowspace
+
+                            & SALICON
+
+                                     & 0.730 & 0.600 & 0.251 & 0.456 & 0.344 & 0.410 & 0.669 & 1.138 & 0.965 & 0.230 & 1.823 & 0.921 & 1.298 & 0.337 & 0.203 & 0.692
+
+                            \\
+
                 \midrule
+
                 \multirow{4}{*}{\rotatebox{45}{FCB}}
+
                 \abovespace
-    			& Our
-    				& 1.825 & 2.911 & 2.064 & \textbf{3.756} & 2.031 & 3.755 & 2.943 & 3.393 & 3.395 & \textbf{4.608} & 3.816 & \textbf{4.463} & 3.351 & 3.931 & 2.883 & \textbf{3.275}
-    			\\
-    			& BMS
-    				& 2.206 & 1.779 & 1.063 & 2.537 & 1.667 & 2.891 & 2.507 & 2.280 & 2.386 & 2.366 & 2.508 & \textbf{3.136} & 2.434 & 1.771 & 1.288 & 2.188
-    			\\
-    			& OBDL
-    				& 1.712 & 1.572 & 1.371 & 2.368 & 1.055 & 1.920 & 2.225 & 2.007 & 2.377 & 2.319 & 2.556 & 2.777 & 2.912 & 1.580 & 1.693 & 2.030
-    			\\
-    			\belowspace
-    			& SALICON
-    				& 2.083 & 2.024 & 1.332 & 2.477 & 1.493 & 2.353 & 2.352 & 2.619 & 2.264 & 1.957 & 2.672 & 3.932 & 3.143 & 1.915 & 1.496 & 2.274
-    			\\
+
+                            & Our
+
+                                     & 1.825 & \textbf{2.911} & \textbf{2.064} & \textbf{3.756} & \textbf{2.031} & \textbf{3.755} & \textbf{2.943} & \textbf{3.393} & \textbf{3.395} & \textbf{4.608} & \textbf{3.816} & \textbf{4.463} & \textbf{3.351} & \textbf{3.931} & \textbf{2.883} & \textbf{3.275}
+
+                            \\
+
+                            & BMS
+
+                                     & \textbf{2.206} & 1.779 & 1.063 & 2.537 & 1.667 & 2.891 & 2.507 & 2.280 & 2.386 & 2.366 & 2.508 & 3.136 & 2.434 & 1.771 & 1.288 & 2.188
+
+                            \\
+
+                            & OBDL
+
+                                     & 1.712 & 1.572 & 1.371 & 2.368 & 1.055 & 1.920 & 2.225 & 2.007 & 2.377 & 2.319 & 2.556 & 2.777 & 2.912 & 1.580 & 1.693 & 2.030
+
+                            \\
+
+                            \belowspace
+
+                            & SALICON
+
+                                     & 2.083 & 2.024 & 1.332 & 2.477 & 1.493 & 2.353 & 2.352 & 2.619 & 2.264 & 1.957 & 2.672 & 3.932 & 3.143 & 1.915 & 1.496 & 2.274
+
+                            \\
+
                 \midrule
-    			\multicolumn{2}{c}{FCB Only}
-    				\abovespace\belowspace
-				        & 2.388 & 1.613 & 0.699 & 4.123 & 1.190 & 3.191 & 2.406 & 2.286 & 1.828 & 2.151 & 1.387 & 5.764 & 2.600 & 1.095 & 1.020 & 2.249
-    			\\
+
+                            \multicolumn{2}{c}{FCB Only}
+
+                                     \abovespace\belowspace
+
+                                             & 2.388 & 1.613 & 0.699 & 4.123 & 1.190 & 3.191 & 2.406 & 2.286 & 1.828 & 2.151 & 1.387 & 5.764 & 2.600 & 1.095 & 1.020 & 2.249
+
+                            \\
+
                 \bottomrule
 
+
+
             \end{tabular}
+
         }
+
     \end{center}
+
 \end{table*}
 
+
+
 \begin{figure*}
-	\begin{center}
-		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/scanpath_objective_result}}%of
-		\caption{\footnotesize{Visualization in scan-paths and positions of HM generated by ground-truth and our offline-DHP approach, for sequence \textit{Help}. The first column shows scan-path of one subject and one DRL workflow. The second and third columns show scan-paths of all 40 subjects and 40 DRL workflows, in longitude and latitude directions. The last column visualizes HM positions of ground-truth and our approach.}}
-		\label{scan-path-example}
-	\end{center}
+
+         \begin{center}
+
+                   \centerline{\includegraphics[width=2\columnwidth]{figures/experiment/scanpath_objective_result}}%of
+
+                   \caption{\footnotesize{Visualization in scan-paths and positions of HM generated by ground-truth and our offline-DHP approach, for sequence \textit{Help}. The first column shows scan-path of one subject and one DRL workflow. The second and third columns show scan-paths of all 40 subjects and 40 DRL workflows, in longitude and latitude directions. The last column visualizes HM positions of ground-truth and our approach.}}
+
+                   \label{scan-path-example}
+
+         \end{center}
+
 \end{figure*}
+
 
 Now, we evaluate the performance of our offline-DHP approach in predicting HM maps of all 15 test sequences from the PVS-HM database. To the best of our knowledge, there is no work on predicting HM maps of panoramic video, and saliency prediction is the closest field. Therefore, we compare our offline-DHP approach with three state-of-the-art saliency detection approaches, i.e.,  OBDL  \cite{hossein2015many}, BMS \cite{zhang2016exploiting} and SALICON\cite{huang2015salicon}.
 In particular, OBDL  \cite{hossein2015many} and BMS \cite{zhang2016exploiting} are the latest saliency detection approaches for video and image, respectively.
 SALICON\cite{huang2015salicon} is a state-of-the-art DNN approach for saliency detection.
 In addition to the above three approaches, we also compare our approach to the front-center-bias (FCB) baseline, since human attention normally biases towards front-center regions of panoramic video.
 Here, we model FCB by Gaussian distribution\footnote{The standard deviation is 12.8 degree, obtained by least square fitting over all HM positions of the training set.}, similar to the center bias of saliency detection.
-In the field of saliency detection, the center bias  \cite{borji2013state} is normally multiplied to saliency maps for improving saliency detection accuracy. Hence, we further report results of HM maps \textcolor{blue}{combined}/multiplied by FCB, for our and other approaches.
+In the field of saliency detection, the center bias  \cite{borji2013state} is normally considered in saliency maps to improve saliency detection accuracy. Hence, we further report results of HM maps combined with the FCB feature, in our and other approaches.
+See Appendix A for more details about the combination of FCB.
 For evaluation, we measure the accuracy of HM map prediction in terms of CC and normalized scan-path saliency (NSS), which are two effective evaluation metrics \textcolor{blue}{\cite{Li_2015_ICCV}} in saliency detection.
 Note that the larger value of CC or NSS means more accurate prediction of HM maps.
 
+
 Table \ref{table-result} tabulates the results of CC and NSS in predicting HM maps of 15 test sequences, for our and other approaches.
 In this table, the results of CC and NSS are averaged over all frames for each test sequence.
-We can see from this table that our offline-DHP approach is drastically superior to other approaches, when FCB is not integrated.
-Specifically, our  offline-DHP approach increases the CC value averaged over all 15 test sequences by 0.522, 0.412 and 0.479, compared with OBDL, BMS and SALICON, respectively.
-Additionally, the increase of averaged NSS value is 2.709, 2.230 and 2.497 in offline-DHP, over OBDL, BMS and SALICON.
-Once integrated with FCB, all four approaches have performance improvement, and our approach still performs best among all three approaches. Meanwhile, our approach significantly outperforms the FCB baseline.
+As shown in this table, when FCB is not integrated, our offline-DHP approach performs the best among all four approaches and the FCB baseline in terms of CC and NSS.
+More importantly, once integrated with FCB, all four approaches have performance improvement, and our approach still performs best among all three approaches.
+Specifically, our offline-DHP approach increases the CC value (averaged over all 15 test sequences) by 0.198, 0.242 and 0.184, compared with OBDL, BMS and SALICON, respectively.
+Additionally, the increase of averaged NSS value in our approach is 1.087, 1.245 and 1.001, over OBDL, BMS and SALICON.
 In a word, our offline-DHP approach is effective in predicting HM maps of panoramic video, much better than other approaches and the FCB baseline.
+%increases the CC value (averaged over all 15 test sequences) by 0.522, 0.412 and 0.479, compared with OBDL, BMS and SALICON, respectively.
+%Additionally, the increase of averaged NSS value is 2.709, 2.230 and 2.497 in offline-DHP, over OBDL, BMS and SALICON.
+%Once integrated with FCB, all four approaches have performance improvement, and our approach still performs best among all three approaches. Meanwhile, our approach significantly outperforms the FCB baseline.
 
-
-Next, we move to the comparison of subjective results. Figure \ref{figure-object} shows several frames from two selected sequences and their ground-truth HM maps of human.
-In Figure \ref{figure-object}, we further visualize the HM maps generated by our and other approaches including the FCB baseline. Here, the predicted HM maps are \textcolor{blue}{integrated with FCB}, as FCB can improve the performance of all four approaches in predicting HM maps (as seen in Table \ref{table-result}).
-From this figure, one can observe that HM maps of our approach are more close to the ground-truth HM maps, compared to other approaches and the FCB baseline.
-This indicates that our offline-DHP approach is capable of better locating HM positions of different subjects on panoramic video.
+Next, we move to the comparison of subjective results. Figure \ref{figure-object} shows several frames from two selected sequences and their ground-truth HM maps of 58 subjects.
+In Figure \ref{figure-object}, we further visualize the HM maps generated by our and other approaches including the FCB baseline. Here, the predicted HM maps are integrated with FCB, since the FCB feature can improve the performance of all four approaches in predicting HM maps (as presented in Table \ref{table-result}).
+From this figure, one can observe that the HM maps of our approach are more close to the ground-truth HM maps, compared to other approaches.
+This indicates that our offline-DHP approach is capable of better locating the HM positions of different subjects on panoramic video.
 Moreover, Figure \ref{scan-path-example} plots the HM scan-paths by different subjects and by multiple DRL workflows of offline-DHP, to investigate the agreement between the subjects and DRL workflows.
-We can see from this figure that the DRL workflows are able to yield similar scan-paths as humans.  We further show in Figure \ref{scan-path-example} the HM positions obtained from the ground-truth and predicted HM scan-paths. This figure reveals that HM positions can be well predicted by our offline-DHP approach. In conclusion, our offline-DHP approach is effective in modeling HM maps by predicting both scan-paths and positions of HM.
-
+We can see from this figure that the DRL workflows are able to yield similar scan-paths as humans.  We further show in Figure \ref{scan-path-example} the HM positions obtained from the ground-truth and predicted HM scan-paths. This figure reveals that HM positions can be well predicted by our offline-DHP approach. In conclusion, our offline-DHP approach is effective in modeling HM maps by predicting both scan-paths and positions of HM for panoramic video.
 
 %Iceclear online
 

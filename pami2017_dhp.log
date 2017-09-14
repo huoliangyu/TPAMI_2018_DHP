@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.8.25)  13 SEP 2017 22:19
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.7.27)  14 SEP 2017 16:37
 entering extended mode
-**J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/pami2017_dhp.tex
-(J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/pami2017_dhp.tex
+**pami2017_dhp.tex
+(I:\Github\pami_2017_dhp\pami2017_dhp.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for loaded.
-(J:\ff_paper\pami_2017_dhp_master\pami_2017_dhp\IEEEtran.cls
+(I:\Github\pami_2017_dhp\IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
 -- http://www.michaelshell.org/tex/ieeetran/
@@ -710,7 +710,14 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 )
 \c@theorem=\count134
 
-(J:\ff_paper\pami_2017_dhp_master\pami_2017_dhp\pami2017_dhp.aux)
+(I:\Github\pami_2017_dhp\pami2017_dhp.aux
+
+LaTeX Warning: Label `table-result' multiply defined.
+
+
+LaTeX Warning: Label `table-result' multiply defined.
+
+)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 559.
 LaTeX Font Info:    ... okay on input line 559.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 559.
@@ -726,8 +733,7 @@ LaTeX Font Info:    ... okay on input line 559.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 559.
 LaTeX Font Info:    ... okay on input line 559.
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 559.
-
-(C:\CTEX\MiKTeX\tex\latex\psnfss\t1ptm.fd
+ (C:\CTEX\MiKTeX\tex\latex\psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <5.01874> not available
@@ -786,8 +792,8 @@ LaTeX Info: Redefining \ref on input line 559.
 LaTeX Info: Redefining \pageref on input line 559.
 LaTeX Info: Redefining \nameref on input line 559.
 
-(J:\ff_paper\pami_2017_dhp_master\pami_2017_dhp\pami2017_dhp.out)
-(J:\ff_paper\pami_2017_dhp_master\pami_2017_dhp\pami2017_dhp.out)
+(I:\Github\pami_2017_dhp\pami2017_dhp.out)
+(I:\Github\pami_2017_dhp\pami2017_dhp.out)
 \@outlinefile=\write3
 LaTeX Info: Redefining \microtypecontext on input line 559.
 Package microtype Info: Generating PDF output.
@@ -863,7 +869,7 @@ LaTeX Font Info:    Font shape `T1/phv/bx/sc' in size <11.04124> not available
 LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 742
 .
 
-<figures/introduction/fig_one.pdf, id=100, 6034.545pt x 2284.535pt>
+<figures/introduction/fig_one.pdf, id=104, 6034.545pt x 2284.535pt>
 File: figures/introduction/fig_one.pdf Graphic file (type pdf)
 
 <use figures/introduction/fig_one.pdf>
@@ -881,9 +887,8 @@ LaTeX Font Info:    Calculating math sizes for size <7.02625> on input line 781
 ]
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9.53561> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 838.
- [2 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/introduction/fig_on
-e.pdf>]
-<figures/database/consistence-magnitude.pdf, id=234, 484.8045pt x 85.29666pt>
+ [2 <I:/Github/pami_2017_dhp/figures/introduction/fig_one.pdf>]
+<figures/database/consistence-magnitude.pdf, id=238, 484.8045pt x 85.29666pt>
 File: figures/database/consistence-magnitude.pdf Graphic file (type pdf)
 
 <use figures/database/consistence-magnitude.pdf>
@@ -891,7 +896,7 @@ Package pdftex.def Info: figures/database/consistence-magnitude.pdf used on inp
 ut line 870.
 (pdftex.def)             Requested size: 505.88998pt x 89.00967pt.
 
-<figures/database/direction-consistence.pdf, id=235, 485.16919pt x 91.49281pt>
+<figures/database/direction-consistence.pdf, id=239, 485.16919pt x 91.49281pt>
 File: figures/database/direction-consistence.pdf Graphic file (type pdf)
 
 <use figures/database/direction-consistence.pdf>
@@ -899,101 +904,109 @@ Package pdftex.def Info: figures/database/direction-consistence.pdf used on inp
 ut line 880.
 (pdftex.def)             Requested size: 505.88998pt x 95.40157pt.
  [3]
-LaTeX Font Info:    Calculating math sizes for size <5.01874> on input line 100
-2.
+LaTeX Font Info:    Calculating math sizes for size <5.01874> on input line 121
+0.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <2.50937> not available
-(Font)              size <5> substituted on input line 1002.
+(Font)              size <5> substituted on input line 1210.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <2.50937> not available
-(Font)              size <5> substituted on input line 1002.
+(Font)              size <5> substituted on input line 1210.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <2.50937> not available
-(Font)              size <5> substituted on input line 1002.
+(Font)              size <5> substituted on input line 1210.
 
 
-<figures/database/direction-consistence-distribution.pdf, id=258, 489.90768pt x
+<figures/database/direction-consistence-distribution.pdf, id=262, 489.90768pt x
  99.51277pt>
 File: figures/database/direction-consistence-distribution.pdf Graphic file (typ
 e pdf)
  <use figures/database/direction-consistence-distribution.pdf>
 Package pdftex.def Info: figures/database/direction-consistence-distribution.pd
-f used on input line 1007.
+f used on input line 1217.
 (pdftex.def)             Requested size: 505.88998pt x 102.75893pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/database/consistenc
-e-magnitude.pdf> <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/databa
-se/direction-consistence.pdf>]
+ [4 <I:/Github/pami_2017_dhp/figures/database/consistence-magnitude.pdf> <I:/Gi
+thub/pami_2017_dhp/figures/database/direction-consistence.pdf>]
 
-pdfTeX warning: pdflatex.exe (file J:/ff_paper/pami_2017_dhp_master/pami_2017_d
-hp/figures/database/direction-consistence-distribution-pie.pdf): PDF inclusion:
- found PDF version <1.6>, but at most version <1.5> allowed
+pdfTeX warning: pdflatex.exe (file I:/Github/pami_2017_dhp/figures/database/dir
+ection-consistence-distribution-pie.pdf): PDF inclusion: found PDF version <1.6
+>, but at most version <1.5> allowed
 
-<figures/database/direction-consistence-distribution-pie.pdf, id=321, 462.31822
+<figures/database/direction-consistence-distribution-pie.pdf, id=325, 462.31822
 pt x 362.30455pt>
 File: figures/database/direction-consistence-distribution-pie.pdf Graphic file 
 (type pdf)
 
 <use figures/database/direction-consistence-distribution-pie.pdf>
 Package pdftex.def Info: figures/database/direction-consistence-distribution-pi
-e.pdf used on input line 1058.
+e.pdf used on input line 1268.
 (pdftex.def)             Requested size: 151.76852pt x 118.93617pt.
 
-<figures/database/consi_on_time.pdf, id=322, 725.93346pt x 149.02876pt>
+<figures/database/consi_on_time.pdf, id=326, 510.21655pt x 128.97786pt>
 File: figures/database/consi_on_time.pdf Graphic file (type pdf)
 
 <use figures/database/consi_on_time.pdf>
 Package pdftex.def Info: figures/database/consi_on_time.pdf used on input line 
-1066.
-(pdftex.def)             Requested size: 227.64894pt x 46.73509pt.
- [5 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/database/direction-
-consistence-distribution.pdf> <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/f
-igures/database/direction-consistence-distribution-pie.pdf> <J:/ff_paper/pami_2
-017_dhp_master/pami_2017_dhp/figures/database/consi_on_time.pdf>]
-<figures/dhp_approach/main_framework.pdf, id=368, 3093.30656pt x 929.72343pt>
+1276.
+(pdftex.def)             Requested size: 227.64894pt x 57.54749pt.
+
+Underfull \vbox (badness 1881) has occurred while \output is active []
+
+ [5 <I:/Github/pami_2017_dhp/figures/database/direction-consistence-distributio
+n.pdf> <I:/Github/pami_2017_dhp/figures/database/direction-consistence-distribu
+tion-pie.pdf>] <figures/database/huoshantu.pdf, id=361, 1279.00945pt x 553.1171
+6pt>
+File: figures/database/huoshantu.pdf Graphic file (type pdf)
+
+<use figures/database/huoshantu.pdf>
+Package pdftex.def Info: figures/database/huoshantu.pdf used on input line 1287
+.
+(pdftex.def)             Requested size: 505.88998pt x 218.77005pt.
+
+<figures/dhp_approach/main_framework.pdf, id=364, 3093.30656pt x 929.72343pt>
 File: figures/dhp_approach/main_framework.pdf Graphic file (type pdf)
 
 <use figures/dhp_approach/main_framework.pdf>
 Package pdftex.def Info: figures/dhp_approach/main_framework.pdf used on input 
-line 1090.
+line 1319.
 (pdftex.def)             Requested size: 505.88998pt x 152.05003pt.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <6.6749> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1147.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1376.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <4.7678> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1147.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 1376.
 
-Overfull \hbox (10.94733pt too wide) in alignment at lines 1186--1190
+Overfull \hbox (10.94733pt too wide) in alignment at lines 1415--1419
  [][][] []
  []
 
+[6 <I:/Github/pami_2017_dhp/figures/database/consi_on_time.pdf>] [7 <I:/Github/
+pami_2017_dhp/figures/database/huoshantu.pdf> <I:/Github/pami_2017_dhp/figures/
+dhp_approach/main_framework.pdf>]
 
-LaTeX Warning: Reference `use-define-of-expectation' on page 6 undefined on inp
-ut line 1198.
+LaTeX Warning: Reference `use-define-of-expectation' on page 8 undefined on inp
+ut line 1427.
 
-[6]
-<figures/dhp_approach/training_framework.pdf, id=432, 540.51938pt x 173.89969pt
+
+<figures/dhp_approach/training_framework.pdf, id=707, 540.51938pt x 173.89969pt
 >
 File: figures/dhp_approach/training_framework.pdf Graphic file (type pdf)
  <use figures/dhp_approach/training_framework.pdf>
 Package pdftex.def Info: figures/dhp_approach/training_framework.pdf used on in
-put line 1243.
+put line 1472.
 (pdftex.def)             Requested size: 505.88998pt x 162.76253pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/dhp_approach/main_f
-ramework.pdf>]
-Overfull \hbox (17.886pt too wide) detected at line 1265
+Overfull \hbox (17.886pt too wide) detected at line 1494
 \OML/cmm/m/it/10 r[] \OT1/cmr/m/n/10 = [] [] \OML/cmm/m/it/10 e[]e[]e[]:
  []
 
 
-Overfull \hbox (11.6089pt too wide) detected at line 1286
+Overfull \hbox (11.6089pt too wide) detected at line 1515
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 jf[]\
 OML/cmm/m/it/10 ; []\OMS/cmsy/m/n/10 g\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 P[]\
 OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 jf\OML/cmm/m/it/10 x[]; y[
@@ -1001,206 +1014,192 @@ OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 jf\OML/cmm/m/it/10 x[]; y[
  []
 
 
-Overfull \hbox (6.61958pt too wide) detected at line 1302
+Overfull \hbox (6.61958pt too wide) detected at line 1531
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 ([]\OMS/cmsy/m/n/10 jf[]\OML/cmm/m/it/10 ; 
 []\OMS/cmsy/m/n/10 g\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e[]e[]:
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1341--1345
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 1570--1574
 \T1/ptm/m/n/9.53561 (+20) Reward $\OML/cmm/m/it/10 r[]$ \T1/ptm/m/n/9.53561 (+2
 0) can be sim-i-lar-ly rep-re-sent-ed by
  []
 
-[8 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/dhp_approach/trainin
-g_framework.pdf>]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1362.
+Underfull \vbox (badness 1057) has occurred while \output is active []
 
-LaTeX Font Info:    Calculating math sizes for size <9.03374> on input line 136
-2.
-LaTeX Font Info:    Calculating math sizes for size <> on input line 1363.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1591.
+
+LaTeX Font Info:    Calculating math sizes for size <9.03374> on input line 159
+1.
+LaTeX Font Info:    Calculating math sizes for size <> on input line 1592.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.7> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.5> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.7> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.5> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.7> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.5> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <0.7> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <0.5> not available
-(Font)              size <5> substituted on input line 1363.
+(Font)              size <5> substituted on input line 1592.
 
 
-<figures/dhp_approach_on_line/whole_framework_online_5.pdf, id=782, 506.6428pt 
+<figures/dhp_approach_on_line/whole_framework_online_5.pdf, id=749, 506.6428pt 
 x 389.20406pt>
 File: figures/dhp_approach_on_line/whole_framework_online_5.pdf Graphic file (t
 ype pdf)
  <use figures/dhp_approach_on_line/whole_framework_online_5.pdf>
 Package pdftex.def Info: figures/dhp_approach_on_line/whole_framework_online_5.
-pdf used on input line 1379.
+pdf used on input line 1608.
 (pdftex.def)             Requested size: 252.94499pt x 194.31055pt.
 
-[9 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/dhp_approach_on_line
-/whole_framework_online_5.pdf>]
+[9 <I:/Github/pami_2017_dhp/figures/dhp_approach/training_framework.pdf>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 1430.
+put line 1659.
 
-Underfull \hbox (badness 7030) in paragraph at lines 1441--1442
+Underfull \hbox (badness 7030) in paragraph at lines 1670--1671
 [] []\T1/ptm/m/n/9.53561 (+20) Obtain pol-i-cy and L-ST-M fea-ture: $[]\OML/cmm
 /m/it/10 ; f[] \OT1/cmr/m/n/10 =$
  []
 
 
-LaTeX Warning: Reference `opt-1' on page 10 undefined on input line 1450.
+LaTeX Warning: Reference `opt-1' on page 10 undefined on input line 1679.
 
 
-Underfull \hbox (badness 7030) in paragraph at lines 1488--1489
+Underfull \hbox (badness 7030) in paragraph at lines 1717--1718
 [] []\T1/ptm/m/n/9.53561 (+20) Obtain pol-i-cy and L-ST-M fea-ture: $[]\OML/cmm
 /m/it/10 ; f[] \OT1/cmr/m/n/10 =$
  []
 
 
-LaTeX Warning: Reference `opt-1' on page 10 undefined on input line 1497.
+LaTeX Warning: Reference `opt-1' on page 10 undefined on input line 1726.
 
-[10]
-<figures/experiment/objective_result_1.pdf, id=957, 3527.80974pt x 1126.9407pt>
+
+<figures/experiment/objective_result_1.pdf, id=841, 3527.80974pt x 1126.9407pt>
 File: figures/experiment/objective_result_1.pdf Graphic file (type pdf)
 <use figures/experiment/objective_result_1.pdf>
 Package pdftex.def Info: figures/experiment/objective_result_1.pdf used on inpu
-t line 1543.
+t line 1772.
 (pdftex.def)             Requested size: 505.88998pt x 161.58806pt.
 
 
-pdfTeX warning: pdflatex.exe (file J:/ff_paper/pami_2017_dhp_master/pami_2017_d
-hp/figures/experiment/cc_0731_2.pdf): PDF inclusion: found PDF version <1.7>, b
-ut at most version <1.5> allowed
-<figures/experiment/cc_0731_2.pdf, id=962, 920.0194pt x 235.50284pt>
-File: figures/experiment/cc_0731_2.pdf Graphic file (type pdf)
-
-<use figures/experiment/cc_0731_2.pdf>
-Package pdftex.def Info: figures/experiment/cc_0731_2.pdf used on input line 16
-02.
-(pdftex.def)             Requested size: 505.88998pt x 129.4946pt.
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <2.50937> not available
+(Font)              size <5> substituted on input line 1833.
 
 
-pdfTeX warning: pdflatex.exe (file J:/ff_paper/pami_2017_dhp_master/pami_2017_d
-hp/figures/experiment/nss_0731_1.pdf): PDF inclusion: found PDF version <1.7>, 
-but at most version <1.5> allowed
-<figures/experiment/nss_0731_1.pdf, id=963, 919.31015pt x 227.69968pt>
-File: figures/experiment/nss_0731_1.pdf Graphic file (type pdf)
-
-<use figures/experiment/nss_0731_1.pdf>
-Package pdftex.def Info: figures/experiment/nss_0731_1.pdf used on input line 1
-610.
-(pdftex.def)             Requested size: 505.88998pt x 125.30469pt.
-
-<figures/experiment/scanpath_objective_result.pdf, id=964, 1856.76474pt x 468.8
+<figures/experiment/scanpath_objective_result.pdf, id=846, 1856.76474pt x 468.8
 6247pt>
 File: figures/experiment/scanpath_objective_result.pdf Graphic file (type pdf)
  <use figures/experiment/scanpath_objective_result.pdf>
 Package pdftex.def Info: figures/experiment/scanpath_objective_result.pdf used 
-on input line 1616.
+on input line 1899.
 (pdftex.def)             Requested size: 505.88998pt x 127.73923pt.
 
 
-LaTeX Warning: Citation `Li_2015_ICCV' on page 11 undefined on input line 1628.
+LaTeX Warning: Citation `Li_2015_ICCV' on page 10 undefined on input line 1911.
 
 
-
-
-pdfTeX warning: pdflatex.exe (file J:/ff_paper/pami_2017_dhp_master/pami_2017_d
-hp/figures/experiment_on_line/Online_compare.pdf): PDF inclusion: found PDF ver
-sion <1.7>, but at most version <1.5> allowed
-
-<figures/experiment_on_line/Online_compare.pdf, id=979, 913.28041pt x 93.37485p
-t>
-File: figures/experiment_on_line/Online_compare.pdf Graphic file (type pdf)
- <use figures/experiment_on_line/Online_compare.pdf>
-Package pdftex.def Info: figures/experiment_on_line/Online_compare.pdf used on 
-input line 1655.
-(pdftex.def)             Requested size: 505.88998pt x 51.7239pt.
-
-<figures/experiment_on_line/Mean_MO.pdf, id=980, 496.21886pt x 143.74403pt>
+[10 <I:/Github/pami_2017_dhp/figures/dhp_approach_on_line/whole_framework_onlin
+e_5.pdf>] [11 <I:/Github/pami_2017_dhp/figures/experiment/objective_result_1.pd
+f> <I:/Github/pami_2017_dhp/figures/experiment/scanpath_objective_result.pdf>]
+[12]
+<figures/experiment_on_line/Mean_MO.pdf, id=5070, 496.21886pt x 143.74403pt>
 File: figures/experiment_on_line/Mean_MO.pdf Graphic file (type pdf)
 
 <use figures/experiment_on_line/Mean_MO.pdf>
 Package pdftex.def Info: figures/experiment_on_line/Mean_MO.pdf used on input l
-ine 1662.
+ine 1982.
 (pdftex.def)             Requested size: 505.88998pt x 146.55334pt.
- [11] [12 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/experiment/ob
-jective_result_1.pdf> <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/e
-xperiment/cc_0731_2.pdf> <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figure
-s/experiment/nss_0731_1.pdf> <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/fi
-gures/experiment_on_line/Online_compare.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Underfull \vbox (badness 5105) has occurred while \output is active []
+LaTeX Warning: Reference `table-MeanMo' on page 13 undefined on input line 1996
+.
 
- [13 <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures/experiment/scanpat
-h_objective_result.pdf> <J:/ff_paper/pami_2017_dhp_master/pami_2017_dhp/figures
-/experiment_on_line/Mean_MO.pdf>]
+
+LaTeX Warning: Reference `table-MeanMo' on page 13 undefined on input line 1997
+.
+
+
+LaTeX Warning: Reference `table-MeanMo' on page 13 undefined on input line 2015
+.
+
+[13]
 
 LaTeX Warning: Reference `online-DHP-algorithm' on page 14 undefined on input l
-ine 1705.
+ine 2025.
 
-(J:\ff_paper\pami_2017_dhp_master\pami_2017_dhp\pami2017_dhp.bbl
+[14 <I:/Github/pami_2017_dhp/figures/experiment_on_line/Mean_MO.pdf>]
+<figures/experiment/Fitting.pdf, id=5121, 1283.9238pt x 722.52135pt>
+File: figures/experiment/Fitting.pdf Graphic file (type pdf)
+
+<use figures/experiment/Fitting.pdf>
+Package pdftex.def Info: figures/experiment/Fitting.pdf used on input line 2087
+.
+(pdftex.def)             Requested size: 252.94499pt x 142.34085pt.
+ (I:\Github\pami_2017_dhp\pami2017_dhp.bbl
 Overfull \hbox (0.68355pt too wide) in paragraph at lines 96--98
 []\T1/ptm/m/n/8.03 (-20) M. F. Goodchild, ``Citizens as sensors: the world of v
 olunteered geography,''
  []
 
-[14])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1829.
- [15
+[15 <I:/Github/pami_2017_dhp/figures/experiment/Fitting.pdf>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2186.
+ [16]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2186.
 
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1829.
- (J:\ff_paper\pami_2017_dhp_master\pami_2017_dhp\pami2017_dhp.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1829.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1829.
+(I:\Github\pami_2017_dhp\pami2017_dhp.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2186.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2186.
 
-Package rerunfilecheck Info: File `pami2017_dhp.out' has not changed.
-(rerunfilecheck)             Checksum: 0A089F2D5E3404E0B8EF8182BE9E76F6;1437.
 
+
+Package rerunfilecheck Warning: File `pami2017_dhp.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `pami2017_dhp.out':
+(rerunfilecheck)             Before: B063C667F51A2CB1CF03DD5986D5C4EB;5026
+(rerunfilecheck)             After:  49CB4BB68C6276D741DE885FF4FAEB60;1538.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 4.5pt have occurred.
@@ -1208,15 +1207,18 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 11511 strings out of 495354
- 176816 string characters out of 3183859
- 326924 words of memory out of 3000000
- 13879 multiletter control sequences out of 15000+200000
- 193916 words of font info for 454 fonts, out of 3000000 for 9000
+ 11533 strings out of 495354
+ 176710 string characters out of 3183859
+ 349642 words of memory out of 3000000
+ 13890 multiletter control sequences out of 15000+200000
+ 195248 words of font info for 457 fonts, out of 3000000 for 9000
  17 hyphenation exceptions out of 8191
- 38i,15n,43p,2289b,729s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,17n,43p,2242b,729s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{Hfootnote.7} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1261,9 +1263,9 @@ ype1/urw/helvetic/uhvro8a.pfb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmb8a.pfb>
 <C:/CTEX/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/CTEX/MiKTeX/fonts/type1/u
 rw/times/utmr8a.pfb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmri8a.pfb><C:/CTEX/
 MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on pami2017_dhp.pdf (15 pages, 5404736 bytes).
+Output written on pami2017_dhp.pdf (16 pages, 5403203 bytes).
 PDF statistics:
- 5285 PDF objects out of 6186 (max. 8388607)
- 224 named destinations out of 1000 (max. 500000)
- 48380 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 5286 PDF objects out of 6186 (max. 8388607)
+ 232 named destinations out of 1000 (max. 500000)
+ 48895 words of extra memory for PDF output out of 51595 (max. 10000000)
 

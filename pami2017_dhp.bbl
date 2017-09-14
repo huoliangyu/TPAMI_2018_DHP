@@ -242,4 +242,9 @@ T.~Tieleman and G.~Hinton, ``Lecture 6.5-rmsprop: Divide the gradient by a
   running average of its recent magnitude,'' \emph{COURSERA: Neural networks
   for machine learning}, vol.~4, no.~2, 2012.
 
+\bibitem{judd2009learning}
+T.~Judd, K.~Ehinger, F.~Durand, and A.~Torralba, ``Learning to predict where
+  humans look,'' in \emph{Computer Vision, 2009 IEEE 12th international
+  conference on}, 2009.
+
 \end{thebibliography}

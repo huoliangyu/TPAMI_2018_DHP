@@ -139,7 +139,6 @@
 % For algorithms
 \usepackage{algorithm}
 \usepackage{algorithmic}
-\usepackage{lineno}
 
 
 \newcommand{\argmin}{\operatornamewithlimits{argmin}}
@@ -556,7 +555,7 @@ pdfkeywords={Computer Society, IEEEtran, journal, LaTeX, paper,
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
-\makeatletter
+
 \begin{document}
 %
 % paper title
@@ -664,19 +663,18 @@ E-mail: see http://www.michaelshell.org/contact.html
 \begin{abstract}
 Panoramic video provides immersive and interactive experience, by enabling human to control the field of view (FoV) with head movement (HM).
 Thus, HM plays a key role in modelling human attention on panoramic video.
-In this paper, we establish a database collecting subjects' HM positions on panoramic video sequences, and we find from our database that the HM data are highly consistent across subjects. We further find that deep reinforcement learning (DRL) can be applied in predicting HM positions, via maximizing the reward of imitating human HM scan-paths through the agent's actions.
-Based on our findings, we propose a DRL based HM prediction (DHP) approach with offline and online versions, called offline-DHP and online-DHP, respectively.
-In offline-DHP, multiple DRL workflows are run to decide some potential HM positions on each panoramic video frame.
-Then, the heat map of the predicted HM positons, called the HM map, is generated as the output of offline-DHP.
-In online-DHP, the next HM position of one subject is estimated, given the observed HM positions of this subject till the current frames.
-Such online estimation is achieved by developing a DRL algorithm, based on the learned model of offline-DHP.
-Finally, experimental results validate that offline-DHP and online-DHP are effective in predicting HM positions of panoramic video in offline and online manners, respectively. Experimental results also show that the learned offline-DHP model is capable of improving
-the performance of online-DHP.
+This paper establishes a database collecting subjects' HM positions on panoramic video sequences. We find from our database that the HM data are highly consistent across subjects. We further find that deep reinforcement learning (DRL) can be applied to predict HM positions, via maximizing the reward of imitating human HM scan-paths through the agent's actions.
+Based on our findings, we propose a DRL based HM prediction (DHP) approach with offline and online versions, called offline-DHP and online-DHP.
+In offline-DHP, multiple DRL workflows are run to decide some potential HM positions at each panoramic frame.
+Then, the heat map of the potential HM positions, called the HM map, is generated as the output of offline-DHP.
+In online-DHP, the next HM position of one subject is estimated, given the currently observed HM positions.
+Online-DHP is achieved by developing a DRL algorithm, upon the learned model of offline-DHP.
+Finally, the experimental results validate that offline-DHP and online-DHP are effective in offline and online prediction of HM positions for panoramic video, and that the learned offline-DHP model can improve the performance of online-DHP.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Computer Society, IEEE, IEEEtran, journal, \LaTeX, paper, template.
+Panoramic video, head movement, reinforcement learning, deep learning.
 \end{IEEEkeywords}}
 
 
@@ -753,13 +751,16 @@ Benefitting from the most recent success of deep reinforcement learning (DRL) \c
 In the proposed approach, the DRL algorithm is applied to maximize the \textit{reward} of making the \textit{agent's} \textit{actions} of HM scan-paths simulate human's HM behaviors.
 In fact, HM prediction can be classified into two categories: offline and online manners.
 The offline HM prediction refers to modelling attention on panoramic video for multiple subjects, while the online prediction aims at predicting the next HM position of one subject upon the ground-truth of his/her HM positions at the current and previous frames. In this paper, our DHP approach includes both online and offline HM prediction, named as offline-DHP and online-DHP, respectively.
+The codes for our offline-DHP and online-DHP approaches are downloadable in \url{https://github.com/YuhangSong/dhp}.
 
 \begin{figure*}
 	\begin{center}
 		\centerline{\includegraphics[width=1.6\columnwidth]{figures/introduction/fig_one}}
-		\caption{Illustration for FoVs and HM positions across different subjects. The heat map of HM positions from all subjects is also shown, which is defined as the HM map.}
+        \vspace{-.5em}
+		\caption{\footnotesize{Illustration for FoVs and HM positions across different subjects. The heat map of HM positions from all subjects is also shown, which is defined as the HM map.}}
 		\label{fig-one}
 	\end{center}
+\vspace{-2em}
 \end{figure*}
 
 To our best knowledge, there exists no offline work to predict HM positions of multiple subjects in viewing panoramic video. The closest work is saliency detection on 2D video \cite{borji2013state}. The earliest approach for saliency detection was proposed by \textit{ltti et al.} \cite{itti1998model}, in which the features of color, intensity and orientation are combined to generate the saliency map of an image. Later, \textit{ltti et al.} \cite{itti2004automatic} proposed to add two features in \cite{itti1998model}, motion and flicker contrast, for video saliency detection. Recently, several advanced approaches have been proposed for video saliency prediction. These advanced works include  the earth mover's distance (EMD) approach \cite{lin2013visual} and the boolean map based saliency model (BMS) \cite{zhang2016exploiting}.
@@ -850,6 +851,16 @@ Although saliency detection has been thoroughly studied in predicting eye moveme
 Similar to saliency detection in 2D videos, this paper proposes to generate HM maps, which represent HM positions of multiple subjects. Hence, the HM maps model attention on panoramic videos. To obtain the HM maps of panoramic video, a DRL approach is developed for deciding the \textit{actions} of HM from multiple \textit{agents}. The \textit{actions} are made upon the \textit{environment} of panoramic video content, the features of which are automatically learned and then extracted by DNN. Thus, our approach takes advantage of both deep learning and reinforcement learning, driven by the HM data of our panoramic video database.
 It is worth mentioning that although few work applies DRL to predict human attention, attention model is widely used in the opposite direction, to improve the performance of reinforcement learning, e.g., \cite{minut2001reinforcement, mnih2014recurrent, jaderberg2016reinforcement, wang2016dueling}.
 
+\begin{figure}
+\vspace{-1em}
+	\begin{center}
+		\centerline{\includegraphics[width=1\columnwidth]{figures/database/huoshantu}}%of
+        \vspace{-.5em}
+		\caption{\footnotesize{Distribution of 58 subjects' HM positions at different panoramic regions. It is calculated from all panoramic video frames of the PVS-HM database. }}
+		\label{huoshantu}
+	\end{center}
+\vspace{-2em}
+\end{figure}
 
 \subsection{Virtual cinematography}
 Virtual cinematography of panoramic video was proposed in \cite{foote2000flycam, sun2005region, su2016pano2vid, hu2017deep, lin2017tell}, which directs an imaginary camera to virtually capture natural FOV (NFOV). In general, virtual cinematography attempts to agree with HM positions of human at each panoramic video frame. The early work of \cite{foote2000flycam} proposed cropping object-of-interest in panoramic video, such that NFOV can be generated for virtual cinematography. Later, in \cite{sun2005region}, the cropped object-of-interest is tracked across frames by a Kalman filter, for automatically controlling virtual camera in virtual cinematography of panoramic video. The approach of \cite{sun2005region} can work on both compressed and uncompressed domains, as two methods were developed to detect object-of-interest in compressed and uncompressed domains, respectively. Both the works of \cite{foote2000flycam, sun2005region} were designed for the task of online virtual cinematography. They can be seen as heuristic approaches, which are not trained or even evaluated on the ground-truth HM data of human subjects.
@@ -867,18 +878,14 @@ The above approaches of \cite{foote2000flycam, sun2005region, su2016pano2vid, hu
 
 %The initial work of online HM prediction can be traced back to automatic cinematography of panoramic video \cite{}.
 
-\begin{figure}
-	\begin{center}
-		\centerline{\includegraphics[width=1\columnwidth]{figures/database/huoshantu}}%of
-		\caption{\footnotesize{The distribution of 58 subjects' HM positions calculated from all panoramic video frames of the PVS-HM database. }}
-		\label{huoshantu}
-	\end{center}
-\end{figure}
+
 
 \begin{figure*}
+\vspace{-1em}
 	\begin{center}
 		\centerline{\includegraphics[width=2\columnwidth]{figures/database/consistence-magnitude}}
-		\caption{\footnotesize{Mean and standard deviation for the HM scan-path magnitude over different subjects, for 76 panoramic video sequences in the PVS-HM database. The last column also shows the mean and standard deviation, averaged over all sequences. }}
+        \vspace{-1em}
+		\caption{\footnotesize{Mean and standard deviation for the HM scan-path magnitude over different subjects, for the 76 panoramic video sequences in our PVS-HM database. The last column also shows the mean and standard deviation, averaged over all 76 sequences. }}
 		\label{consistence-magnitude}
 	\end{center}
 \end{figure*}
@@ -888,9 +895,11 @@ The above approaches of \cite{foote2000flycam, sun2005region, su2016pano2vid, hu
 \vspace{-2em}
 	\begin{center}
 		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence}}%of
-		\caption{\footnotesize{Circular standard deviation for the direction of HM scan-paths, over 76 panoramic video sequences in the PVS-HM database. The average results are also shown in the last column.}}
+         \vspace{-1em}
+		\caption{\footnotesize{Circular standard deviation for the HM scan-path directions, over the 76 panoramic video sequences in our PVS-HM database. The average results are also shown in the last column.}}
 		\label{direction-consistence}
 	\end{center}
+\vspace{-2em}
 \end{figure*}
 
 \section{Database establishment and analysis}
@@ -899,7 +908,7 @@ The above approaches of \cite{foote2000flycam, sun2005region, su2016pano2vid, hu
 \subsection{Database establishment}
 \label{Database_establishment}
 
-In this section, we collect a new database including 76 panoramic video sequences with HM data of 58 subjects, called the PVS-HM database. Our PVS-HM database allows quantitative analysis of subjects' HM on panoramic video, and it can be also used for learning to predict where human looks at panoramic video. Our database is available in  (XXX website XXX) for facilitating the future research. In the following, we present how we conducted the experiment to obtain the PVS-HM database.
+In this section, we collect a new database including 76 panoramic video sequences with HM data of 58 subjects, called the PVS-HM database. Our PVS-HM database allows quantitative analysis of subjects' HM on panoramic video, and it can be also used for learning to predict where human looks at panoramic video. Our database is available in  \url{https://github.com/YuhangSong/dhp} for facilitating the future research. In the following, we present how we conducted the experiment to obtain the PVS-HM database.
 
 First, we selected 76 panoramic video sequences from YouTube and VRCun, with resolution ranging from 3K to 8K.
 As seen in Table \ref{tab:CC}, the content of these sequences is diverse, including computer animation (CA), driving, action sports, movie, video game, scenery, etc.
@@ -1016,7 +1025,8 @@ Specifically, we have the following six findings.
 %TABLE HA_HB_NEW
 \begin{table*}
 \begin{center}
-  \caption{CC between ground-truth HM maps of Groups $A$ and $B$, for each panoramic video sequence} \label{tab:CC}
+  \caption{CC values between the ground-truth HM maps of Groups $A$ and $B$, for each panoramic video sequence.} \label{tab:CC}
+  \vspace{-.5em}
   \tiny
   \resizebox{\textwidth}{!}{
   \begin{tabular}{*{4}{|c|c|c}|}
@@ -1225,11 +1235,14 @@ Specifically, we have the following six findings.
 
 
 \begin{figure*}
+\vspace{-1.5em}
 	\begin{center}
 		\centerline{\includegraphics[width=2\columnwidth]{figures/database/direction-consistence-distribution}}%of
-		\caption{\footnotesize{Distribution of HM scan-path over 8 discrete directions, for all 76 sequences from the PVS-HM database. Note that the proportions of subjects, whose HM scan-path directions fall into each discrete direction, are ranked and then shown in this figure.}}
+        \vspace{-1em}
+		\caption{\footnotesize{Distribution of the HM scan-paths over 8 discrete directions, for the 76 sequences from our PVS-HM database. Note that the proportions of subjects, whose HM scan-path directions fall into each discrete direction, are ranked in the descending order and are then shown in this figure.}}
 		\label{direction-consistence-distribution}
 	\end{center}
+\vspace{-2em}
 \end{figure*}
 
 \emph{Finding 1:  The HM positions on panoramic video exist the front center bias (FCB). }
@@ -1263,6 +1276,26 @@ This completes the analysis of \textit{Finding 3}.
 
  %rom this figure, we can see that the standard deviation of $22.7$ degree per second is far less than the mean of $47.7$ degree per second, for scan-path magnitudes of HM from different subjects.
 
+\begin{figure}
+\vspace{-1.5em}
+	\begin{center}
+		\centerline{\includegraphics[width=.6\columnwidth]{figures/database/direction-consistence-distribution-pie}}%of
+\vspace{-1em}
+		\caption{\footnotesize{Proportions of subjects with HM scan-paths falling into each of 8 ranked directions. The proportions are averaged over all 76 sequences in the PVS-HM database. }}
+		\label{direction-consistence-pie}
+	\end{center}
+\vspace{-3em}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\centerline{\includegraphics[width=.9\columnwidth]{figures/database/consi_on_time}}%of
+        \vspace{-1em}
+		\caption{\footnotesize{CC values (mean and variance) of the HM scan-paths over different time intervals and its variance. }}
+		\label{consi_on_time}
+	\end{center}
+\vspace{-2.5em}
+\end{figure}
 
 \emph{Finding 4: The direction of HM scan-paths on panoramic video is with high consistency across subjects.}
 \\ \textit{Analysis:} In  our PVS-HM database, we evaluate the consistency of the HM scan-path direction among all 58 subjects.
@@ -1281,33 +1314,24 @@ Then, we count the proportions of subjects, whose HM scan-paths belong to the sa
 We can see from this figure that for all 76 sequences, the HM scan-paths of $50\%$ subjects or more are consistent in the first ranked direction, and the HM scan-paths of over $85\%$ subjects are consistent in top 3 directions. Figure \ref{direction-consistence-pie} further shows the proportions of subjects with HM scan-path directions ranking from 1-st to 8-th, which are averaged over all 76 sequences in the PVS-HM database.
 As seen in this figure, the directions of HM scan-paths from $57.1\%$, $20.6\%$ and $9.6\%$ subjects belong to the top 3 ranked directions. In contrast, the HM scan-path directions of $12.7\%$ subjects fall into other 5 directions. Therefore, \textit{Finding 5} can be validated.
 
-\begin{figure}
-	\begin{center}
-		\centerline{\includegraphics[width=.6\columnwidth]{figures/database/direction-consistence-distribution-pie}}%of
-		\caption{\footnotesize{Proportions of subjects with scan-path falling into each of 8 ranked directions. The proportions are averaged over all 76 sequences in the PVS-HM database. }}
-		\label{direction-consistence-pie}
-	\end{center}
-\end{figure}
 
-\begin{figure}
-	\begin{center}
-		\centerline{\includegraphics[width=.9\columnwidth]{figures/database/consi_on_time}}%of
-		\caption{\footnotesize{Correlation coefficient of HM scan-paths over different time intervals and its variance. }}
-		\label{consi_on_time}
-	\end{center}
-\end{figure}
 
 \begin{figure*}
 	\begin{center}
+        \vspace{-1em}
 		\centerline{\includegraphics[width=2.0\columnwidth]{figures/dhp_approach/main_framework}}%of
-		\caption{Framework of our Offline-DHP approach.}
+        \vspace{-.5em}
+		\caption{\footnotesize{Overall framework of the offline-DHP approach.}}
 		\label{main-framework}
 	\end{center}
+\vspace{-1em}
 \end{figure*}
 
 \begin{table*}
+\vspace{-1em}
 \center
-\caption{Notations denoted in Figure \ref{main-framework}} \label{notation_framework}
+\caption{Notations denoted in the offline-DHP approach.} \label{notation_framework}
+\vspace{-1em}
 \begin{tabular}{ll}
 %$\{t\}_{1}^{T}$ & The frames of panoramic video from $1$ to $T$, with $t$ being the currently processed frame \\
 $\{\mathbf{F}_t\}_{t=1}^{T}$ & The panoramic frames with frame number $t$ ranging from $1$ to $T$, as the input to offline-DHP.\\
@@ -1327,6 +1351,7 @@ $r^{\alpha}_{n,t}$ & The \textit{reward} for deciding $\hat{\alpha}^n_t$ in the 
 $r^{\nu}_{n,t}$ & The \textit{reward} for deciding $\hat{\nu}^n_t$ in  the $n$-th DRL workflow.\\
 $\mathbf{f}^n_{t}$ & The extracted LSTM feature at frame $t$,  as part of \textit{observed state} in the $n$-th DRL workflow. \\
 \end{tabular}
+\vspace{-1em}
 \end{table*}
 
 \emph{Finding 6: For one subject, the HM scan-path at the current time interval relies on that at the previous time interval and observed video content. }
@@ -1446,7 +1471,7 @@ In addition, $\mathbf{o}^n_{t+1}$ and $\mathbf{f}^n_{t}$ are preserved for proce
 \begin{figure*}
 	\begin{center}
 		\centerline{\includegraphics[width=1.5\columnwidth]{figures/dhp_approach/training_framework}}%of
-		\caption{\footnotesize{Framework of training the DRL model for obtain each DRL workflow in Figure \ref{main-framework}.}}
+		\caption{\footnotesize{Framework of training the DRL model to obtain each DRL workflow of the offline-DHP approach (Figure \ref{main-framework}).}}
 		\label{train-framework}
 	\end{center}
 \end{figure*}
@@ -1626,11 +1651,14 @@ Finally, these learned parameter vectors can be used to determine the scan-paths
 \section{Online-DHP approach}
 
 \begin{figure}
+\vspace{-2em}
 	\begin{center}
 		\centerline{\includegraphics[width=\columnwidth]{figures/dhp_approach_on_line/whole_framework_online_5}}%of
-		\caption{\footnotesize{Framework of our online-DHP approach.}}
+       \vspace{-1em}
+		\caption{\footnotesize{Framework of the online-DHP approach.}}
 		\label{online-framework}
 	\end{center}
+\vspace{-2em}
 \end{figure}
 
 In this section, we present our online-DHP approach.
@@ -1697,7 +1725,7 @@ Algorithm \ref{online-DHP-algorithm-training} presents the summary of the traini
 
 
 \begin{algorithm}
-   \caption{The algorithm of the training stage in online-DHP for predicting the HM position at frame $t+1$.}
+   \caption{\hspace{-.3em}: Algorithm for the training stage of online-DHP to predict the HM position at frame $t+1$.}
    \label{online-DHP-algorithm-training}
    \footnotesize
 \begin{algorithmic}[1]
@@ -1721,13 +1749,13 @@ Algorithm \ref{online-DHP-algorithm-training} presents the summary of the traini
        \STATE $e \leftarrow e+1$.
        \STATE Calculate the average MO through $\text{MO} =  \frac{\sum_{i=1}^{t-1} \text{MO}_{i}}{t-1}$.
        \IF{$\text{MO}> th_{\text{MO}}$}
-           \STATE \textbf{break}.
+           \STATE \textbf{break}
        \ENDIF
   \ENDFOR
   \STATE {\bfseries Return:} The trained parameter vectors: $\{ \theta_{\nu}, \theta_{\pi}, \theta_{V} \}$.
 \end{algorithmic}
 \end{algorithm}
-
+\vspace{-1em}
 %$\{\mathbf{F}_i\}_{i=1}^{t-1}$
 %$\mathbf{F}_t$
 %$\mathbf{o}_t$
@@ -1765,7 +1793,7 @@ First, the LSTM features $\{\mathbf{f}_i\}_{i=1}^{t-1}$ are sequentially updated
 
 
 \begin{algorithm}
-   \caption{The algorithm of the prediction stage in online-DHP for frame $t+1$.}
+   \caption{\hspace{-.3em}: Algorithm for the prediction stage of online-DHP at frame $t+1$.}
    \label{online-DHP-algorithm-predicting}
    \footnotesize
 \begin{algorithmic}[1]
@@ -1781,19 +1809,19 @@ First, the LSTM features $\{\mathbf{f}_i\}_{i=1}^{t-1}$ are sequentially updated
    \STATE Obtain \textit{policy} $\pi_{t}$ using the DRL network with $\{\mathbf{o}_{t},\!\mathbf{f}_{t-1},\! \theta_{\pi}\}$.
    \STATE Choose \textit{action} $\hat{\alpha}_{t}$ using the greedy policy based on $\pi_{t}$.
    \STATE Generate HM magnitude $\hat{\nu}_{t}$ using the DRL network with $\{\mathbf{o}_{t}, \mathbf{f}_{t-1}, \theta_{\nu}\}$.
-   \STATE Estimate HM position $(\!\hat{x}_{t+1}, \!\hat{y}_{t+1}\!)$ at frame $t+1$, upon $\hat{\alpha}_{t},\hat{\nu}_{t}$ and $(\!x_{t}, \!y_{t}\!)$.
-   \STATE {\bfseries Return:} The HM position at frame $t+1$: $(\hat{x}_{t+1},\hat{y}_{t+1})$.
+   \STATE Estimate HM position $(\!\hat{x}_{t+1}\!,\!\hat{y}_{t+1}\!)$ at frame $\!t+1$, upon $\hat{\alpha}_{t},\hat{\nu}_{t}$ and $(\!x_{t}\!,\!y_{t}\!)$.
+   \STATE {\bfseries Return:} The HM position at frame $\!t+1$: $(\hat{x}_{t+1}\!,\!\hat{y}_{t+1})$.
    \end{algorithmic}
 \end{algorithm}
-
+\vspace{-1em}
 
 % the CC table
 \begin{table*}
-
+\vspace{-.5em}
     \begin{center}
 
-        \caption{CC results of HM map prediction by our and other approaches over 15 test sequences}
-
+        \caption{CC results of offline HM map prediction by our and other approaches over 15 test sequences.}
+        \vspace{-1.5em}
         \label{table-result}
 
         \tiny
@@ -1908,9 +1936,9 @@ First, the LSTM features $\{\mathbf{f}_i\}_{i=1}^{t-1}$ are sequentially updated
 \begin{table*}
 
     \begin{center}
-
-        \caption{NSS results of HM map prediction by our and other approaches  over 15 test sequences}
-
+\vspace{-1.5em}
+        \caption{NSS results of offline HM map prediction by our and other approaches  over 15 test sequences.}
+\vspace{-1em}
         \label{table-result}
 
         \tiny
@@ -2018,7 +2046,7 @@ First, the LSTM features $\{\mathbf{f}_i\}_{i=1}^{t-1}$ are sequentially updated
         }
 
     \end{center}
-
+\vspace{-1em}
 \end{table*}
 
 \section{Experimental results}
@@ -2037,9 +2065,11 @@ In addition, the maximum number of episodes and the MO threshold are set to be 5
 
 
 \begin{figure*}
+\vspace{-1em}
 	\begin{center}
 		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/objective_result_1}}%of
-                  \caption{\footnotesize{HM maps of several frames selected from two test sequences in our PVS-HM database. They are all visualized in the 2D coordination.  The second row shows the ground-truth HM maps, which are generated upon HM portions of all 58 subjects. The second to fifth rows show the HM maps of our, BMS \cite{zhang2016exploiting} , OBDL \cite{hossein2015many}, and {SALICON} approaches. }}
+\vspace{-1em}
+                  \caption{\footnotesize{HM maps of several frames selected from two test sequences in our PVS-HM database. They are all visualized in the 2D coordination.  The second row shows the ground-truth HM maps, which are generated upon the HM positions of all 58 subjects. The third to sixth rows show the HM maps of our, BMS \cite{zhang2016exploiting} , OBDL \cite{hossein2015many}, and SALICON \cite{huang2015salicon} approaches. }}
 		\label{figure-object}
 	\end{center}
 \end{figure*}
@@ -2052,14 +2082,17 @@ In addition, the maximum number of episodes and the MO threshold are set to be 5
 
 
 \begin{figure*}
+\vspace{-1em}
 	\begin{center}
 		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment/scanpath_objective_result}}%of
+\vspace{-.5em}
                    \caption{\footnotesize{Visualization in scan-paths and positions of HM generated by ground-truth and our offline-DHP approach, for sequence \textit{Help}. The first column shows scan-path of one subject and one DRL workflow. The second and third columns show scan-paths of all 40 subjects and 40 DRL workflows, in longitude and latitude directions. The last column visualizes HM positions of ground-truth and our approach.}}
 		\label{scan-path-example}
 	\end{center}
+\vspace{-2em}
 \end{figure*}
 
-Now, we evaluate the performance of our offline-DHP approach in predicting the HM maps of all 15 test sequences from the PVS-HM database. To the best of our knowledge, there is no work on predicting the HM maps of panoramic video, and saliency prediction is the closest field. Therefore, we compare our offline-DHP approach to three state-of-the-art saliency detection approaches, OBDL  \cite{hossein2015many}, BMS \cite{zhang2016exploiting} and SALICON\cite{huang2015salicon}.
+Now, we evaluate the performance of our offline-DHP approach in predicting the HM maps of all 15 test sequences from the PVS-HM database. To the best of our knowledge, there is no work on predicting the HM maps of panoramic video, and saliency prediction is the closest field. Therefore, we compare our offline-DHP approach to three state-of-the-art saliency detection approaches, OBDL  \cite{hossein2015many}, BMS \cite{zhang2016exploiting} and SALICON \cite{huang2015salicon}.
 In particular, OBDL  \cite{hossein2015many} and BMS \cite{zhang2016exploiting} are the latest saliency detection approaches for video and image, respectively.
 SALICON\cite{huang2015salicon} is a state-of-the-art DNN approach for saliency detection.
 In addition to the above three approaches, we also compare our approach to the FCB baseline, since \textit{Finding 1} argues that human attention normally biases towards the front-center regions of panoramic video.
@@ -2107,9 +2140,21 @@ We can see from this figure that the DRL workflows are able to yield similar sca
 %\end{table*}
 
 % the Ice Table
+
+
+This section evaluates the performance of our online-DHP approach for predicting HM positions in the online scenario.
+The online scenario refers to predicting the HM position of one subject at each panoramic frame upon the observed HM positions of this subject at the previous frames.
+In our experiments, we compare the performance of online-DHP with the state-of-the-art deep 360 pilot \cite{hu2017deep}, which is the only existing approach for online prediction of HM positions in panoramic video.
+We also compare our online-DHP approach with two baselines. According to \textit{Finding 6}, the first baseline (called baseline 1) keeps the HM scan-path of the current frame the same as that at the previous frame, such that the online HM position at each frame can be generated.
+The second baseline (called baseline 2) produces the HM positions, using the randomly generated HM scan-paths. The same as \cite{hu2017deep}, MO of \eqref{mo-defination} is measured as the metric to evaluate the accuracy of online prediction in HM positions. Note that the larger value of MO means the more accurate online prediction in HM positions.
+%The performance evaluation is conducted on the test set of our PVS-HM database.
+%More specifically, the HM positions of 58 subjects on the 15 test sequences of the PVS-HM are all tested.
+
 \begin{table*}
+\vspace{-.5em}
     \begin{center}
-        \caption{MO results of HM position prediction by our and other approaches}
+        \caption{MO results of online HM position prediction by our and other approaches.}
+        \vspace{-1em}
         \label{table-result}
         \tiny
         \resizebox{\textwidth}{!}{
@@ -2141,29 +2186,24 @@ We can see from this figure that the DRL workflows are able to yield similar sca
             \end{tabular}
         }
     \end{center}
+    \vspace{-1em}
 \end{table*}
 
 
 \begin{figure*}
 	\begin{center}
 		\centerline{\includegraphics[width=2\columnwidth]{figures/experiment_on_line/Mean_MO}}%of
-		\caption{\footnotesize{MO results between Online-DHP and Online-DHP without offline-DHP.}}
+      \vspace{-2em}
+		\caption{\footnotesize{MO results between the online-DHP approaches with and without the trained offline-DHP network.}}
 		\label{Online_compare}
 	\end{center}
+\vspace{-2em}
 \end{figure*}
-
-This section evaluates the performance of our online-DHP approach for predicting HM positions in the online scenario.
-The online scenario refers to predicting the HM position of one subject at each frame upon the observed HM positions of this subject at the previous frames.
-In our experiments, we compare the performance of online-DHP with the state-of-the-art deep 360 pilot \cite{hu2017deep}, which is a state-of-the-art approach for the online prediction of HM positions in panoramic video.
-We also compare our online-DHP with two baselines. According to \textit{Finding 6}, the first baseline (called baseline 1) keeps the HM scan-path of the current time interval the same as that at the previous time interval, such that the online HM position at each frame can be generated.
-The second baseline (called baseline 2) produces the HM position, using the randomly generated HM scan-path. The same as \cite{hu2017deep}, MO of \eqref{mo-defination} is measured as the metric to evaluate the performance of online prediction in HM positions. The larger value of MO means the more accurate online prediction of HM positions.
-%The performance evaluation is conducted on the test set of our PVS-HM database.
-%More specifically, the HM positions of 58 subjects on the 15 test sequences of the PVS-HM are all tested.
 
 Table \ref{table-result} compares the MO results of our and other approaches for the 15 test sequences of our PVS-HM database. Note that the MO results of each sequence are averaged over the predicted HM positions of all 58 subjects in our database. As observed in this table, our online-DHP approach is significantly superior to two baselines, indicating the effectiveness in applying DRL to predict HM positions online.
 We can further see from Table \ref{table-result} that our online-DHP approach performs considerably better than the deep 360 pilot \cite{hu2017deep}, with an increase of 0.354 in average MO.
 In addition, as shown in Table \ref{table-result}, our approach outperforms \cite{hu2017deep} over almost all sequences.
-The performance improvement of our approach is probably because (1) the online DRL model of our approach is capable of generating the accurate \textit{actions} of HM scan-paths; (2) the DRL network of offline-DHP is incorporated in our online prediction as the prior knowledge. Besides, our approach is also effective for the generic panoramic video, while \cite{hu2017deep} fails in the scenery panoramic video, e.g., its MO result for the sequence Waterfall is $0.082$. It is mainly due to the fact that the deep 360 pilot \cite{hu2017deep} relies heavily on the object detection of RCNN.
+The performance improvement of our approach is probably because (1) the online DRL model of our approach is capable of generating the accurate \textit{actions} of HM scan-paths; (2) the DRL network of offline-DHP is incorporated in our online prediction as the prior knowledge. Besides, our approach is also effective for the generic panoramic sequences, while \cite{hu2017deep} fails in scenery panoramic video. For example, the MO result of \cite{hu2017deep} for the sequence Waterfall is $0.082$, far less than $0.667$ MO of online-DHP. It is mainly due to the fact that the deep 360 pilot \cite{hu2017deep} relies heavily on the object detection of RCNN.
 
 To test the generalizability of our approach, we further evaluate the performance of our, the deep 360 pilot \cite{hu2017deep} and two baseline approaches on the test set of \cite{hu2017deep}. For such an evaluation, our online-DHP is still based on our offline DRL network that is learned from the training sequences of our PVS-HM database. The MO results are shown in Table XXX. From this table, we can see that our online-DHP approach again outperforms \cite{hu2017deep} and two baselines. In particular, our approach has XXX MO increase over \cite{hu2017deep}, despite testing on the test set of \cite{hu2017deep}. Therefore, the generalization capability of our approach can be confirmed.
 
@@ -2171,36 +2211,35 @@ It is interesting to analyze the gain of incorporating the DRL network of offlin
 
 In online-DHP, the performance of online HM prediction is related to the hyperparameters of $th_{\text{MO}}$, XXX, and XXX. In the following, we analyze the influences of this hyperparameters on the performance of online-DHP. Figure XXX shows the MO results at various values of $th_{\text{MO}}$, XXX, and XXX. The hyperparameter $th_{\text{MO}}$ is the threshold of the MO value achieved by XXX, and it determines whether the \textit{action} of online-DHP is output as the HM scan-path at the current frame. We can see from Figure XXX that XXX is increased at $th_{\text{MO}}\in XXX$ and converged once $th_{\text{MO}}\geq???$. Thus, in this paper, we set $th_{\text{MO}}$ to be XXX.
 
-
-\textcolor{blue}{Now, we move to the evaluation of Online-DHP. We compare our Online-DHP approach with Deep 360 Pilot approach\cite{hu2017deep} and two baselines.}
-
-\textcolor{blue}{Table \ref{table-MeanMo} compares mean MO results of our and other approaches, in predicting HM positions over all 15 test sequences of panoramic video.
-Here, MO results are averaged over all frames for each test sequence.
-The Random-baseline means predicting the HM position in a totally random way.
-And the Keep-baseline means predicting the HM position due to the HM position of the former frame.
-We can see from this table that our approach performs far better than other approaches. Specifically, our approach has ? average increment over Deep 360 Pilot approach\cite{hu2017deep}.
-We think that is mostly because that our approach has priori knowledge from the Offline-DHP.
-For the two baselines, the Keep-baseline is a little better than the Random-baseline mostly because of the guidance of the former frame.
-Compared with the two baselines, our approach is also obviously much more effective.}
-
-\textcolor{blue}{Offline-DHP is an important component of our approach.
-Figure \ref{Online_compare} shows the result of mean MO between Online-DHP and Online-DHP without Offline-DHP.
-We can see that the Offline-DHP enhances the performance of online prediction a lot.
-We think it's mostly because the Offline-DHP provides priori knowledge for the online prediction.
-And this is very effective in predicting.}
-
-\textcolor{blue}{After the comparison, we move to the analysis of an important parameter $th_{MO}$ in algorithm \ref{online-DHP-algorithm}, which affects both the result of MO\eqref{mo-defination} and the time complexity of our approach.
-We call it the threshold of MO.
-According to our approach, we think the threshold $th_{MO}$ is positively correlated with the result of MO, but negatively correlated with the time complexity.}
+%\textcolor{blue}{Now, we move to the evaluation of Online-DHP. We compare our Online-DHP approach with Deep 360 Pilot approach\cite{hu2017deep} and two baselines.}
+%
+%\textcolor{blue}{Table \ref{table-MeanMo} compares mean MO results of our and other approaches, in predicting HM positions over all 15 test sequences of panoramic video.
+%Here, MO results are averaged over all frames for each test sequence.
+%The Random-baseline means predicting the HM position in a totally random way.
+%And the Keep-baseline means predicting the HM position due to the HM position of the former frame.
+%We can see from this table that our approach performs far better than other approaches. Specifically, our approach has ? average increment over Deep 360 Pilot approach\cite{hu2017deep}.
+%We think that is mostly because that our approach has priori knowledge from the Offline-DHP.
+%For the two baselines, the Keep-baseline is a little better than the Random-baseline mostly because of the guidance of the former frame.
+%Compared with the two baselines, our approach is also obviously much more effective.}
+%
+%\textcolor{blue}{Offline-DHP is an important component of our approach.
+%Figure \ref{Online_compare} shows the result of mean MO between Online-DHP and Online-DHP without Offline-DHP.
+%We can see that the Offline-DHP enhances the performance of online prediction a lot.
+%We think it's mostly because the Offline-DHP provides priori knowledge for the online prediction.
+%And this is very effective in predicting.}
+%
+%\textcolor{blue}{After the comparison, we move to the analysis of an important parameter $th_{MO}$ in algorithm \ref{online-DHP-algorithm}, which affects both the result of MO\eqref{mo-defination} and the time complexity of our approach.
+%We call it the threshold of MO.
+%According to our approach, we think the threshold $th_{MO}$ is positively correlated with the result of MO, but negatively correlated with the time complexity.}
 
 
 
 \section{Conclusion}
-In this paper, we have proposed the DHP approach to predict HM positions on panoramic video. First, we established a new database named PVS-HM, which includes HM data of 58 subjects in 76 panoramic sequences. We found for our database that the HM positions are highly consistent across humans. Thus, the consistent HM positions on each panoramic frame can be represented in the form of the HM map, which encodes possibility of each pixel being HM position. Second, we proposed the offline-DHP approach to estimate HM maps in an offline manner. To be more specific, our offline-DHP approach leverages DRL to make decision on \textit {actions} of HM scan-paths, through \textit{reward} optimization of imitating the way of humans in viewing panoramic video.
-Afterwards, HM scan-paths of several \textit{agents} from multiple DRL workflows are integrated to yield final HM maps.
-Third, we proposed the online-DHP approach, which online predicts the HM positions of one subject. In online-DHP, the DRL algorithm was developed in determining the HM positions of one \textit{agent} at the incoming frames, given \textit{observation} of the previous HM scan-path and current video content. The DRL algorithm is based on the learned model of offline-DHP in extracting spatio-temporal features of attention-related content. Finally, the experimental results showed that offline-DHP and online-DHP are superior to other conventional approaches, in the offline and online tasks of HM prediction for panoramic video.
+In this paper, we have proposed the DHP approach to predict HM positions on panoramic video. First, we established a new database named PVS-HM, which includes HM data of 58 subjects viewing 76 panoramic sequences. We found from our database that the HM positions are highly consistent across humans. Thus, the consistent HM positions on each panoramic frame can be represented in the form of the HM map, which encodes possibility of each pixel being the HM position. Second, we proposed the offline-DHP approach to estimate HM maps in an offline manner. To be more specific, our offline-DHP approach leverages DRL to make decision on \textit {actions} of HM scan-paths, via optimizing the \textit{reward} of imitating the way of humans in viewing panoramic video.
+Afterwards, the HM scan-paths of several \textit{agents} from multiple DRL workflows are integrated to yield the final HM maps.
+Third, we proposed the online-DHP approach, which online predicts the HM positions of one subject. In online-DHP, the DRL algorithm was developed in determining the HM positions of one \textit{agent} at the incoming frames, given the \textit{observation} of previous HM scan-paths and the current video content. The DRL algorithm is based on the learned model of offline-DHP in extracting spatio-temporal features of attention-related content. Finally, the experimental results showed that both offline-DHP and online-DHP are superior to other conventional approaches, in the offline and online tasks of HM prediction for panoramic video.
 
-Humans always perceive the world around them in a panorama, rather than the 2D plane. Therefore, modelling attention on panoramic video is an important component in establishing human-like computer vision systems. Our work at the current stage mainly focuses on predicting HM positions, as the first step towards attention modelling of panoramic video. The future work should further predict eye fixations within FoV regions of panoramic video. The potential applications of our approach in human-like computer vision systems are another promising work in future. For example, the online-DHP approach may be embedded in robotics, to mimic human's way in perceiving the real world. Besides, panoramic video has large perceptual redundancy, since most of panoramic regions cannot be seen by humans. It is thus possible to use the offline-DHP approach to remove such perceptual redundancy, for saving bit-rates of panoramic video coding.
+Humans always perceive the world around them in a panorama, rather than the 2D plane. Therefore, modelling attention on panoramic video is an important component in establishing human-like computer vision systems. Our work at the current stage mainly focuses on predicting HM positions, as the first step towards attention modelling of panoramic video. The future work should further predict eye fixations within FoV regions of panoramic video. The potential applications of our approach are another promising work in future. For example, the online-DHP approach may be embedded in robotics, to mimic human's way in perceiving the real world. Besides, panoramic video has large perceptual redundancy, since most of panoramic regions cannot be seen by humans. It is thus possible to use the offline-DHP approach to remove such perceptual redundancy, such that the bit-rates of panoramic video coding can be dramatically saved.
 
 
 
@@ -2224,34 +2263,37 @@ Humans always perceive the world around them in a panorama, rather than the 2D p
 \appendices
 \section{Analysis of FCB Combined in HM Maps}
 
-The literature of saliency detection \cite{judd2009learning} has argued that human attention has strong center bias in images or videos, and that the incorporation of center bias can improve the performance of saliency detection. Similarly, there exists FCB in viewing panoramic videos, as discussed in \textit{Finding 1}. Hence, this appendix discusses the combination of the offline-DHP approach and the FCB feature. Here, we apply the FCB feature as an additional channel in generating HM maps of panoramic videos. Specifically, assume that $\mathbf{H}^f$ is the HM map of the FCB feature. Similar to the center bias feature of image saliency detection \cite{judd2009learning}, we apply the following 2D Gaussian distribution to model $\mathbf{H}^f$ for each frame,
+The literature of saliency detection \cite{judd2009learning} has argued that human attention has strong center bias in images or videos, and that the incorporation of center bias can improve the performance of saliency detection. Similarly, there exists FCB when viewing panoramic videos, as discussed in \textit{Finding 1}. Hence, this appendix presents the combination of the FCB feature and the offline-DHP approach. Here, we apply the FCB feature as an additional channel in generating the HM maps of panoramic videos. Specifically, assume that $\mathbf{H}^f$ is the HM map generated by the channel of the FCB feature. Similar to the center bias feature of image saliency detection \cite{judd2009learning}, we apply the following 2D Gaussian distribution to model $\mathbf{H}^f$ at each frame,
 \begin{equation}
 \label{Gauss_sigma}
 \mathbf{H}^f(u,v)= \exp\left({-\frac{(u-u_f)^2+(v-v_f)^2}{\sigma_f^2}}\right),
 \end{equation}
 where $(u,v)$ is the longitude and latitude of the GDS location in the map, and $(u_f,v_f)$ is the longitude and latitude of the front center position in GDS. In addition, $\sigma_f$ is the standard deviation of  the 2D Gaussian distribution.
 
-Next, we need to combine $\mathbf{H}^f$ with the predicted HM map $\mathbf{H}_t$ for each panoramic frame by
+Next, we need to combine $\mathbf{H}^f$ with the predicted HM map $\mathbf{H}_t$ by
 \begin{equation}
 \label{optmization_x}
 \mathbf{H}^c_t = w_1\cdot \mathbf{H}^f+w_2\cdot \mathbf{H}_t,
 \end{equation}
-where $\mathbf{H}^c_t$ is the HM map integrated with the FCB feature for frame $t$. In \eqref{optmization_x}, $w_1$ and $w_2$ are the weights corresponding to the channels of $\mathbf{H}_c$ and $\mathbf{H}_t$, respectively. Given \eqref{Gauss_sigma} and \eqref{optmization_x}, the following optimization formulation is applied to obtain the values of $\sigma_f$, $w_1$ and $w_2$:
+for each panoramic frame. In the above equation, $\mathbf{H}^c_t$ is the HM map integrated with the FCB feature for frame $t$; $w_1$ and $w_2$ are the weights corresponding to the channels of $\mathbf{H}_c$ and $\mathbf{H}_t$, respectively. Given \eqref{Gauss_sigma} and \eqref{optmization_x}, the following optimization formulation is applied to obtain the values of $\sigma_f$, $w_1$ and $w_2$:
 \begin{equation}
 \label{optmization_w}
-\min_{w_1,w_2} \sum_{t=1}^{T} \text{CC}(\mathbf{H}^c_t, \mathbf{H}^g_t), \quad \text{s.t.} \quad w_1+w_2=1.
+\max_{\sigma_f,w_1,w_2} \sum_{t=1}^{T} \text{CC}(\mathbf{H}^c_t, \mathbf{H}^g_t), \quad \text{s.t.} \quad w_1+w_2=1.
 \end{equation}
-In \eqref{optmization_x}, $\mathbf{H}^g_t$ is the ground-truth HM map of each frame; $\text{CC}(\cdot,\cdot)$ indicates the CC value of two maps. Then, we solve the above optimization formulation by the least square fitting over all training data of our PVS-HM database. Consequently, the optimal values of $\sigma_f$, $w_1$ and $w_2$ are $21.1^\circ$, $0.52$ and $0.48$, respectively. These values are used in integrating the FCB feature in our offline-FCB approach. Note that the same way is applied to obtain weights of $w_1$ and $w_2$ when combining the FCB feature with other approaches.
+In \eqref{optmization_x}, $\mathbf{H}^g_t$ is the ground-truth HM map of each frame; $\text{CC}(\cdot,\cdot)$ indicates the CC value of two maps. Then, we solve the above optimization formulation by the least square fitting of CC over all training data of our PVS-HM database. Consequently, the optimal values of $\sigma_f$, $w_1$ and $w_2$ are $21.1^\circ$, $0.52$ and $0.48$, respectively. These values are used to integrate the FCB feature in our offline-FCB approach. Note that the same way is applied to obtain the weights of $w_1$ and $w_2$, when combining the FCB feature with other approaches.
 
-Figure \ref{fitting_surface} shows the results of  CC between the predicted and ground-truth HM maps at various values of $\sigma_f$ and $w_1$. From this figure, we can see that CC varies from $0.44$ to $0.70$ alongside the increase of $w_1$ from $0$ to $1$, reaching the maximum value at $\sigma_f=21.1^\circ$ and $w_1=0.52$. This indicates that both the FCB feature and our offline-DHP approach are effective in predicting the HM maps of panoramic video, and that the effectiveness of the FCB feature is different at varying combination weights. In addition, as shown in Figure \ref{fitting_surface}, at $w_1=0.52$, the CC value increases from 0.66 to 0.70, when $\sigma_f$ grows from $7^\circ$ to $21.1^\circ$, and then it decreases to 0.63 till $\sigma_f = 43.6^\circ$. Thus, the standard deviation of the 2D Gaussian distribution is set to be $21.1^\circ$ for the FCB feature in our experiments.
+Figure \ref{fitting_surface} shows the results of  CC between the predicted and ground-truth HM maps at various values of $\sigma_f$ and $w_1$. From this figure, we can see that CC varies from $0.44$ to $0.70$ alongside the increase of $w_1$ from $0$ to $1$, reaching the maximum value at $w_1=0.52$ given $\sigma_f=21.1^\circ$. This indicates that both the FCB feature and our offline-DHP approach are effective in predicting the HM maps of panoramic video, and that the effectiveness of the FCB feature is different at varying combination weights. In addition, as shown in Figure \ref{fitting_surface}, at $w_1=0.52$, the CC value increases from 0.66 to 0.70, when $\sigma_f$ grows from $7^\circ$ to $21.1^\circ$, and then it decreases to 0.63 till $\sigma_f = 43.6^\circ$. Thus, the standard deviation of the 2D Gaussian distribution in \eqref{Gauss_sigma} is set to be $21.1^\circ$ for the FCB feature in our experiments.
 
 
 \begin{figure}
+\vspace{-1em}
 	\begin{center}
-		\centerline{\includegraphics[width=\columnwidth]{figures/experiment/Fitting}}%of
-		\caption{\footnotesize{The fitting surface of CC between the predicted and ground-truth HM maps at various $\sigma_f$ and $w_1$. The dark dots in this figure represent the CC results at each specific value of $\sigma_f$ and $w_1$, which are used to fit the surface. Note that the CC results are obtained over all training data of the PVS-HM database.}}
+		\centerline{\includegraphics[width=.8\columnwidth]{figures/experiment/Fitting}}%of
+      \vspace{-1em}
+		\caption{\footnotesize{The fitting surface of CC results between the predicted and ground-truth HM maps at various $\sigma_f$ and $w_1$. The dark dots in this figure represent the CC results at each specific value of $\sigma_f$ and $w_1$, which are used to fit the surface. Note that the CC results are obtained over all training data of the PVS-HM database.}}
 		\label{fitting_surface}
 	\end{center}
+\vspace{-2em}
 \end{figure}
 
 

@@ -568,7 +568,7 @@ pdfkeywords={Computer Society, IEEEtran, journal, LaTeX, paper,
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Modeling Attention in Panoramic Video: \\A Reinforcement Learning Approach}
+\title{Modeling Attention in Panoramic Video: \\A Deep Reinforcement Learning Approach}
 %
 %
 % author names and IEEE memberships
@@ -594,8 +594,8 @@ pdfkeywords={Computer Society, IEEEtran, journal, LaTeX, paper,
 
 \author{Mai~Xu*,~\IEEEmembership{Senior Member,~IEEE,}
         Yuhang~Song*, Jianyi Wang, Minglang~Qiao, Liangyu Huo
-        and~Haochen~Wang% <-this % stops a space
-\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem  M. Xu, Y. Song, J. Wang, M. Qiao, L. Huo and H. Wang are with the School of Electronic and Information
+        and~Zulin Wang% <-this % stops a space
+\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem  M. Xu, Y. Song, J. Wang, M. Qiao, L. Huo and Z. Wang are with the School of Electronic and Information
 Engineering, Beihang University, Beijing, 100191 China\protect\\
 % note need leading \protect in front of \\ to get a newline within \thanks as
 % \\ is fragile and will error, could use \hfil\break instead.
@@ -664,15 +664,7 @@ E-mail: MaiXu@buaa.edu.cn
 % in the abstract or keywords.
 \IEEEtitleabstractindextext{%
 \begin{abstract}
-Panoramic video provides an immersive and interactive experience by enabling humans to control the field of view (FoV) through head movement (HM).
-Thus, HM plays a key role in modeling human attention on panoramic video.
-This paper establishes a database collecting subjects' HM positions on panoramic video sequences. From this database, we find that the HM data are highly consistent across subjects. Furthermore, we find that deep reinforcement learning (DRL) can be applied to predict HM positions, via maximizing the reward of imitating human HM scanpaths through the agent's actions.
-Based on our findings, we propose a DRL based HM prediction (DHP) approach with offline and online versions, called offline-DHP and online-DHP, respectively.
-In offline-DHP, multiple DRL workflows are run to determine some potential HM positions at each panoramic frame.
-Then, a heat map of the potential HM positions, called the HM map, is generated as the output of offline-DHP.
-In online-DHP, the next HM position of one subject is estimated given the currently observed HM position.
-Online-DHP is achieved by developing a DRL algorithm, upon the learned model of offline-DHP.
-Finally, the experimental results validate that the offline-DHP and online-DHP are effective in offline and online prediction of HM positions for panoramic video, and that the learned offline-DHP model can improve the performance of online-DHP.
+Panoramic video provides immersive and interactive experience by enabling humans to control the field of view (FoV) through head movement (HM). Thus, HM plays a key role in modeling human attention on panoramic video. This paper establishes a database collecting subjects' HM positions on panoramic video sequences. From this database, we find that the HM data are highly consistent across subjects. Furthermore, we find that deep reinforcement learning (DRL) can be applied to predict HM positions, via maximizing the reward of imitating human HM scanpaths through the agent's actions. Based on our findings, we propose a DRL based HM prediction (DHP) approach with offline and online versions, called offline-DHP and online-DHP. In offline-DHP, multiple DRL workflows are run to determine potential HM positions at each panoramic frame. Then, a heat map of the potential HM positions, named the HM map, is generated as the output of offline-DHP. In online-DHP, the next HM position of one subject is estimated given the currently observed HM position, which is achieved by developing a DRL algorithm upon the learned offline-DHP model. Finally, the experimental results validate that our approach is effective in offline and online prediction of HM positions for panoramic video, and that the learned offline-DHP model can improve the performance of online-DHP.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -758,9 +750,11 @@ The codes for our offline-DHP and online-DHP approaches are downloadable from \u
 
 \begin{figure*}
 	\begin{center}
-		\centerline{\includegraphics[width=1.6\columnwidth]{figures/introduction/fig_one}}
+
+      \subfigure[]{\includegraphics[width=0.58\columnwidth]{figures/introduction/Head}}
+		\subfigure[]{\includegraphics[width=1.36\columnwidth]{figures/introduction/fig_one}}
         \vspace{-.5em}
-		\caption{\footnotesize{Illustration for FoVs and HM positions across different subjects. The heat map of HM positions from all subjects is also shown, which is defined as the HM map.}}
+		\caption{\footnotesize{(a) Illustration for head movement (HM) when viewing panoramic video. (b) Demonstration for FoVs and HM positions across different subjects. The heat map of HM positions from all subjects is also shown, which is defined as the HM map.}}
 		\label{fig-one}
 	\end{center}
 \vspace{-2em}
@@ -776,7 +770,7 @@ In this paper, we find that different subjects are highly consistent in terms of
 This finding is based on establishing and analyzing a new database, which consists of the HM data of 58 subjects viewing 76 panoramic video sequences.
 Then, we propose the offline-DHP approach to predict the consistent HM positions on panoramic video via generating the HM map for each single frame.
 The HM maps are in the form of a sphere, and the positions in the HM maps are thus represented by the longitude and latitude in the geographic coordinate system (GDS) \cite{Goodchild2007}. This paper visualizes the spherical HM maps by projecting them onto the 2D plane.
-Figure \ref{fig-one} demonstrates an example of the ground-truth HM map for a panoramic video frame. Similar to the saliency maps of 2D video, the HM maps of panoramic video are obtained by convoluting the HM positions with a 2D Gaussian filter\footnote{The two dimensions of the Gaussian filter are longitude and latitude, respectively.}.
+The offline prediction of Figure \ref{fig-one}-(b) demonstrates an example of the ground-truth HM map for a panoramic video frame. Similar to the saliency maps of 2D video, the HM maps of panoramic video are obtained by convoluting the HM positions with a 2D Gaussian filter\footnote{The two dimensions of the Gaussian filter are longitude and latitude, respectively.}.
 
 %Then, we  propose a DRL based HM prediction (DHP) approach, which predicts the possible HM positions on panoramic video via generating the HM map for each single frame.
 %Here, the HM maps of panoramic videos are similar to the saliency maps of 2D video.
@@ -797,7 +791,7 @@ Given the learned model, the HM maps of panoramic video are generated upon the p
 
 %we propose a novel offline-DHP approach, as our offline approach for predicating HM positions on panoramic video.
 
-For online HM prediction, the latest work of \cite{hu2017deep} proposed a deep 360 pilot, which automatically shifts viewing direction (equivalent to the HM position) when watching panoramic video. Specifically, the salient object is detected and tracked across panoramic video frames, via leveraging a region-based convolutional neural network (RCNN) \cite{ren2015faster} and recurrent neural network (RNN). Given the detected salient object and previous viewing directions, the deep 360 pilot predicts to transit HM position by learning a regressor. Since the deep 360 pilot relies heavily on one salient object, it is only suitable for some specific scenes that include one salient object, e.g., the sports scenes in \cite{hu2017deep}. It is still challenging to predict HM positions online for generic panoramic video, which may include more than one salient object (e.g., the panoramic video in Figure \ref{fig-one}). In this paper, we propose an online approach, namely online-DHP, to predict the HM positions on generic panoramic video. In contrast to \cite{hu2017deep}, our online-DHP approach does not need to detect the salient object using the RCNN. Rather, our online-DHP approach is based on attention-related content by leveraging the learned model of our offline-DHP approach. Then, a DRL algorithm is developed in our online-DHP approach to predict the HM positions in an online manner. Specifically, in the DRL algorithm, the \textit{agent} predicts the \textit{action} of the HM scanpath in the next frame, according to the ground-truth of the previous HM scanpath and \textit{observation} of video content. Consequently, the HM positions at the incoming frames can be predicted for our online-DHP approach.
+For online HM prediction, the latest work of \cite{hu2017deep} proposed a deep 360 pilot, which automatically shifts viewing direction (equivalent to the HM position) when watching panoramic video. Specifically, the salient object is detected and tracked across panoramic video frames, via leveraging a region-based convolutional neural network (RCNN) \cite{ren2015faster} and recurrent neural network (RNN). Given the detected salient object and previous viewing directions, the deep 360 pilot predicts to transit HM position by learning a regressor. Since the deep 360 pilot relies heavily on one salient object, it is only suitable for some specific scenes that include one salient object, e.g., the sports scenes in \cite{hu2017deep}. It is still challenging to predict HM positions online for generic panoramic video, which may include more than one salient object (e.g., the panoramic video in the online prediction of Figure \ref{fig-one}-(b)). In this paper, we propose an online approach, namely online-DHP, to predict the HM positions on generic panoramic video. In contrast to \cite{hu2017deep}, our online-DHP approach does not need to detect the salient object using the RCNN. Rather, our online-DHP approach is based on attention-related content by leveraging the learned model of our offline-DHP approach. Then, a DRL algorithm is developed in our online-DHP approach to predict the HM positions in an online manner. Specifically, in the DRL algorithm, the \textit{agent} predicts the \textit{action} of the HM scanpath in the next frame, according to the ground-truth of the previous HM scanpath and \textit{observation} of video content. Consequently, the HM positions at the incoming frames can be predicted for our online-DHP approach.
 
 
 This paper is the first attempt to apply the DRL algorithm in modeling human attention on panoramic video. The main contributions of this paper are three-fold:
@@ -2378,10 +2372,6 @@ Figure \ref{fitting_surface} shows the results of  CC between the predicted and 
   %\section*{Acknowledgment}
 \fi
 
-
-The authors would like to thank...
-
-
 % Can use something like this to put references on a page
 % by themselves when using endfloat and the captionsoff option.
 \ifCLASSOPTIONcaptionsoff
@@ -2433,18 +2423,35 @@ The authors would like to thank...
 \vspace{-2em}
 
 % if you will not have a photo at all:
-\begin{IEEEbiography}[{\includegraphics[width=.80\linewidth]{yuhangsong.pdf}}]{Yuhang Song} is an undergraduate student from Beihang University. During 2017, he was a visiting researcher of Humanity-Centered Robotics Initiative at Brown University. His research interests mainly include machine learning and related applications. He has published several technical papers in the international conference proceedings, e.g., IEEE DCC.
+\begin{IEEEbiography}[{\includegraphics[width=.80\linewidth]{yuhangsong.pdf}}]{Yuhang Song} is a research fellow from Beihang University. During 2017, he was a visiting researcher of Humanity-Centered Robotics Initiative at Brown University. His research interests mainly include machine learning and related applications. He has published several technical papers in the international conference proceedings, e.g., IEEE DCC.
 \end{IEEEbiography}
 
+\begin{IEEEbiographynophoto}{Jianyi Wang}
+is a research assistant of Beihang University. 
+\end{IEEEbiographynophoto}
 
+\begin{IEEEbiographynophoto}{Minglang Qiao}
+is a master student of Beihang University.
+\end{IEEEbiographynophoto}
+
+\begin{IEEEbiographynophoto}{Liangyu Huo}
+is a PhD candidate of Beihang University.
+\end{IEEEbiographynophoto}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{ZulinWang.eps}}]{Zulin~Wang}
+received the B.S. and M.S. degrees in electronic engineering from Beihang
+University, in 1986 and 1989, respectively. He received his Ph.D. degree at the same university
+in 2000. He is currently a full professor at Beihang University, Beijing, China. He was the former dean of school of electronic and information engineering, Beihang
+University. His research interests include image processing and remote sensing
+technology. He is author or co-author of over 100 papers and holds 6 patents, as well as published 2 books in these fields. He has
+undertaken approximately 30 projects related to image/video coding, image processing, etc.
+\end{IEEEbiography}
 
 % insert where needed to balance the two columns on the last page with
 % biographies
 %\newpage
 \vspace{-2em}
-\begin{IEEEbiographynophoto}{Other authors.}
-The biographies of jianyi Wang, Minglang Qiao, Liangyu Huo and Haochen Wang are available in our project website.
-\end{IEEEbiographynophoto}
+
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate

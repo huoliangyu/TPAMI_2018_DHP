@@ -733,17 +733,17 @@ Panoramic video, head movement, reinforcement learning, deep learning.
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
 \IEEEPARstart{D}{uring} the past years, panoramic video \cite{neumann2000immersive} has become increasingly popular due to its immersive and interactive experience.
-To achieve this immersive and interactive experience, humans can control the field of view (FoV)  in the range of $360^{\circ} \times 180^{\circ}$ by wearing head-mounted displays (HMDs), when watching panoramic video.
+To achieve this immersive and interactive experience, humans can control the field of view (FoV)  in the range of $360^{\circ} \times 180^{\circ}$ by wearing head-mounted displays, when watching panoramic video.
 In other words, humans are able to freely move their heads within a sphere to make their FoVs focus on the attractive content (see Figure \ref{fig-one} for an example).
 The content outside the FoVs cannot be observed by humans, i.e., without any attention.
 Consequently, head movement (HM) plays a key role in deploying human attention on panoramic video.
 HM prediction thus emerges as an increasingly important problem in modeling attention on panoramic video.
 Given the predicted HM, the visual attention within the FoV can be further modeled using the conventional saliency detection methods \cite{borji2013state} for 2D video.
-The same as traditional 2D video, the attention model can be extensively utilized in many areas of panoramic video, such as region-of-interest (ROI) compression \cite{de2016video}, visual quality assessment \cite{gaddam2016tiling, Xu17}, rendering \cite{stengel2016gaze}, synopsis \cite{Pritch08}, and automatic cinematography \cite{su2016pano2vid}.
+The same as traditional 2D video, the attention model can be extensively utilized in many areas of panoramic video, such as region-of-interest compression \cite{de2016video}, visual quality assessment \cite{gaddam2016tiling, Xu17}, rendering \cite{stengel2016gaze}, synopsis \cite{Pritch08}, and automatic cinematography \cite{su2016pano2vid}.
 
 Unfortunately, few approaches have been proposed in modeling human attention on panoramic video, especially predicting the positions of HM.
 Benefiting from the most recent success of deep reinforcement learning (DRL) \cite{mnih2016asynchronous}, this paper proposes a DRL-based HM prediction (DHP) approach for modeling attention on panoramic video.
-In the proposed approach, the DRL algorithm is applied to maximize the \textit{reward} of making the \textit{agent's} \textit{actions} of HM scan paths simulate the HM behaviors of humans.
+The proposed approach applies the DRL algorithm,  in which the \textit{reward} of the \textit{agent's} \textit{actions} is maximized to make the predicted HM scanpaths simulate the HM behaviors of humans.
 In fact, HM prediction can be classified into two categories: offline and online prediction.
 The offline HM prediction refers to modeling attention on panoramic video for multiple subjects, whereas the online prediction aims at predicting the next HM position of one subject based on the ground-truth of his/her HM positions at the current and previous frames. In this paper, our DHP approach includes both online and offline HM prediction, named offline-DHP and online-DHP, respectively.
 The codes for our offline-DHP and online-DHP approaches are downloadable from \url{https://github.com/YuhangSong/DHP}.
@@ -760,7 +760,7 @@ The codes for our offline-DHP and online-DHP approaches are downloadable from \u
 \vspace{-2em}
 \end{figure*}
 
-To our best knowledge, there exists no offline work to predict the HM positions of multiple subjects in viewing panoramic video. The closest work is saliency detection on 2D video \cite{borji2013state}. The earliest approach for saliency detection was proposed by \textit{Itti et al.} \cite{itti1998model}, in which the features of color, intensity and orientation are combined to generate the saliency map of an image. Later, \textit{Itti et al.} \cite{itti2004automatic} proposed adding two features to \cite{itti1998model}, namely, motion and flicker contrast, for video saliency detection. Recently, several advanced approaches have been proposed for video saliency prediction. These advanced works include  the earth mover's distance (EMD) approach \cite{lin2013visual} and the Boolean map-based saliency model (BMS) \cite{zhang2016exploiting}.
+To our best knowledge, there exists no offline work to predict the HM positions of multiple subjects in viewing panoramic video. The closest work is saliency detection on 2D video \cite{borji2013state}. The earliest approach for saliency detection was proposed by \textit{Itti et al.} \cite{itti1998model}, in which the features of color, intensity and orientation are combined to generate the saliency map of an image. Later, \textit{Itti et al.} \cite{itti2004automatic} proposed adding two features to \cite{itti1998model}, namely, motion and flicker contrast, for video saliency detection. Recently, several advanced approaches have been proposed for video saliency prediction. These advanced works include the earth mover's distance approach \cite{lin2013visual} and the Boolean map-based saliency model (BMS) \cite{zhang2016exploiting}.
 Most recently, deep learning has been successfully applied in saliency detection,
 such as SALICON \cite{huang2015salicon} and Liu's approach \cite{Liu2017cvpr}.
 Saliency detection in 2D video assumes that humans are able to view all the content of each video frame.
@@ -782,7 +782,7 @@ Specifically, our offline-DHP approach yields the HM maps of panoramic video via
 First, we find from our database that the HM scanpaths of different subjects are highly consistent.
 Meanwhile, subjects are normally initialized to view the center of the front region in the beginning frames of panoramic video.
 Therefore, the HM positions at the subsequent frames can be yielded on the basis of the predicted scanpaths.
-Additionally, we find from our database that the magnitudes and directions of HM scanpaths are with similarity across subjects.
+Additionally, we find from our database that the magnitudes and directions of HM scanpaths are similar across subjects.
 In light of these findings, our offline-DHP approach models both the magnitudes and directions of HM scanpaths as the \textit{actions} of multiple DRL \textit{agents} and takes the viewed panoramic content as the \textit{observation} of the \textit{environment}.
 As such, the DRL model can be learned to predict HM positions.
 In training the DRL model, a \textit{reward} is designed to measure the difference of \textit{actions}  between the DRL \textit{agents} and subjects, indicating how well the \textit{agents} imitate humans in terms of HM scanpaths.
@@ -791,7 +791,7 @@ Given the learned model, the HM maps of panoramic video are generated upon the p
 
 %we propose a novel offline-DHP approach, as our offline approach for predicating HM positions on panoramic video.
 
-For online HM prediction, the latest work of \cite{hu2017deep} proposed a deep 360 pilot, which automatically shifts viewing direction (equivalent to the HM position) when watching panoramic video. Specifically, the salient object is detected and tracked across panoramic video frames, via leveraging a region-based convolutional neural network (RCNN) \cite{ren2015faster} and recurrent neural network (RNN). Given the detected salient object and previous viewing directions, the deep 360 pilot predicts to transit HM position by learning a regressor. Since the deep 360 pilot relies heavily on one salient object, it is only suitable for some specific scenes that include one salient object, e.g., the sports scenes in \cite{hu2017deep}. It is still challenging to predict HM positions online for generic panoramic video, which may include more than one salient object (e.g., the panoramic video in the online prediction of Figure \ref{fig-one}-(b)). In this paper, we propose an online approach, namely online-DHP, to predict the HM positions on generic panoramic video. In contrast to \cite{hu2017deep}, our online-DHP approach does not need to detect the salient object using the RCNN. Rather, our online-DHP approach is based on attention-related content by leveraging the learned model of our offline-DHP approach. Then, a DRL algorithm is developed in our online-DHP approach to predict the HM positions in an online manner. Specifically, in the DRL algorithm, the \textit{agent} predicts the \textit{action} of the HM scanpath in the next frame, according to the ground-truth of the previous HM scanpath and \textit{observation} of video content. Consequently, the HM positions at the incoming frames can be predicted for our online-DHP approach.
+For online HM prediction, the latest work of \cite{hu2017deep} proposed a deep 360 pilot, which automatically shifts viewing direction (equivalent to the HM position) when watching panoramic video. Specifically, the salient object is detected and tracked across panoramic video frames, via leveraging a region-based convolutional neural network (RCNN) \cite{ren2015faster} and recurrent neural network. Given the detected salient object and previous viewing directions, the deep 360 pilot predicts to transit HM position by learning a regressor. Since the deep 360 pilot relies heavily on one salient object, it is only suitable for some specific scenes that include one salient object, e.g., the sports scenes in \cite{hu2017deep}. It is still challenging to predict HM positions online for generic panoramic video, which may include more than one salient object (e.g., the panoramic video in the online prediction of Figure \ref{fig-one}-(b)). In this paper, we propose an online approach, namely online-DHP, to predict the HM positions on generic panoramic video. In contrast to \cite{hu2017deep}, our online-DHP approach does not need to detect the salient object using the RCNN. Rather, our online-DHP approach is based on attention-related content by leveraging the learned model of our offline-DHP approach. Then, a DRL algorithm is developed in our online-DHP approach to predict the HM positions in an online manner. Specifically, in the DRL algorithm, the \textit{agent} predicts the \textit{action} of the HM scanpath in the next frame, according to the ground-truth of the previous HM scanpath and \textit{observation} of video content. Consequently, the HM positions at the incoming frames can be predicted for our online-DHP approach.
 
 
 This paper is the first attempt to apply the DRL algorithm in modeling human attention on panoramic video. The main contributions of this paper are three-fold:
@@ -839,10 +839,10 @@ This paper is the first attempt to apply the DRL algorithm in modeling human att
 \subsection{Saliency detection}
 The only approach for predicting the HM positions of panoramic videos is the most recent work of \cite{su2016pano2vid}, in which Pano2Vid was proposed to obtain the FoV at each panoramic video frame. However, Pano2Vid primarily focuses on virtually generating a potential HM position at one frame, rather than modeling HM maps of multiple subjects at this frame. The closest work on predicting HM maps is saliency detection for 2D video, which is briefly reviewed in the following.
 
-Saliency detection aims to predict the visual attention of humans on 2D videos, by generating saliency maps of video frames. The studies on visual saliency begin in 1998, when Itti and Koch \cite{itti1998model} found that the features of intensity, color and orientation in an image can be employed to detect its saliency map. Subsequently, they extended their work to video saliency detection \cite{itti2004automatic}, in which two dynamic features of motion and flicker contrast are combined with \cite{itti1998model} to detect saliency in 2D videos. Both \cite{itti1998model} and \cite{itti2004automatic} can be considered to be heuristic approaches for detecting saliency, since they utilize the understanding of the HVS to develop the computational models. Recently, some advanced heuristic approaches, e.g.,  \cite{itti2009bayesian, boccignone2008nonparametric, zhang2009sunday, guo2010novel, ren2013regularized, lin2013visual, zhang2016exploiting, hossein2015many, xu2017learning}, have been proposed to detect saliency in 2D videos. Specifically, \cite{itti2009bayesian} proposed a novel feature called \textit{surprise}, which measures how the visual change attracts human observers, based on the Kullback-Leibler (KL) divergence between spatio-temporal posterior and prior beliefs. Given the feature of \textit{surprise}, a Bayesian framework was developed in \cite{itti2009bayesian} for video saliency detection.  Some other Bayesian frameworks \cite{boccignone2008nonparametric, zhang2009sunday}  were also developed to detect video saliency. Besides, Lin \textit{et al.} \cite{lin2013visual} quantified the earth mover's distance (EMD) to measure the center-surround difference in spatio-temporal receptive field, generating saliency maps for 2D videos. Zhang \textit{et al.} \cite{zhang2016exploiting} explored the surround cue for saliency detection, by characterizing a set of binary images with random thresholds on color channels. Recently, \cite{hossein2015many} and \cite{xu2017learning} have investigated that some features (e.g., motion vector) in compressed domain are of high correlation with human attention, and these features are thus explored in video saliency detection.
+Saliency detection aims to predict the visual attention of humans on 2D videos, by generating saliency maps of video frames. The studies on visual saliency begin in 1998, when Itti and Koch \cite{itti1998model} found that the features of intensity, color and orientation in an image can be employed to detect its saliency map. Subsequently, they extended their work to video saliency detection \cite{itti2004automatic}, in which two dynamic features of motion and flicker contrast are combined with \cite{itti1998model} to detect saliency in 2D videos. Both \cite{itti1998model} and \cite{itti2004automatic} can be considered to be heuristic approaches for detecting saliency, since they utilize the understanding of the human vision system (HVS) to develop the computational models. Recently, some advanced heuristic approaches, e.g.,  \cite{itti2009bayesian, boccignone2008nonparametric, zhang2009sunday, guo2010novel, ren2013regularized, lin2013visual, zhang2016exploiting, hossein2015many, xu2017learning}, have been proposed to detect saliency in 2D videos. Specifically, \cite{itti2009bayesian} proposed a novel feature called \textit{surprise}, which measures how the visual change attracts human observers, based on the Kullback-Leibler divergence between spatio-temporal posterior and prior beliefs. Given the feature of \textit{surprise}, a Bayesian framework was developed in \cite{itti2009bayesian} for video saliency detection.  Some other Bayesian frameworks \cite{boccignone2008nonparametric, zhang2009sunday}  were also developed to detect video saliency. Besides, Lin \textit{et al.} \cite{lin2013visual} quantified the earth mover's distance to measure the center-surround difference in spatio-temporal receptive field, generating saliency maps for 2D videos. Zhang \textit{et al.} \cite{zhang2016exploiting} explored the surround cue for saliency detection, by characterizing a set of binary images with random thresholds on color channels. Recently, \cite{hossein2015many} and \cite{xu2017learning} have investigated that some features (e.g., motion vector) in compressed domain are of high correlation with human attention, and these features are thus explored in video saliency detection.
 
 
-Benefiting from the most recent success of deep learning, deep neural networks (DNNs) \cite{huang2015salicon, kruthiventi2015deepfix, wang2016RCNN, bazzani2016recurrent, Liu2017cvpr, bak2016two,wang2017deep} have also been  developed to detect 2D video saliency, rather than exploring the HVS-related features as in heuristic saliency detection approaches. These DNNs can be viewed as data-driven approaches. For static saliency detection, SALICON [19] fine-tuned the existing convolutional neural networks (CNNs), with a new saliency-related loss function. For dynamic saliency detection, \cite{bazzani2016recurrent} leveraged a deep convolutional 3D (C3D) network to learn the representations of human attention on 16 consecutive frames, and then a long short-term memory (LSTM) network connected with a mixture density network was learned to generate saliency maps using Gaussian mixture distribution. Similarly, Liu \textit{et al.} \cite{Liu2017cvpr} combined a CNN and multi-stream LSTM to detect saliency in videos with multiple faces. Moreover, other DNN structures have been developed to detect either static saliency \cite{kruthiventi2015deepfix, wang2016RCNN} or dynamic saliency \cite{bak2016two,bazzani2016recurrent,wang2017deep}.
+Benefiting from the most recent success of deep learning, deep neural networks (DNNs) \cite{huang2015salicon, kruthiventi2015deepfix, wang2016RCNN, bazzani2016recurrent, Liu2017cvpr, bak2016two,wang2017deep} have also been  developed to detect 2D video saliency, rather than exploring the HVS-related features as in heuristic saliency detection approaches. These DNNs can be viewed as data-driven approaches. For static saliency detection, SALICON [19] fine-tuned the existing convolutional neural networks (CNNs), with a new saliency-related loss function. For dynamic saliency detection, \cite{bazzani2016recurrent} leveraged a deep convolutional 3D network to learn the representations of human attention on 16 consecutive frames, and then a long short-term memory (LSTM) network connected with a mixture density network was learned to generate saliency maps using Gaussian mixture distribution. Similarly, Liu \textit{et al.} \cite{Liu2017cvpr} combined a CNN and multi-stream LSTM to detect saliency in videos with multiple faces. Moreover, other DNN structures have been developed to detect either static saliency \cite{kruthiventi2015deepfix, wang2016RCNN} or dynamic saliency \cite{bak2016two,bazzani2016recurrent,wang2017deep}.
 
 
 \begin{figure}
@@ -856,9 +856,17 @@ Benefiting from the most recent success of deep learning, deep neural networks (
 \vspace{-2.5em}
 \end{figure}
 
-Although saliency detection has been thoroughly studied in predicting eye movement on 2D videos, no works have been developed to predict HM positions on panoramic videos.
-Similar to saliency detection for 2D videos, this paper proposes generating HM maps that represent the HM positions of multiple subjects. Hence, the HM maps model attention on panoramic videos. To obtain the HM maps of panoramic video, a DRL approach is developed for deciding the \textit{actions} of HM from multiple \textit{agents}. The \textit{actions} are decided based on the \textit{environment} of the panoramic video content, the features of which are automatically learned and then extracted by a DNN. Thus, our approach takes advantage of both deep learning and reinforcement learning, driven by the HM data of our panoramic video database.
-Note that although few works apply DRL to predict human attention, the attention model is widely used in the opposite direction to improve the performance of reinforcement learning, e.g., \cite{minut2001reinforcement, mnih2014recurrent, jaderberg2016reinforcement, wang2016dueling}.
+Although saliency detection has been thoroughly studied in predicting eye movement on 2D videos, no work has been developed to predict HM positions on panoramic videos.
+Similar to saliency detection for 2D videos, this paper proposes generating HM maps that represent the HM positions of multiple subjects.
+To obtain the HM maps of panoramic video, the HM positions are predicted by estimating the HM scanpaths of several \textit{agents}. Similarly, in the saliency detection area, there exist some works \cite{Wang2011, Sun12, Liu_2013_ICCV, Jiang2016, Shao2017} of this response that predict eye movement scanpaths for static images.
+In \cite{Wang2011} of this response, a computational model was developed to simulate the scanpaths of eye movements on natural images. The proposed model embeds three factors to guide eye movements sequentially, including reference sensory responses, fovea periphery resolution discrepancy, and visual working memory. Sun \textit{et al.} \cite{Sun12} proposed modelling both saccadic scanpaths and visual saliency of images, on the basis of super Gaussian component (SGC) analysis. Recently, data-driven approaches have been proposed to learn the scan-paths of eye movements on static images, such as the hidden Markov model in \cite{Liu_2013_ICCV} in this response and least-squares policy iteration (LSPI) in \cite{Jiang2016} in this response.
+Most recently, deep learning has been utilized in \cite{Jiang2016, Shao2017} of this response for predicting the eye movement scanpaths in static images.
+However, to our best knowledge, there is no work on predicting the HM scan-paths on panoramic video.
+
+
+In this paper, a DRL approach is developed for predicting the actions of the HM scanpaths from multiple \textit{agents}.
+The actions are decided based on the environment of the panoramicvideo content, the features of which are automatically learned and then extracted by a DNN. Thus, our approach takes advantage
+of both deep learning and reinforcement learning, driven by the HM data of our panoramic video database. Note that although few works apply DRL to predict human attention, the attention model is widely used in the opposite direction to improve the performance of reinforcement learning, e.g., \cite{minut2001reinforcement, mnih2014recurrent, jaderberg2016reinforcement, wang2016dueling}.
 
 
 \begin{figure*}
@@ -884,10 +892,10 @@ Note that although few works apply DRL to predict human attention, the attention
 \end{figure*}
 
 \subsection{Virtual cinematography}
-Virtual cinematography of panoramic video, which directs an imaginary camera to virtually capture natural FOV (NFOV), was proposed in \cite{foote2000flycam, sun2005region, su2016pano2vid, hu2017deep, lin2017tell}. In general, virtual cinematography attempts to agree with the HM positions of humans at each panoramic video frame. The early work of \cite{foote2000flycam} proposed cropping the object-of-interest in panoramic video, such that the NFOV can be generated for virtual cinematography. Later, in \cite{sun2005region}, the cropped object-of-interest is tracked across frames by a Kalman filter, for automatically controlling the virtual camera in virtual cinematography of panoramic video. The approach of \cite{sun2005region} can work on both compressed and uncompressed domains, because two methods were developed to detect the object-of-interest in compressed and uncompressed domains. The works of \cite{foote2000flycam, sun2005region} were both designed for the task of online virtual cinematography. These works can be considered as heuristic approaches, which are not trained or even evaluated on the ground-truth HM data of human subjects.
+Virtual cinematography of panoramic video, which directs an imaginary camera to virtually capture natural FOV, was proposed in \cite{foote2000flycam, sun2005region, su2016pano2vid, hu2017deep, lin2017tell}. In general, virtual cinematography attempts to agree with the HM positions of humans at each panoramic video frame. The early work of \cite{foote2000flycam} proposed cropping the object-of-interest in panoramic video, such that the natural FOV can be generated for virtual cinematography. Later, in \cite{sun2005region}, the cropped object-of-interest is tracked across frames by a Kalman filter, for automatically controlling the virtual camera in virtual cinematography of panoramic video. The approach of \cite{sun2005region} can work on both compressed and uncompressed domains, because two methods were developed to detect the object-of-interest in compressed and uncompressed domains. The works of \cite{foote2000flycam, sun2005region} were both designed for the task of online virtual cinematography. These works can be considered as heuristic approaches, which are not trained or even evaluated on the ground-truth HM data of human subjects.
 
-Most recently, data-driven approaches have boosted the development of virtual cinematography for panoramic videos. Specifically, Pano2Vid \cite{su2016pano2vid} learns to generate NFOV at each panoramic frame. However, the learning mechanism of Pano2Vid is offline. In fact, NFOV can be estimated at each frame in an online manner, which uses the observed HM positions of the previous frames to correct the estimation of NFOV at the current frame. To this end, online virtual cinematography \cite{hu2017deep, lin2017tell} has been studied in a data-driven way.
-Specifically, a state-of-the-art virtual cinematography  approach, the deep 360 pilot,  was proposed in \cite{hu2017deep}, which is a deep-learning-based \textit{agent} that smoothly tracks the object-of-interest for panoramic video. In other words, the \textit{agent} transits the HM position across video frames to track the key object detected by the RCNN, given the observed HM positions at previous frames. Consequently, NFOV can be generated online for automatically displaying the object-of-interest in virtual cinematography of panoramic videos. In fact, object-of-interest tracking in panoramic video refers to continuously focusing and refocusing the intended targets. Both focusing and refocusing require a subject to catch up the object. Such a task is challenging in extreme-sports videos, as the object-of-interest may be moving fast. Therefore, Lin \textit{et al.} \cite{lin2017tell} investigated two focus assistance techniques to help the subject track the key object in viewing panoramic video, in which the potential HM position attended to the object-of-interest needs to be determined and provided for the subject.
+Most recently, data-driven approaches have boosted the development of virtual cinematography for panoramic videos. Specifically, Pano2Vid \cite{su2016pano2vid} learns to generate natural FOV at each panoramic frame. However, the learning mechanism of Pano2Vid is offline. In fact, natural FOV can be estimated at each frame in an online manner, which uses the observed HM positions of the previous frames to correct the estimation of natural FOV at the current frame. To this end, online virtual cinematography \cite{hu2017deep, lin2017tell} has been studied in a data-driven way.
+Specifically, a state-of-the-art virtual cinematography  approach, the deep 360 pilot,  was proposed in \cite{hu2017deep}, which is a deep-learning-based \textit{agent} that smoothly tracks the object-of-interest for panoramic video. In other words, the \textit{agent} transits the HM position across video frames to track the key object detected by the RCNN, given the observed HM positions at previous frames. Consequently, natural FOV can be generated online for automatically displaying the object-of-interest in virtual cinematography of panoramic videos. In fact, object-of-interest tracking in panoramic video refers to continuously focusing and refocusing the intended targets. Both focusing and refocusing require a subject to catch up the object. Such a task is challenging in extreme-sports videos, as the object-of-interest may be moving fast. Therefore, Lin \textit{et al.} \cite{lin2017tell} investigated two focus assistance techniques to help the subject track the key object in viewing panoramic video, in which the potential HM position attended to the object-of-interest needs to be determined and provided for the subject.
 
 The above approaches of \cite{foote2000flycam, sun2005region, su2016pano2vid, hu2017deep, lin2017tell}  all depend on the detector of the object-of-interest. Thus, they can only be applied in some specific panoramic videos with salient objects, such as video conferencing or classroom scenes in \cite{foote2000flycam, sun2005region} and the sports videos in \cite{su2016pano2vid, hu2017deep, lin2017tell}. Different from these conventional approaches, our online-DHP approach is based on the learned model of our offline approach, which encodes HM-related content rather than detecting the object-of-interest. Consequently, our approach is object free and thus more suitable for generic panoramic videos.
 
@@ -912,15 +920,15 @@ The above approaches of \cite{foote2000flycam, sun2005region, su2016pano2vid, hu
 In this section, we collect a new database that includes 76 panoramic video sequences with the HM data of 58 subjects, called the PVS-HM database. Our PVS-HM database allows quantitative analysis of subjects' HM on panoramic video, and it can also be used for learning to predict where humans look at panoramic video. Our database is available at  \url{https://github.com/YuhangSong/dhp} for facilitating future research. In the following, we present how we conducted the experiment to obtain the PVS-HM database.
 
 First, we selected 76 panoramic video sequences from YouTube and VRCun, with resolutions ranging from 3K to 8K.
-As shown in Table \ref{tab:CC}, the content of these sequences is diverse, including computer animation (CA), driving, action sports, movies, video games, scenery, and so forth.
+As shown in Table \ref{tab:CC}, the content of these sequences is diverse, including computer animation, driving, action sports, movies, video games, scenery, and so forth.
 Then, the duration of each sequence was cut to be from 10 to 80 seconds (averagely 26.9 seconds), such that fatigue can be reduced when viewing panoramic video.
 To ensure video quality, all panoramic video sequences were compressed using H.265 \cite{Sullivan2013Overview} without any change in bit-rates.
 Note that the audio tracks were removed to avoid the impact of acoustic information on visual attention.
 
-In our experiment, 58 subjects (41 males and 17 females, ranging in age from 18 to 36) wore the HMD of an HTC Vive to view all 76 panoramic video sequences at a random display order.
+In our experiment, 58 subjects (41 males and 17 females, ranging in age from 18 to 36) wore the head-mounted display of an HTC Vive to view all 76 panoramic video sequences at a random display order.
 When watching panoramic video, the subjects were seated on a swivel chair and were allowed to turn around freely, such that all panoramic regions are accessible.
 To avoid eye fatigue and motion sickness, the subjects had a 5 minute rest after viewing each session of 19 sequences.
-With the support of the software development kit (SDK) of HTC Vive, we recorded the posture data of each subject as they viewed the panoramic video sequences.
+With the support of the software development kit of HTC Vive, we recorded the posture data of each subject as they viewed the panoramic video sequences.
 Based on the recorded posture data, the HM data of all 58 subjects at each frame of the panoramic video sequences were obtained and stored for our PVS-HM database, in terms of longitude and latitude in the GDS.
 
 
@@ -1034,7 +1042,7 @@ Specifically, we have the following six findings.
   \hline
   \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC & \tabincell{c}{Cate-\\gory} & Name & CC \\
   \hline
-  \multirow{10}{*}{\rotatebox{90}{CA}} & AcerEngine & 0.891$\pm$0.058
+  \multirow{10}{*}{\rotatebox{90}{Computer animation}} & AcerEngine & 0.891$\pm$0.058
 &
   \multirow{10}{*}{\rotatebox{90}{Others}} & A380 & 0.867$\pm$0.058
  &
@@ -1387,7 +1395,7 @@ Figure \ref{main-framework} shows the overall framework of our approach, in whic
 
 
 
-As shown in Figure \ref{main-framework}, the input to our offline-DHP approach is the panoramic video frames $\{\mathbf{F}_t\}_1^{T}$.
+As shown in Figure \ref{main-framework}, the input to our offline-DHP approach is the panoramic video frames $\{\mathbf{F}_t\}_{t=1}^{T}$.
 Since \textit{Finding 2} has shown that the HM positions are highly consistent across different subjects,  we propose to generate the HM maps for modeling human attention on panoramic video, viewed as the output of our offline-DHP approach. The HM map $\mathbf{H}_t$ of frame $t$ represents the probability of each pixel being the HM position.
 Similar to the saliency maps of 2D videos, $\mathbf{H}_t$ is obtained by convoluting the predicted HM positions $\{(\hat{x}^n_t, \hat{y}^n_t)\}_{n=1}^{N}$ with a 2D Gaussian filter.
 Because \textit{Finding 5} has indicated that the HM scanpaths of different subjects are consistent in more than one direction, the HM positions $\{({x}^m_t, {y}^m_t)\}_{m=1}^{M}$ of $M$ subjects may be different from each other. Accordingly, this paper assumes that the number of predicted HM positions $N$ is equivalent to $M$ at each frame, for predicting the HM positions of all subjects.
@@ -1398,12 +1406,12 @@ Note that all DRL workflows share the same policy $\pi_t$ in our approach.
 
 In a single DRL workflow , $\{(\hat{x}^n_t, \hat{y}^n_t)\}_{t=1}^T$ can be modeled by determining a series of \textit{actions}: $\{\hat{\alpha}^n_t\}_{t=1}^T$ and $\{\hat{\nu}^n_t\}_{t=1}^T$.
 It is worth pointing out that $\{\hat{\alpha}^n_t\}_{t=1}^{T}$ and $\{\hat{\nu}^n_t\}_{t=1}^{T}$ are predictable as the \textit{actions} of the DRL workflow, since \textit{Findings 3} and \textit{4} have indicated that subjects are consistent in the magnitudes and directions of HM scanpaths.
-As can be seen in Figure \ref{main-framework}, in each workflow, one HM scanpath is generated through the interaction between the FoV extractor\footnote{Note that the extracted FoV is $103^{\circ} \times 60^{\circ}$, which is the same as the setting of the HMD.} and HM scanpath predictor.
+As can be seen in Figure \ref{main-framework}, in each workflow, one HM scanpath is generated through the interaction between the FoV extractor\footnote{Note that the extracted FoV is $103^{\circ} \times 60^{\circ}$, which is the same as the setting of the head-mounted display.} and HM scanpath predictor.
 Specifically, Figure \ref{main-framework} shows that FoV $\mathbf{o}^n_t$ is extracted via making its center locate at the HM position $(\hat{x}^n_t,\hat{y}^n_t)$, in which $(\hat{x}^n_t,\hat{y}^n_t)$ is generated by the predicted \textit{action} of HM scanpaths $(\hat{\alpha}^n_{t-1},\hat{\nu}^n_{t-1})$ at the previous video frame.
 Then, the content of the extracted FoV works as the \textit{observation} of DRL, for predicting the next \textit{action} of HM scanpath $(\hat{\alpha}^n_{t},\hat{\nu}^n_{t})$.
 The HM scanpath generated by each DRL workflow is forwarded to obtain HM positions at incoming frames.
 Subsequently, the HM positions from multiple DRL workflows are integrated, and then smoothed by a 2D Gaussian filter.
-Finally, the HM maps $\{\mathbf{H}_t\}_1^{T}$ of the panoramic video are obtained, which model the heat maps for the HM positions at each frame.
+Finally, the HM maps $\{\mathbf{H}_t\}_{t=1}^{T}$ of the panoramic video are obtained, which model the heat maps for the HM positions at each frame.
 
 %Assuming that $p^n(x_t,y_t)$ is the probability of the $n$-th subject's HM position being at $(x_t,y_t)$, $p(x_t,y_t)$ can be estimated by the following expectation:
 % \begin{equation}\label{define-hm-maps}
@@ -1632,7 +1640,7 @@ For more details about the workflow-specific and global-shared parameter vectors
 In our approach, \textit{reward} $r^{\nu}_{n,t}$ is optimized to train $\theta_{\nu}$ as follows:
 \begin{equation}
 \label{opt-1}
-d \theta_{\nu} \leftarrow d \theta_{\nu} + \nabla_{\theta_{\nu}^{n}} \sum_{t=1}^{T} r^{\nu}_{n,t}.
+d \theta_{\nu} \leftarrow d \theta_{\nu} + \nabla_{\theta_{\nu}^{n}} \sum_{t=1}^{T} r^{\nu}_{n,t},
 \end{equation}
 Moreover, we can optimize \textit{reward} $r^{\alpha}_{n,t}$ by
 \begin{equation}
@@ -1826,7 +1834,7 @@ First, the LSTM features $\{\mathbf{f}_i\}_{i=1}^{t-1}$ are sequentially updated
 
         \caption{CC results of offline HM map prediction by our and other approaches over 15 test sequences.}
         \vspace{-1.5em}
-        \label{table-result}
+        \label{CC-table}
 
         \tiny
 
@@ -1943,7 +1951,7 @@ First, the LSTM features $\{\mathbf{f}_i\}_{i=1}^{t-1}$ are sequentially updated
 \vspace{-1.5em}
         \caption{NSS results of offline HM map prediction by our and other approaches  over 15 test sequences.}
 \vspace{-1em}
-        \label{table-result}
+        \label{NSS-table}
 
         \tiny
 
@@ -2100,7 +2108,7 @@ In addition, the maximum number of episodes and the MO threshold were set to be 
 
                            & \bf{0.809} & \bf{0.763} & \bf{0.549} & \bf{0.859} & \bf{0.785} & \bf{0.878} & \bf{0.847} & \bf{0.820} & \bf{0.626} & \bf{0.763} & \bf{0.667} & \bf{0.659} & \bf{0.693} & 0.747 & \bf{0.836} & \bf{0.753}
                          \\
-                \multirow{1}{*}{\rotatebox{0}{Deep 360 Polit}}
+                \multirow{1}{*}{\rotatebox{0}{Deep 360 Pilot}}
                            & 0.340 & 0.208 & 0.322 & 0.537 & 0.541 & 0.615 & 0.206 & 0.270 & 0.391 & 0.205 & 0.082 & 0.464 & 0.352 & \bf{0.932} & 0.518 & 0.399
                          \\
                  \multirow{1}{*}{\rotatebox{0}{Baseline 1}}
@@ -2144,11 +2152,11 @@ See Appendix A for more details about the combination of FCB.
 During the evaluation, we measure the prediction accuracy of HM maps in terms of CC and normalized scanpath saliency (NSS), which are two effective evaluation metrics \textcolor{blue}{\cite{Li_2015_ICCV}} in saliency detection.
 Note that larger values of CC and NSS correspond to a more accurate prediction of HM maps.
 
-Table \ref{table-result} tabulates the results of CC and NSS in predicting the HM maps of 15 test sequences, for our and other approaches.
+Table \ref{CC-table} and \ref{NSS-table} tabulate the results of CC and NSS in predicting the HM maps of 15 test sequences, for our and other approaches.
 In this table, the results of CC and NSS are averaged over all frames for each test sequence.
 As shown in this table, when FCB is not integrated, our offline-DHP approach performs best among all four approaches and the FCB baseline, in terms of CC and NSS.
 More importantly, once integrated with FCB, all four approaches have performance improvement, and our approach still performs considerably better than other approaches.
-Specifically, our offline-DHP approach increases the average CC value by 0.198, 0.242 and 0.184, compared with OBDL, BMS and SALICON, respectively.
+Specifically, our offline-DHP approach increases the average CC value by 0.242, 0.198 and 0.184, compared with OBDL, BMS and SALICON, respectively.
 Additionally, the increase of average NSS value is 1.087, 1.245 and 1.001 in our approach, in comparison with OBDL, BMS and SALICON.
 In a word, our offline-DHP approach is effective in predicting the HM maps of panoramic video, much better than other approaches and the FCB baseline.
 
@@ -2221,7 +2229,7 @@ Table \ref{table-result} also shows that our online-DHP approach performs consid
 In addition, as shown in Table \ref{table-result}, our approach outperforms \cite{hu2017deep} over almost all sequences.
 The performance improvement of our approach is probably because (1) the online DRL model of our approach is capable of generating the accurate \textit{actions} of HM scanpaths, and (2) the DRL network of offline-DHP is incorporated in our online prediction as the prior knowledge. Moreover, our approach is also effective for the generic panoramic sequences, while \cite{hu2017deep} fails in scenery panoramic video. For example, the MO result of \cite{hu2017deep} for the sequence Waterfall is $0.082$, which is far less than $0.667$ MO of online-DHP. This result is primarily because the deep 360 pilot \cite{hu2017deep} relies heavily on the object detection of RCNN.
 
-Moreover, we visualize the ground-truth and predicted HM scan-paths, for subjective evaluation.
+Moreover, we visualize the ground-truth and predicted HM scanpaths, for subjective evaluation.
 Specifically, Figure \ref{scan-path-example} plots the HM scanpaths by one subject and by the online-DHP approach, for the panoramic sequences of Dancing and KingKong.
 As shown in this figure, online-DHP is able to obtain similar scanpaths as the subject, such that the HM positions can be accurately predicted online for each panoramic frame.
 In conclusion, our subjective evaluation, together with the above objective MO comparison, illustrates that the proposed online-DHP approach is effective in predicting the HM positions with the online manner.
@@ -2275,7 +2283,7 @@ It is interesting to analyze the benefits of incorporating the DRL network of of
 				
 				& \bf{0.78} & \bf{0.75} & \bf{0.72} & \bf{0.90} & \bf{0.77}
 				\\
-				Deep 360 Polit
+				Deep 360 Pilot
 				& 0.71 & 0.74 & 0.71 & 0.79 & 0.67
 				\\
 				Baseline 1
@@ -2343,7 +2351,7 @@ for each panoramic frame. In the above equation, $\mathbf{H}^c_t$ is the HM map 
 \label{optmization_w}
 \max_{\sigma_f,w_1,w_2} \sum_{t=1}^{T} \text{CC}(\mathbf{H}^c_t, \mathbf{H}^g_t), \quad \text{s.t.} \quad w_1+w_2=1.
 \end{equation}
-In \eqref{optmization_x}, $\mathbf{H}^g_t$ is the ground-truth HM map of each frame; $\text{CC}(\cdot,\cdot)$ indicates the CC value of two maps. Then, we solve the above optimization formulation by the least square fitting of CC over all training data of our PVS-HM database. Consequently, the optimal values of $\sigma_f$, $w_1$ and $w_2$ are $21.1^\circ$, $0.48$ and $0.52$, respectively. These values are used to integrate the FCB feature in our offline-FCB approach. Note that the same way is applied to obtain the weights of $w_1$ and $w_2$, when combining the FCB feature with other approaches.
+In \eqref{optmization_x}, $\mathbf{H}^g_t$ is the ground-truth HM map of each frame; $\text{CC}(\cdot,\cdot)$ indicates the CC value of two maps. Then, we solve the above optimization formulation by the least square fitting of CC over all training data of our PVS-HM database. Consequently, the optimal values of $\sigma_f$, $w_1$ and $w_2$ are $21.1^\circ$, $0.48$ and $0.52$, respectively. These values are used to integrate the FCB feature in our offline-DHP approach. Note that the same way is applied to obtain the weights of $w_1$ and $w_2$, when combining the FCB feature with other approaches.
 
 Figure \ref{fitting_surface} shows the results of  CC between the predicted and ground-truth HM maps at various values of $\sigma_f$ and $w_1$. From this figure, we can see that the CC results vary from $0.44$ to $0.70$ alongside the increase of $w_1$ from $0$ to $1$, reaching the maximum value at $w_1=0.48$ given $\sigma_f=21.1^\circ$. This indicates that both the FCB feature and our offline-DHP approach are effective in predicting the HM maps of panoramic video, and that the effectiveness of the FCB feature is different at varying combination weights. In addition, as shown in Figure \ref{fitting_surface}, at $w_1=0.48$, the CC value increases from 0.66 to 0.70, when $\sigma_f$ grows from $7^\circ$ to $21.1^\circ$, and then it decreases to 0.63 until $\sigma_f = 43.6^\circ$. Thus, the standard deviation of the 2D Gaussian distribution in \eqref{Gauss_sigma} is set to be $21.1^\circ$ for the FCB feature in our experiments.
 
